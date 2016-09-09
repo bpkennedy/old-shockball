@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('SideNavCtrl', function ($mdSidenav) {
+.controller('SideNavCtrl', function () {
     var sideNav = this;
     console.log(sideNav);
 
