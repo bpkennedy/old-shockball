@@ -1,0 +1,28 @@
+branches:
+  only:
+    - master
+sudo: false
+language: node_js
+node_js:
+  - '5.5.0'
+# env:
+#   - DIR=client
+#   - DIR=server
+before_script:
+  - 'npm install -g bower grunt-cli'
+  - 'npm install -g firebase-tools'
+  - 'npm install -g karma'
+  - 'npm install -g grunt-karma'
+  - 'npm install -g express'
+  - 'npm install -g nodemon'
+  - 'cd server'
+  - 'npm install'
+  - 'cd ..'
+  - 'cd client'
+  - 'bower install'
+  - 'npm install'
+  - 'grunt wiredep'
+  - 'grunt build'
+script: grunt test
+after_success:
+- firebase deploy --token=${FIREBASE_API_TOKEN}
