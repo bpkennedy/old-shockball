@@ -25,4 +25,4 @@ before_script:
   - 'grunt build --force'
 script: grunt test
 after_success:
-- firebase deploy --token=${FIREBASE_API_TOKEN}
+- cd .. && firebase deploy --token=${FIREBASE_API_TOKEN}
