@@ -22,7 +22,7 @@ before_script:
   - 'bower install'
   - 'npm install'
   - 'grunt wiredep'
-  - 'grunt build'
+  - 'grunt build --force'
 script: grunt test
 after_success:
 - firebase deploy --token=${FIREBASE_API_TOKEN}
