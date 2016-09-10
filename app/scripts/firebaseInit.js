@@ -1,5 +1,5 @@
 'use strict';
-
+var firebase = firebase || {};
 (function(firebase){
     // Initialize Firebase
     var config = {
