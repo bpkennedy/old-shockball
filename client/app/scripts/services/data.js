@@ -9,11 +9,9 @@
  */
 angular.module('shockballApp')
   .factory('Data', function ($http) {
-      var url = 'https://www.swcombine.com/ws/v1.0/api/time/cgt/';
+      var url = '/time/';
       function fetchTime(){
-          return $http.get(url).then(function(response){
-            return response;
-          });
+          return $http.get(url);
       }
 
       return {

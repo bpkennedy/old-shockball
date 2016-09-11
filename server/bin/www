@@ -4,30 +4,50 @@
  * Module dependencies.
  */
 
+var express = require('express');
 var app = require('../app');
+var httpProxy = require('http-proxy');
 var debug = require('debug')('server:server');
 var http = require('http');
-
+var cors = require('cors');
+var swcTimeUrl = 'http://www.swcombine.com/ws/v1.0/api/helloworld/';
+var proxyOptions = {
+    changeOrigin: true
+};
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
+app.use(express.static(__dirname + '/app'));
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+// var server = http.createServer(app);
+
+app.use(cors());
+app.options('*', cors());
+/**
+    * Http proxy for swcombine
+**/
+var apiProxy = httpProxy.createProxyServer(proxyOptions);
+
+// Grab all requests to the server with "/space/".
+app.all("/time/*", function(req, res) {
+    console.log("Request made to /time/");
+    console.log(req.url);
+    apiProxy.web(req, res, {target: 'http://www.swcombine.com/ws/v1.0/api/helloworld/?'});
+});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+app.listen(port);
+app.on('error', onError);
+app.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -82,7 +102,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
+  var addr = app.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
