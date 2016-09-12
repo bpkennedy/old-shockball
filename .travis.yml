@@ -5,9 +5,6 @@ sudo: false
 language: node_js
 node_js:
   - '5.5.0'
-# env:
-#   - DIR=client
-#   - DIR=server
 before_script:
   - 'npm install -g bower grunt-cli'
   - 'npm install -g firebase-tools'
@@ -25,4 +22,4 @@ before_script:
   - 'grunt build --force'
 script: grunt test
 after_success:
-- cd .. && firebase deploy --token=${FIREBASE_API_TOKEN}
+- firebase deploy --token=${FIREBASE_API_TOKEN}
