@@ -17,7 +17,9 @@ angular
     'ngSanitize',
     'firebase',
     'ui.router',
-    'ngMaterial'
+    'ngMaterial',
+    'chart.js',
+    'md.data.table'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -62,6 +64,16 @@ angular
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl',
                 controllerAs: 'about'
+            }
+        }
+    })
+    .state('root.profile', {
+        url:'/profile',
+        views: {
+            'container@': {
+                templateUrl: 'views/profile.html',
+                controller: 'ProfileCtrl',
+                controllerAs: 'profile'
             }
         }
     })
