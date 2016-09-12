@@ -1,0 +1,42 @@
+<p>This is the profile view.</p>
+<canvas id="radar" class="chart chart-radar"
+  chart-data="profile.data" chart-options="options" chart-labels="profile.labels">
+</canvas>
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>Nutrition</span>
+  </div>
+</md-toolbar>
+
+<!-- exact table from live demo -->
+<md-table-container>
+  <table md-table md-row-select multiple ng-model="profile.selected">
+    <thead md-head md-order="profile.query.order">
+      <tr md-row>
+        <th md-column md-order-by="nameToLower"><span>Dessert (100g serving)</span></th>
+        <th md-column md-numeric md-order-by="profile.calories"><span>Calories</span></th>
+        <th md-column md-numeric>Fat (g)</th>
+        <th md-column md-numeric>Carbs (g)</th>
+        <th md-column md-numeric>Protein (g)</th>
+        <th md-column md-numeric>Sodium (mg)</th>
+        <th md-column md-numeric>Calcium (%)</th>
+        <th md-column md-numeric>Iron (%)</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in profile.desserts">
+        <td md-cell>{{dessert.name}}</td>
+        <td md-cell>{{dessert.calories}}</td>
+        <td md-cell>{{dessert.fat | number: 1}}</td>
+        <td md-cell>{{dessert.carbs}}</td>
+        <td md-cell>{{dessert.protein | number: 1}}</td>
+        <td md-cell>{{dessert.sodium}}</td>
+        <td md-cell>{{dessert.calcium.value}}{{dessert.calcium.unit}}</td>
+        <td md-cell>{{dessert.iron.value}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<md-table-pagination md-limit="profile.query.limit" md-limit-options="[5, 10, 15]" md-page="profile.query.page" md-total="{{profile.desserts.count}}" md-page-select></md-table-pagination>

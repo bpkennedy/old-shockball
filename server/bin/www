@@ -10,7 +10,15 @@ var httpProxy = require('http-proxy');
 var debug = require('debug')('server:server');
 var http = require('http');
 var cors = require('cors');
-var swcTimeUrl = 'http://www.swcombine.com/ws/v1.0/api/helloworld/';
+var swcTimeUrl = 'http://www.swcombine.com/ws/v1.0/api/helloworld/?';
+var swcMe = 'http://www.swcombine.com/ws/v1.0/character/Tholme+So?';
+var swcRateLimits = 'http://www.swcombine.com/ws/v1.0/api/ratelimits?';
+var swcAuthUrl = 'http://www.swcombine.com/ws/oauth2/auth/?scope=character_read&state=profile&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&client_id=e5c1500bf34c3cec3761f3049cbc947e1299c7d8';
+var swcMessages = 'http://www.swcombine.com/ws/v1.0/character/1305198/messages/?';
+var swcAllFactions = 'http://www.swcombine.com/ws/v1.0/factions/?';
+var swcSpecificFaction = 'http://www.swcombine.com/ws/v1.0/faction/20:981?';
+var swcAllCities = 'http://www.swcombine.com/ws/v1.0/galaxy/cities/?';
+var swcSpecificCity = 'http://www.swcombine.com/ws/v1.0/galaxy/cities/7:150228/?';
 var proxyOptions = {
     changeOrigin: true
 };
@@ -38,7 +46,7 @@ var apiProxy = httpProxy.createProxyServer(proxyOptions);
 app.all("/time/*", function(req, res) {
     console.log("Request made to /time/");
     console.log(req.url);
-    apiProxy.web(req, res, {target: 'http://www.swcombine.com/ws/v1.0/api/helloworld/?'});
+    apiProxy.web(req, res, {target: swcMe});
 });
 
 /**
