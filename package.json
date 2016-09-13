@@ -1,0 +1,19 @@
+{
+  "name": "shockball",
+  "version": "1.0.0",
+  "description": "* [![Build Status](https://travis-ci.org/bpkennedy/shockball.svg?branch=master)](https://travis-ci.org/bpkennedy/shockball)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpkennedy/shockball.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bpkennedy/shockball/issues"
+  },
+  "homepage": "https://github.com/bpkennedy/shockball#readme"
+}
