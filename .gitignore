@@ -3,5 +3,6 @@ client/dist
 client/.tmp
 client/.sass-cache
 client/bower_components
-server/node_modules
+server/node_modules/*
 server/dist
+npm-debug.log
