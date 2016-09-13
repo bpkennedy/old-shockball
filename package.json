@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "* [![Build Status](https://travis-ci.org/bpkennedy/shockball.svg?branch=master)](https://travis-ci.org/bpkennedy/shockball)",
   "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
