@@ -10,13 +10,63 @@
 angular.module('shockballApp')
   .controller('ProfileCtrl', function () {
     var profile = this;
+    profile.labels = [];
+    profile.userObj = {
+        first_name: 'Tholme',
+        last_name: 'So',
+        current_team: 5,
+        stats: {
+            speed: '80',
+            tackle: '25',
+            stamina: '60',
+            shooting: '80',
+            passing: '20',
+            defending: '10'
+        },
+        current_training: 'speed',
+        current_strategy: 'scoring',
+        birth_planet: 'Tatooine',
+        profile_pic: 'http://i736.photobucket.com/albums/xx4/bpkennedy/norringtonfreelance.jpg',
+        isCaptain: false,
+        isOwner: false,
+        current_team_id: 4,
+        items: [ 6, 14, 29 ]
+    };
+    profile.teamObj = {
+        team_name: 'Kenbo Spankers',
+        creation_date: '8934098423',
+        team_training: 'Attacking',
+        team_strategy: 'Aggressive',
+        stats: {
+            passing: 70,
+            attacking: 65,
+            defending: 80
+        },
+        origin: {
+            planet: 'kenbo',
+            system: 'testSector',
+            sector: 'Hutt Space'
+        },
+        team_logo: 'http://vignette3.wikia.nocookie.net/bloodbowl-legendary/images/b/b8/Amazon_Icon.gif',
+        building_id: 3858993,
+        sponsor_id: null
+    };
 
-    profile.labels = ["Shooting", "Passing", "Tackling", "Blocking", "Speed", "Stamina", "Presence"];
+    function init() {
+        constructSkillChart();
+    }
 
-    profile.data = [
-        [65, 59, 90, 81, 56, 55, 40],
-        // [28, 48, 40, 19, 96, 27, 100]
-    ];
+    function constructSkillChart() {
+        profile.labels = [
+            "Speed",
+            "Tackling",
+            "Stamina",
+            "Shooting",
+            "Passing",
+            "Defending"
+        ];
+        profile.data = [ _.values(profile.userObj.stats) ];
+    }
 
     profile.selected = [];
 
@@ -77,4 +127,6 @@ angular.module('shockballApp')
       'AngularJS',
       'Karma'
     ];
+
+    init();
   });
