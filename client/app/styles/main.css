@@ -217,3 +217,33 @@ body {
     border-bottom: 0;
   }
 }
+/**/
+/* Start my custom styles*/
+/**/
+md-sidenav {
+    overflow-x:hidden;
+}
+
+.profile-img {
+    margin:0 auto;
+}
+.profile-pic {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile-name {
+    text-align:center;
+}
+.profile-status {
+    min-width:250px;
+}
+.card-media img {
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100% !important;
+}
+.card-icon {
+    width: 100%;
+    text-align: center;
+}
