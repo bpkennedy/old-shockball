@@ -9,9 +9,9 @@
  */
 angular.module('shockballApp')
   .factory('Data', function ($http) {
-      var url = '/time/';
+      var url = '/teams/league/887766';
       function fetchTime(){
-          return $http.get(url);
+          return $http.get(url, { cache: true });
       }
 
       return {
