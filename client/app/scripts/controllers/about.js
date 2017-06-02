@@ -10,11 +10,6 @@
 angular.module('shockballApp')
   .controller('AboutCtrl', function (Data) {
     var about = this;
-    about.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
     about.testData = {};
 
     function init() {

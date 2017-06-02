@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>SWC Shockball</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
@@ -10,27 +10,20 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="shockballApp" layout="column">
+  <body ng-app="shockballApp">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <md-toolbar ui-view="titleBar" layout="row" class="md-toolbar-tools"></md-toolbar>
-
-    <div flex layout="row">
-        <!-- Container #3 -->
-        <!-- <div ui-view="sideNav"></div> -->
-        <md-sidenav ui-view="sideNav" class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-click="sideNav.toggleList()"></md-sidenav>
-        <!-- Container #4 -->
-        <md-content flex id="content" ui-view="container"></md-content>
+    <div class="wrapper">
+        <div ui-view="titleBar"></div>
+        <div ui-view="container"></div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -54,12 +47,6 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/firebase/firebase.js"></script>
-    <script src="bower_components/angularfire/dist/angularfire.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.js"></script>
-    <script src="bower_components/angular-messages/angular-messages.js"></script>
-    <script src="bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -67,14 +54,11 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/chart.js"></script>
     <script src="scripts/angular-chart.js"></script>
-    <script src="scripts/firebaseInit.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/about.js"></script>
     <script src="scripts/controllers/loginCtrl.js"></script>
-    <script src="scripts/services/auth.js"></script>
     <script src="scripts/controllers/titleBarCtrl.js"></script>
-    <script src="scripts/controllers/sideNavCtrl.js"></script>
     <script src="scripts/services/data.js"></script>
     <script src="scripts/controllers/profile.js"></script>
     <!-- endbuild -->

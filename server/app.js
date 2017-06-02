@@ -1,3 +1,4 @@
+var admin = require("firebase-admin");
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,10 +6,24 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var app = express();
+
+var serviceAccount = require("./swc-shockball-firebase.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://swc-shockball.firebaseio.com"
+});
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var teams = require('./routes/teams');
+var players = require('./routes/players');
+var leagues = require('./routes/leagues');
 
-var app = express();
+app.use('/teams', teams);
+app.use('/players', players);
+app.use('/leagues', leagues);
 
 // view engine setup
 

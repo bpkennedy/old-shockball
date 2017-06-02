@@ -8,12 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('TitleBarCtrl', function ($mdSidenav) {
+.controller('TitleBarCtrl', function () {
     var titleBar = this;
-    titleBar.toggleList = function() {
-        console.log('fired');
-        $mdSidenav('left').toggle();
-    };
-    console.log(titleBar);
 
 });

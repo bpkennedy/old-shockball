@@ -8,10 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('MainCtrl', function (Auth) {
+.controller('MainCtrl', function () {
     var main = this;
-    main.auth = Auth;
-    main.currentAuth = main.auth.$getAuth();
-    console.log(main.currentAuth);
     main.test = 'test';
 });

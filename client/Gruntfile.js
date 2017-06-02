@@ -49,6 +49,10 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
       },
+      less: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['less:production']
+      },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'postcss']
@@ -172,6 +176,18 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp'
+    },
+
+    //less capability
+    less: {
+     production: {
+       options: {
+         paths: ['app/styles']
+       },
+       files: {
+           'app/styles/main.css': 'app/styles/main.less'
+       }
+     }
     },
 
     // Add vendor prefixed styles
@@ -415,6 +431,7 @@ module.exports = function (grunt) {
         'copy:styles'
       ],
       dist: [
+        'less:production',
         'copy:styles',
         'imagemin',
         'svgmin'
@@ -430,6 +447,7 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-less');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
