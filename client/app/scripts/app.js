@@ -76,5 +76,5 @@ angular
 })
 .config(function () {
 })
-.run(['$rootScope', function ($rootScope, $state) {
+.run(['$rootScope', function () {
 }]);
