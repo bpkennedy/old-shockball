@@ -8,6 +8,9 @@
 *
 * Main module of the application.
 */
+// get ag-Grid to create an Angular module and register the ag-Grid directive
+agGrid.initialiseAgGridWithAngular1(angular);
+
 angular
 .module('shockballApp', [
     'ngAnimate',
@@ -16,7 +19,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ui.router',
-    'chart.js'
+    'chart.js',
+    'agGrid'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
