@@ -29,7 +29,7 @@ angular
             'titleBar@': {
                 templateUrl: 'views/titleBar.html',
                 controller: 'TitleBarCtrl',
-                controllerAs: 'titleBar'
+                controllerAs: 'vm'
             }
         }
     })
@@ -39,7 +39,7 @@ angular
             'container@': {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl',
-                controllerAs: 'main'
+                controllerAs: 'vm'
             }
         }
     })
@@ -49,7 +49,7 @@ angular
             'container@': {
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl',
-                controllerAs: 'about'
+                controllerAs: 'vm'
             }
         }
     })
@@ -59,7 +59,7 @@ angular
             'container@': {
                 templateUrl: 'views/profile.html',
                 controller: 'ProfileCtrl',
-                controllerAs: 'profile'
+                controllerAs: 'vm'
             }
         }
     })
@@ -69,7 +69,7 @@ angular
             'container@': {
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl',
-                controllerAs: 'login'
+                controllerAs: 'vm'
             }
         }
     });

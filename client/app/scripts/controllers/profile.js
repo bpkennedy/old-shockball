@@ -9,9 +9,9 @@
  */
 angular.module('shockballApp')
   .controller('ProfileCtrl', function () {
-    var profile = this;
-    profile.labels = [];
-    profile.userObj = {
+    var vm = this;
+    vm.labels = [];
+    vm.userObj = {
         first_name: 'Tholme',
         last_name: 'So',
         current_team: 5,
@@ -32,7 +32,7 @@ angular.module('shockballApp')
         current_team_id: 4,
         items: [ 6, 14, 29 ]
     };
-    profile.teamObj = {
+    vm.teamObj = {
         team_name: 'Kenbo Spankers',
         creation_date: '8934098423',
         team_training: 'Attacking',
@@ -57,7 +57,7 @@ angular.module('shockballApp')
     }
 
     function constructSkillChart() {
-        profile.labels = [
+        vm.labels = [
             "Speed",
             "Tackling",
             "Stamina",
@@ -65,18 +65,18 @@ angular.module('shockballApp')
             "Passing",
             "Defending"
         ];
-        profile.data = [ _.values(profile.userObj.stats) ];
+        vm.data = [ _.values(vm.userObj.stats) ];
     }
 
-    profile.selected = [];
+    vm.selected = [];
 
-    profile.query = {
+    vm.query = {
       order: 'name',
       limit: 5,
       page: 1
     };
 
-    profile.desserts = [{
+    vm.desserts = [{
         name: 'Parfait',
         calories: 44,
         fat: 3,
@@ -122,7 +122,7 @@ angular.module('shockballApp')
         }
     }];
 
-    profile.awesomeThings = [
+    vm.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'

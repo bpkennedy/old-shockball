@@ -412,8 +412,13 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
-        }]
-      },
+        }, {
+          expand: true,
+          cwd: '.tmp/styles',
+          dest: '<%= yeoman.dist %>/styles',
+          src: ['main.css']
+        }
+      ]},
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
@@ -487,6 +492,7 @@ module.exports = function (grunt) {
     'ngtemplates',
     'concat',
     'ngAnnotate',
+    'copy:styles',
     'copy:dist',
     'cdnify',
     // 'cssmin',

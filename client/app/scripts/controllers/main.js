@@ -9,6 +9,6 @@
 */
 angular.module('shockballApp')
 .controller('MainCtrl', function () {
-    var main = this;
-    main.test = 'test';
+    var vm = this;
+    vm.test = 'test';
 });
