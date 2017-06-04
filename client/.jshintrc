@@ -12,5 +12,8 @@
   "unused": true,
   "globals": {
     "angular": false
-  }
+  },
+  "predef": [
+    "_"
+  ],
 }

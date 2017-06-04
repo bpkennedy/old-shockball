@@ -20,10 +20,14 @@ var users = require('./routes/users');
 var teams = require('./routes/teams');
 var players = require('./routes/players');
 var leagues = require('./routes/leagues');
+var contracts = require('./routes/contracts');
+var matches = require('./routes/matches');
 
 app.use('/teams', teams);
 app.use('/players', players);
 app.use('/leagues', leagues);
+app.use('/contracts', contracts);
+app.use('/matches', matches);
 
 // view engine setup
 

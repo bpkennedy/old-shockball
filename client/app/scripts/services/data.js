@@ -9,7 +9,7 @@
  */
 angular.module('shockballApp')
   .factory('Data', function ($http) {
-      var url = '/teams/league/887766';
+      var url = '/matches/awayTeam/32432523';
       function fetchTime(){
           return $http.get(url, { cache: true });
       }
