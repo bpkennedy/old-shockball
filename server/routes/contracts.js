@@ -4,10 +4,10 @@ var router = express.Router();
 
 // Get a database reference to our posts
 var db = admin.database();
-var ref = db.ref("leagues");
+var ref = db.ref("contracts");
 
 
-/* GET leagues listing. */
+/* GET all contracts. */
 router.get('/', function(req, res, next) {
     ref.once("value", function(snapshot) {
     //   console.log(snapshot.val());
@@ -18,10 +18,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
-/* GET league by id. */
+/* GET player contract. */
 router.get('/:uid', function(req, res, next) {
     if (req.params.uid) {
-        ref.orderByKey().equalTo(req.params.uid).once("value", function(snapshot) {
+        ref.orderByChild("signingPlayer").equalTo(req.params.uid).once("value", function(snapshot) {
             res.send(snapshot.val());
         }, function (errorObject) {
           res.send(errorObject);
@@ -29,6 +29,22 @@ router.get('/:uid', function(req, res, next) {
         });
     } else {
         res.send({ message: 'Failed to pass in a uid' });
+    }
+});
+
+
+
+/* GET team contracts */
+router.get('/team/:uid', function (req, res, next) {
+    if (req.params.uid) {
+        ref.orderByChild("offeringTeam").equalTo(req.params.uid).once("value", function(snapshot) {
+            res.send(snapshot.val());
+        }, function (errorObject) {
+          res.send(errorObject);
+          console.log("The read failed: " + errorObject.code);
+        });
+    } else {
+        res.send({ message: 'Failed to pass in a team uid' });
     }
 });
 

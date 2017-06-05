@@ -9,6 +9,5 @@
 */
 angular.module('shockballApp')
 .controller('TitleBarCtrl', function () {
-    var titleBar = this;
 
 });

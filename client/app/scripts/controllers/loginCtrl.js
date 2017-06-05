@@ -8,6 +8,5 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('LoginCtrl', function ($state) {
-    var login = this;
+.controller('LoginCtrl', function () {
 });

@@ -9,8 +9,8 @@
  */
 angular.module('shockballApp')
   .controller('AboutCtrl', function (Data) {
-    var about = this;
-    about.testData = {};
+    var vm = this;
+    vm.testData = {};
 
     function init() {
         setData();
@@ -19,7 +19,7 @@ angular.module('shockballApp')
     function setData() {
         Data.fetchTime().then(function(response) {
             console.log(response);
-            about.testData = response;
+            vm.testData = response;
         });
     }
 

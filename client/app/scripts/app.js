@@ -8,6 +8,9 @@
 *
 * Main module of the application.
 */
+// get ag-Grid to create an Angular module and register the ag-Grid directive
+agGrid.initialiseAgGridWithAngular1(angular);
+
 angular
 .module('shockballApp', [
     'ngAnimate',
@@ -16,7 +19,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ui.router',
-    'chart.js'
+    'chart.js',
+    'agGrid'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -29,7 +33,7 @@ angular
             'titleBar@': {
                 templateUrl: 'views/titleBar.html',
                 controller: 'TitleBarCtrl',
-                controllerAs: 'titleBar'
+                controllerAs: 'vm'
             }
         }
     })
@@ -39,7 +43,7 @@ angular
             'container@': {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl',
-                controllerAs: 'main'
+                controllerAs: 'vm'
             }
         }
     })
@@ -49,7 +53,7 @@ angular
             'container@': {
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl',
-                controllerAs: 'about'
+                controllerAs: 'vm'
             }
         }
     })
@@ -59,7 +63,7 @@ angular
             'container@': {
                 templateUrl: 'views/profile.html',
                 controller: 'ProfileCtrl',
-                controllerAs: 'profile'
+                controllerAs: 'vm'
             }
         }
     })
@@ -69,12 +73,12 @@ angular
             'container@': {
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl',
-                controllerAs: 'login'
+                controllerAs: 'vm'
             }
         }
     });
 })
 .config(function () {
 })
-.run(['$rootScope', function ($rootScope, $state) {
+.run(['$rootScope', function () {
 }]);

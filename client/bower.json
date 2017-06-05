@@ -10,10 +10,16 @@
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
     "angular-ui-router": "^0.3.1",
-    "lodash": "^4.15.0"
+    "lodash": "^4.15.0",
+    "ag-grid": "^10.0.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
+  },
+  "overrides": {
+      "ag-grid": {
+          "main": "dist/ag-grid.js"
+      }
   },
   "appPath": "app",
   "moduleName": "shockballApp"
