@@ -442,3 +442,6 @@ template {
   position: absolute;
   right: 60px;
 }
+.player-wrapper {
+  width: 100%;
+}

@@ -47,6 +47,17 @@ angular
             }
         }
     })
+    .state('root.player', {
+        url:'/player/:playerId',
+        parent: 'root',
+        views: {
+            'container@': {
+                templateUrl: 'views/player.html',
+                controller: 'PlayerCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
     .state('root.about', {
         url:'/about',
         views: {

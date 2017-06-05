@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/:uid', function(req, res, next) {
     if (req.params.uid) {
-        ref.orderByKey().equalTo(req.params.uid).once("value", function(snapshot) {
+        ref.child(req.params.uid).once("value", function(snapshot) {
             res.send(snapshot.val());
         }, function (errorObject) {
           res.send(errorObject);
