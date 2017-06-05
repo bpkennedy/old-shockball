@@ -8,7 +8,7 @@ var db = admin.database();
 var ref = db.ref("matches");
 
 
-/* GET teams listing. */
+/* GET matches. */
 router.get('/', function(req, res, next) {
     ref.once("value", function(snapshot) {
     //   console.log(snapshot.val());
@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
+// GET match by id
 router.get('/:uid', function(req, res, next) {
     if (req.params.uid) {
         ref.orderByKey().equalTo(req.params.uid).once("value", function(snapshot) {
@@ -32,6 +33,7 @@ router.get('/:uid', function(req, res, next) {
     }
 });
 
+// GET hometeam matches by team id
 router.get('/homeTeam/:uid', function (req, res, next) {
     if (req.params.uid) {
         ref.orderByChild("homeTeam").equalTo(req.params.uid).once("value", function(snapshot) {
@@ -45,6 +47,7 @@ router.get('/homeTeam/:uid', function (req, res, next) {
     }
 });
 
+// GET awayteam matches by team id
 router.get('/awayTeam/:uid', function (req, res, next) {
     if (req.params.uid) {
         ref.orderByChild("awayTeam").equalTo(req.params.uid).once("value", function(snapshot) {
