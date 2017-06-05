@@ -126,7 +126,6 @@ angular.module('shockballApp')
       init();
 
       return {
-        fetchTime: fetchTime,
         fetchPlayer: fetchPlayer,
         fetchTeam: fetchTeam,
         fetchPlayerContract: fetchPlayerContract,
