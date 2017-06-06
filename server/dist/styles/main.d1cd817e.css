@@ -444,4 +444,23 @@ template {
 }
 .player-wrapper {
   width: 100%;
+  display: flex;
+  align-items: top;
+  height: 100%;
+}
+.player-wrapper > div {
+  flex: 1;
+}
+.player-bg {
+  background: url(../images/shattered-island.3fa4654e.gif) repeat;
+}
+html,
+body {
+  height: 100%;
+}
+.wrapper {
+  height: 100%;
+}
+.wrapper .main-container {
+  height: 100%;
 }
