@@ -1,3 +1,67 @@
 <div class="player-wrapper">
-    Player here.
+    <div class="left-column">
+        <div class="player-pic">
+            <img ng-src="{{vm.playerData.picUrl}}" alt="">
+        </div>
+        <div class="player-xp">EXP: {{vm.playerData.xp}}</div>
+        <div class="biography">
+            <div class="label">biography</div>
+            <ul>
+                <li>
+                    <div class="bio-prop">Gender</div>
+                    <div class="bio-prop-value">{{vm.playerData.gender}}</div>
+                </li>
+                <li>
+                    <div class="bio-prop">Species</div>
+                    <div class="bio-prop-value">{{vm.playerData.species}}</div>
+                </li>
+                <li>
+                    <div class="bio-prop">Age</div>
+                    <div class="bio-prop-value">{{vm.playerData.age}}</div>
+                </li>
+                <li>
+                    <div class="bio-prop">Birth Planet</div>
+                    <div class="bio-prop-value">{{vm.playerData.birthPlanet}}</div>
+                </li>
+            </ul>
+        </div>
+        <div class="contract">
+            <div class="label">contract</div>
+            <div class="salary">{{vm.contractData.salary}}</div>
+            <div class="team">
+                <div class="label">team</div>
+                <div class="team-name">{{vm.teamData.name}}</div>
+                <div class="time-left">{{vm.calculateTimeRemaining(vm.contractData.endDate)}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="center-column">
+        <div class="firstName">{{vm.playerData.firstName}}</div>
+        <div class="lastName">{{vm.playerData.lastName}}</div>
+        <div class="role">{{vm.playerData.role}}</div>
+        <div class="panel">
+            <div class="player-league-stats">player stats</div>
+            <div class="matches">matches</div>
+            <div class="recent-events">recent activity</div>
+        </div>
+        <div class="data-table">
+            <div ag-grid="vm.gridOptions" class="ag-bootstrap" id="myGrid" style="height:300px;width:100%;"></div>
+        </div>
+    </div>
+    <div class="right-column">
+        <div class="skills-radar">
+            <canvas id="radar" class="chart chart-radar" chart-data="vm.playerData.graphValues" chart-labels="vm.playerData.graphLabels"></canvas>
+        </div>
+        <div class="secondary">
+            <div class="label">secondary</div>
+            <div class="morale">
+                <div class="label">morale</div>
+                <div class="morale-val">{{vm.playerData.morale}}</div>
+            </div>
+            <div class="fatigue">
+                <div class="label">fatigue</div>
+                <div class="fatigue-val">{{vm.playerData.fatigue}}</div>
+            </div>
+        </div>
+    </div>
 </div>

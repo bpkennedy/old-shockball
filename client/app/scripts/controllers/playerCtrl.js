@@ -8,7 +8,7 @@
  * Controller of the shockballApp
  */
 angular.module('shockballApp')
-  .controller('PlayerCtrl', function ($stateParams, Data) {
+  .controller('PlayerCtrl', function ($stateParams, Data, backgroundSvc) {
       var vm = this;
       vm.playerId = $stateParams.playerId;
       vm.playerData = {};
@@ -16,14 +16,42 @@ angular.module('shockballApp')
       vm.contractData = {};
       vm.matchesData = [];
       vm.eventsData = [];
+    //   vm.columnDefs = [];
+    //   vm.rowData = [];
+    //   vm.gridOptions = {
+    //       columnDefs: vm.columnDefs,
+    //       rowData: vm.rowData
+    //   };
+
+      vm.calculateTimeRemaining = calculateTimeRemaining;
+
+      vm.columnDefs = [
+          {headerName: "Make", field: "make"},
+          {headerName: "Model", field: "model"},
+          {headerName: "Price", field: "price"}
+      ];
+
+      vm.rowData = [
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000}
+      ];
+
+      vm.gridOptions = {
+          columnDefs: vm.columnDefs,
+          rowData: vm.rowData
+      };
 
       function init() {
+          backgroundSvc.setCurrentBg('player-bg');
           setPlayerModel(vm.playerId);
       }
 
       function setPlayerModel(id) {
           Data.fetchPlayer(id).then(function(response) {
              vm.playerData = response.data;
+             sortPlayerSkills(vm.playerData);
+             console.log(vm.playerData);
              if (vm.playerData.team) {
                  setTeamModel(vm.playerData.team);
                  setMatchesModel(vm.playerData.team);
@@ -37,14 +65,12 @@ angular.module('shockballApp')
       function setTeamModel(teamId) {
           Data.fetchTeam(teamId).then(function(response) {
              vm.teamData = response.data;
-            //  console.log(vm.teamData);
           });
       }
 
       function setContractModel(id) {
           Data.fetchPlayerContract(id).then(function(response) {
              vm.contractData = response.data[Object.keys(response.data)[0]];
-            //  console.log(vm.contractData);
           });
       }
 
@@ -60,7 +86,6 @@ angular.module('shockballApp')
                      _.forEach(awayResponse, function(value, key) {
                         vm.matchesData.push(value);
                      });
-                    //  console.log(vm.matchesData);
                  }
              });
           });
@@ -79,9 +104,29 @@ angular.module('shockballApp')
                         vm.eventsData.push(value);
                      });
                  }
-                 console.log(vm.eventsData);
              });
           });
+      }
+
+      function sortPlayerSkills(playerData) {
+          if (playerData) {
+              vm.playerData.skills = {};
+              vm.playerData.graphLabels = [];
+              _.forEach(playerData, function(value, key) {
+                  if (key.indexOf('skill') > -1) {
+                      key = key.split('skill').pop();
+                    //   vm.playerData.skills.push(angular.copy(object));
+                      vm.playerData.graphLabels.push(key);
+                      vm.playerData.skills[key] = value;
+                  }
+              });
+              vm.playerData.graphValues = [ _.values(vm.playerData.skills) ];
+          }
+      }
+
+      function calculateTimeRemaining(endDate) {
+          var timeRemaining = moment().countdown(endDate, countdown.WEEKS, NaN).toString();
+          return '(' + timeRemaining + ' left)';
       }
 
       init();

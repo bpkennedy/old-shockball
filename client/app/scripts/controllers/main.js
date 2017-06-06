@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('MainCtrl', function ($window) {
+.controller('MainCtrl', function ($window, backgroundSvc) {
     var vm = this;
     vm.test = 'test';
 
@@ -30,6 +30,7 @@ angular.module('shockballApp')
     };
 
     function init() {
+        backgroundSvc.setCurrentBg('main-bg');
     }
 
     init();
