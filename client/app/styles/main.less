@@ -3,16 +3,26 @@
 @import 'player.less';
 
 .player-bg {
-    background: url(../images/shattered-island.gif) repeat;
+    background: #ffffff;
 }
 
-html, body {
-    height: 100%;
-}
 
-.wrapper {
-    height: 100%;
-    .main-container {
-        height: ~"calc(100% - 50px)";
+/*Miscellaneous*/
+#smokeCanvas {
+    background: black none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity:0.7;
+}
+.ag-body {
+    background:transparent;
+    .ag-body-viewport {
+        overflow-x: hidden;
+    }
+    .ag-row {
+        background:transparent!important;
     }
 }

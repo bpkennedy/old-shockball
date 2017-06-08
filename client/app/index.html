@@ -6,6 +6,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,500,700,400italic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic" rel="stylesheet">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -21,10 +23,11 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="wrapper">
-        <div ui-view="titleBar" class="titlebar-container"></div>
-        <div ui-view="container" class="main-container"></div>
+    <div class="smoke-directive-holder">
+        <!-- <smoke></smoke> -->
     </div>
+    <div ui-view="titleBar" class="titlebar-container"></div>
+    <div ui-view="container" class="main-container"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -36,6 +39,7 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -69,6 +73,7 @@
     <script src="scripts/services/utils.js"></script>
     <script src="scripts/services/backgroundSvc.js"></script>
     <script src="scripts/directives/background.js"></script>
+    <script src="scripts/directives/smoke.js"></script>
     <!-- endbuild -->
 
 </body>
