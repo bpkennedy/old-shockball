@@ -17,12 +17,12 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should exist', function () {
-     expect(MainCtrl).toBeDefined();
-  });
-
-  it('should expect a scope var called test to be string test', function () {
-      expect(MainCtrl.test).toBe('test');
-  });
+  // it('should exist', function () {
+  //    expect(MainCtrl).toBeDefined();
+  // });
+  //
+  // it('should expect a scope var called test to be string test', function () {
+  //     expect(MainCtrl.test).toBe('test');
+  // });
 
 });

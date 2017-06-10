@@ -17,13 +17,11 @@ angular.module('shockballApp')
     }
 
     $scope.$on('presence:app true', function() {
-        console.log('in scope on');
         vm.isRunningEngine = true;
         $scope.$applyAsync();
     });
 
     $scope.$on('presence:app false', function() {
-        console.log('in scope on');
         vm.isRunningEngine = false;
         $scope.$applyAsync();
     });
