@@ -8,29 +8,6 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-var serviceAccount = require("./swc-shockball-firebase.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://swc-shockball.firebaseio.com"
-});
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var teams = require('./routes/teams');
-var players = require('./routes/players');
-var leagues = require('./routes/leagues');
-var contracts = require('./routes/contracts');
-var matches = require('./routes/matches');
-var events = require('./routes/events');
-
-app.use('/teams', teams);
-app.use('/players', players);
-app.use('/leagues', leagues);
-app.use('/contracts', contracts);
-app.use('/matches', matches);
-app.use('/events', events);
-
 // view engine setup
 
 
@@ -42,9 +19,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 /**
- * Development Settings
- */
+* Development Settings
+*/
 if (app.get('env') === 'development') {
+    var serviceAccount = require("./swc-shockball-firebase.json");
+
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "https://swc-shockball.firebaseio.com"
+    });
     // This will change in production since we'll be using the dist folder
     app.use(express.static(path.join(__dirname, '../client')));
     // This covers serving up the index page
@@ -62,10 +45,16 @@ if (app.get('env') === 'development') {
 }
 
 /**
- * Production Settings
- */
+* Production Settings
+*/
 if (app.get('env') === 'production') {
-
+    admin.initializeApp({
+        credential: admin.credential.cert({
+            "private_key": process.env.FIREBASE_PRIVATE_KEY,
+            "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+        }),
+        databaseURL: process.env.FIREBASE_DATABASE_URL
+    });
     // changes it to use the optimized version for production
     app.use(express.static(path.join(__dirname, '/dist')));
 
@@ -79,5 +68,21 @@ if (app.get('env') === 'production') {
         });
     });
 }
+
+var routes = require('./routes/index');
+var users = require('./routes/users');
+var teams = require('./routes/teams');
+var players = require('./routes/players');
+var leagues = require('./routes/leagues');
+var contracts = require('./routes/contracts');
+var matches = require('./routes/matches');
+var events = require('./routes/events');
+
+app.use('/teams', teams);
+app.use('/players', players);
+app.use('/leagues', leagues);
+app.use('/contracts', contracts);
+app.use('/matches', matches);
+app.use('/events', events);
 
 module.exports = app;
