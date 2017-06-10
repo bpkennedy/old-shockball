@@ -10,10 +10,10 @@ angular.module('shockballApp')
 .directive('background', function (backgroundSvc) {
     return {
         restrict: 'A',
-        link: function postLink(scope, element, attrs) {
+        link: function postLink(scope, element) {
             var lastClass = '';
 
-            scope.$on('background:updated', function(event, data) {
+            scope.$on('background:updated', function() {
                 setBgClass();
             });
 

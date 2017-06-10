@@ -11,7 +11,7 @@
      return {
          template: '<div id="smoke-wrapper"></div>',
          restrict: 'E',
-         link: function postLink(scope, element, attrs) {
+         link: function postLink() {
              $(document).ready(function() {
                  handleResize();
                  var canvas = $('<canvas/>', { id: 'smokeCanvas', height: $(window).height(), width: $(window).width()});
@@ -21,7 +21,7 @@
 
              function handleResize() {
                  var resizeTimer;
-                 $(window).on('resize', function(e) {
+                 $(window).on('resize', function() {
                      clearTimeout(resizeTimer);
                      resizeTimer = setTimeout(function() {
                          clearCanvas();

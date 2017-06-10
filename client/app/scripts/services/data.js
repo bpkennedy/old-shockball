@@ -14,7 +14,7 @@ angular.module('shockballApp')
       };
       var allPlayers = {
           data: []
-      }
+      };
 
       function fetchPlayer(id) {
           return $http.get('/players/' + id, {cache: true});
@@ -33,7 +33,7 @@ angular.module('shockballApp')
               if (response.data) {
                   var primarySourceEvents = utils.unpackObjectKeys(response.data);
 
-                  _.forEach(primarySourceEvents, function(value, key) {
+                  _.forEach(primarySourceEvents, function(value) {
                       var primarySourcePlayer = findPlayer(allPlayers.data, value, 'primarySource');
                       var secondarySourcePlayer = findPlayer(allPlayers.data, value, 'secondarySource');
                       value.primarySourceName = primarySourcePlayer.firstName;
@@ -49,7 +49,7 @@ angular.module('shockballApp')
               if (response.data) {
                   var secondarySourceEvents = utils.unpackObjectKeys(response.data);
 
-                  _.forEach(secondarySourceEvents, function(value, key) {
+                  _.forEach(secondarySourceEvents, function(value) {
                       var primarySourcePlayer = findPlayer(allPlayers.data, value, 'primarySource');
                       var secondarySourcePlayer = findPlayer(allPlayers.data, value, 'secondarySource');
                       value.primarySourceName = primarySourcePlayer.firstName;
@@ -65,7 +65,7 @@ angular.module('shockballApp')
               if (response.data) {
                   var homeMatches = utils.unpackObjectKeys(response.data);
 
-                  _.forEach(homeMatches, function(value, key) {
+                  _.forEach(homeMatches, function(value) {
                       var homeTeam = findTeam(allTeams.data, value, 'homeTeam');
                       var awayTeam = findTeam(allTeams.data, value, 'awayTeam');
                       value.homeTeamName = homeTeam.name;
@@ -81,7 +81,7 @@ angular.module('shockballApp')
           return $http.get('/matches/awayTeam/' + teamId.toString(), {cache: true}).then(function(response) {
               if (response.data) {
                   var awayMatches = utils.unpackObjectKeys(response.data);
-                  _.forEach(awayMatches, function(value, key) {
+                  _.forEach(awayMatches, function(value) {
                       var homeTeam = findTeam(allTeams.data, value, 'homeTeam');
                       var awayTeam = findTeam(allTeams.data, value, 'awayTeam');
                       value.homeTeamName = homeTeam.name;
