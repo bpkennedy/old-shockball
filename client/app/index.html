@@ -29,6 +29,9 @@
     <div ui-view="titleBar" class="titlebar-container"></div>
     <div ui-view="container" class="main-container"></div>
 
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
@@ -56,6 +59,8 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/countdownjs/countdown.js"></script>
     <script src="bower_components/moment-countdown/dist/moment-countdown.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -72,9 +77,13 @@
     <script src="scripts/controllers/playerCtrl.js"></script>
     <script src="scripts/services/utils.js"></script>
     <script src="scripts/services/backgroundSvc.js"></script>
+    <script src="scripts/services/firebaseSvc.js"></script>
+    <script src="scripts/services/presence.js"></script>
+    <script src="scripts/services/auth.js"></script>
     <script src="scripts/directives/background.js"></script>
     <script src="scripts/directives/smoke.js"></script>
+    <script src="scripts/directives/tooltip.js"></script>
     <!-- endbuild -->
-
+    <script>if (window.module) module = window.module;</script>
 </body>
 </html>

@@ -20,7 +20,8 @@ angular
     'ngSanitize',
     'ui.router',
     'chart.js',
-    'agGrid'
+    'agGrid',
+    'firebase'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -35,6 +36,15 @@ angular
                 controller: 'TitleBarCtrl',
                 controllerAs: 'vm'
             }
+        },
+        resolve: {
+            // controller will not be loaded until $requireSignIn resolves
+            // Auth refers to our $firebaseAuth wrapper in the factory below
+            'currentUser': ['auth', function(auth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $stateChangeError (see above)
+                return auth.$waitForSignIn();
+            }]
         }
     })
     .state('root.dashboard', {
@@ -91,5 +101,18 @@ angular
 })
 .config(function () {
 })
-.run(['$rootScope', function () {
+.run(['$rootScope', 'firebaseSvc', '$state', 'presence', function ($rootScope, firebaseSvc, $state, presence) {
+    firebaseSvc.initialize();
+    presence.init();
+    // for authentication, managing the state if error..
+    $rootScope.$on('$stateChangeError',
+    function (event, toState, toParams, fromState, fromParams, error) {
+
+        // if the error is "NO USER" the go to login state
+        if (error === 'NO USER' || error === 'AUTH_REQUIRED') {
+            event.preventDefault();
+            $state.go('root.login', {});
+        }
+    });
+
 }]);
