@@ -81,13 +81,13 @@ angular.module('shockballApp')
     function setMatchesModel(teamId) {
         Data.fetchHomeMatches(teamId).then(function(homeResponse) {
             if (homeResponse) {
-                _.forEach(homeResponse, function(value, key) {
+                _.forEach(homeResponse, function(value) {
                     vm.matchesData.push(value);
                 });
             }
             Data.fetchAwayMatches(teamId).then(function(awayResponse) {
                 if (awayResponse) {
-                    _.forEach(awayResponse, function(value, key) {
+                    _.forEach(awayResponse, function(value) {
                         vm.matchesData.push(value);
                     });
                 }
@@ -99,14 +99,14 @@ angular.module('shockballApp')
     function setEventsModel(playerId) {
         Data.fetchPrimaryEvents(playerId).then(function(primaryResponse) {
             if (primaryResponse) {
-                _.forEach(primaryResponse, function(value, key) {
+                _.forEach(primaryResponse, function(value) {
                     vm.eventsData.push(value);
                 });
                 console.log(vm.eventsData);
             }
             Data.fetchSecondaryEvents(playerId).then(function(secondaryResponse) {
                 if (secondaryResponse) {
-                    _.forEach(secondaryResponse, function(value, key) {
+                    _.forEach(secondaryResponse, function(value) {
                         vm.eventsData.push(value);
                     });
 
@@ -122,7 +122,7 @@ angular.module('shockballApp')
             {headerName: "Away Team", field: "awayTeam"}
         ];
         vm.rowData = [];
-        _.forEach(vm.matchesData, function(value, key) {
+        _.forEach(vm.matchesData, function(value) {
             var rowDataItem = {};
             rowDataItem.homeTeam = value.homeTeamName;
             rowDataItem.awayTeam = value.awayTeamName;
