@@ -78,6 +78,9 @@ var contracts = require('./routes/contracts');
 var matches = require('./routes/matches');
 var events = require('./routes/events');
 
+var engine = require('./engine.js');
+
+
 app.use('/teams', teams);
 app.use('/players', players);
 app.use('/leagues', leagues);

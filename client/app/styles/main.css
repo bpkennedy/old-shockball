@@ -444,6 +444,58 @@ template {
   position: absolute;
   right: 60px;
 }
+.titleBar-wrapper .user .on-indicator {
+  position: absolute;
+  right: 78px;
+  border: 2px solid #2ecc71;
+  background-color: #2ecc71;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  top: 17px;
+  transition: all .4s ease;
+}
+.titleBar-wrapper .user .on-indicator .tooltip-text {
+  background-color: #ffffff!important;
+  color: #2ecc71;
+}
+.titleBar-wrapper .user .on-indicator:hover {
+  cursor: pointer;
+}
+.titleBar-wrapper .user .on-indicator:hover .tooltip-text {
+  opacity: 1;
+  transition: all .4s ease;
+}
+.titleBar-wrapper .user .off-indicator {
+  position: absolute;
+  right: 78px;
+  border: 2px solid gray;
+  background-color: gray;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  top: 17px;
+  transition: all 1s ease;
+}
+.titleBar-wrapper .user .off-indicator:hover {
+  cursor: pointer;
+}
+.titleBar-wrapper .user .off-indicator:hover .tooltip-text {
+  opacity: 1;
+  transition: all .4s ease;
+}
+.titleBar-wrapper .user .tooltip-wrap .tooltip-text {
+  position: absolute;
+  width: auto;
+  text-align: center;
+  left: -160px;
+  top: -12px;
+  background-color: #000;
+  opacity: 0.0;
+  padding: 10px;
+  border-radius: 3px;
+  transition: all .4s ease;
+}
 .player-wrapper {
   width: 100%;
   display: flex;

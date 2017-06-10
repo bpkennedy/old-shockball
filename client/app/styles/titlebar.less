@@ -41,5 +41,59 @@
                 right: 60px;
             }
         }
+        .on-indicator {
+            position: absolute;
+            right: 78px;
+            border: 2px solid #2ecc71;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            top: 17px;
+            transition: all .4s ease;
+            .tooltip-text {
+                background-color: #ffffff!important;
+                color: #2ecc71;
+            }
+            &:hover {
+                cursor: pointer;
+                .tooltip-text {
+                    opacity: 1;
+                    transition: all .4s ease;
+                }
+            }
+        }
+        .off-indicator {
+            position: absolute;
+            right: 78px;
+            border: 2px solid gray;
+            background-color: gray;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            top: 17px;
+            transition: all 1s ease;
+            &:hover {
+                cursor: pointer;
+                .tooltip-text {
+                    opacity: 1;
+                    transition: all .4s ease;
+                }
+            }
+        }
+        .tooltip-wrap {
+            .tooltip-text {
+                position: absolute;
+                width: auto;
+                text-align: center;
+                left: -160px;
+                top: -12px;
+                background-color: #000;
+                opacity: 0.0;
+                padding: 10px;
+                border-radius: 3px;
+                transition: all .4s ease;
+            }
+        }
     }
 }
