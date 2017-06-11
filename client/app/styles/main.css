@@ -580,6 +580,82 @@ template {
   cursor: pointer;
   background-color: #3498db;
 }
+.login-wrapper {
+  width: 250px;
+  margin: 0 auto;
+  padding-top: 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+.login-wrapper h2 {
+  margin-top: 0;
+  padding-top: 0;
+  text-align: center;
+}
+.login-wrapper .login-inputs .form-item label {
+  display: inline-block;
+  width: 100%;
+  font-weight: 300;
+}
+.login-wrapper .login-inputs .form-item input {
+  width: 97%;
+  margin-bottom: 10px;
+}
+.login-wrapper .login-inputs .form-item input *[type^="password"] {
+  font-family: caption;
+  font-size: 16px;
+}
+.login-wrapper .buttons .button {
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+  background-color: #3498DB;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease-in;
+}
+.login-wrapper .buttons .button:hover {
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+.login-wrapper .buttons .sign-in-button {
+  background-color: #3498DB;
+  color: #ffffff;
+}
+.login-wrapper .buttons .sign-in-button:hover {
+  background-color: #0676BE;
+}
+.login-wrapper .buttons .sign-out-button {
+  background-color: #424040;
+  color: #ffffff;
+}
+.login-wrapper .buttons .sign-out-button:hover {
+  background-color: #000000;
+}
+.login-wrapper .links {
+  display: flex;
+}
+.login-wrapper .links .link {
+  flex: 1;
+  color: #3498DB;
+  text-decoration: underline;
+  transition: all 0.2s ease-in;
+  font-size: 0.8em;
+}
+.login-wrapper .links .link:hover {
+  cursor: pointer;
+  color: #0676BE;
+  transition: all 0.2s ease-in;
+}
+.login-wrapper .links .register-link {
+  text-align: left;
+}
+.login-wrapper .links .forgot-password-link {
+  text-align: right;
+}
 .player-bg {
   background: #ffffff;
 }

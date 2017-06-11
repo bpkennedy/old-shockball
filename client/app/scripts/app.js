@@ -98,6 +98,26 @@ angular
                 controllerAs: 'vm'
             }
         }
+    })
+    .state('root.signup', {
+        url:'/signup',
+        views: {
+            'container@': {
+                templateUrl: 'views/signup.html',
+                controller: 'SignupCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
+    .state('root.forgotpassword', {
+        url:'/forgotpassword',
+        views: {
+            'container@': {
+                templateUrl: 'views/forgotpassword.html',
+                controller: 'ForgotpasswordCtrl',
+                controllerAs: 'vm'
+            }
+        }
     });
 })
 .config(function () {
