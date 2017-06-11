@@ -15,6 +15,7 @@ angular.module('shockballApp')
     vm.email = null;
     vm.password = null;
     vm.handle = null;
+    vm.loggedInUser = null;
     vm.createUser = createUser;
     vm.deleteUser = deleteUser;
     vm.signIn = signIn;
@@ -23,12 +24,24 @@ angular.module('shockballApp')
     vm.updatePassword = updatePassword;
     vm.getUserToken = getUserToken;
 
+    function init() {
+        setUser();
+    }
+
+    function setUser() {
+        if (currentUser) {
+            vm.loggedInUser = currentUser;
+        }
+    }
+
     function signIn() {
         clearValidation();
 
         // Sign in with email/password
         auth.$signInWithEmailAndPassword(vm.email, vm.password)
         .then(function(firebaseUser) {
+            vm.email = null;
+            vm.password = null;
             vm.message = "User signed in as: " + firebaseUser.email;
         }).catch(function(error) {
             vm.error = "Error: " + error;
@@ -101,5 +114,11 @@ angular.module('shockballApp')
         vm.message = null;
         vm.error = null;
     }
+
+    auth.$onAuthStateChanged(function(firebaseUser) {
+        vm.loggedInUser = firebaseUser;
+    });
+
+    init();
 
 });
