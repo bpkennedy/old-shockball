@@ -1,16 +1,21 @@
 <div class="titleBar-wrapper">
     <div class="logo">
-        <div class="logo-inner">
+        <div class="logo-inner" ng-click="vm.goToHome()">
             <i class="fa fa-superpowers"></i>
             <div class="logo-text">Galactic Shockball</div>
         </div>
     </div>
     <div class="user">
         <div class="user-inner">
-            <div class="on-indicator" tooltip title="Simulation Online" ng-if="vm.isRunningEngine"></div>
-            <div class="off-indicator" tooltip title="Simulation Offline" ng-if="!vm.isRunningEngine"></div>
-            <i class="fa fa-lock"></i>
-            <div class="login-text">Login</div>
+            <div class="indicators">
+                <div class="on-indicator" tooltip title="Simulation Online" ng-if="vm.isRunningEngine"></div>
+                <div class="off-indicator" tooltip title="Simulation Offline" ng-if="!vm.isRunningEngine"></div>
+                <i class="fa fa-lock"></i>
+            </div>
+            <div class="user-info">
+                <div class="login-text" ng-if="!vm.loggedInUser" ng-click="vm.goToLogin()">Login</div>
+                <div class="login-text" ng-if="vm.loggedInUser" ng-click="vm.goToLogin()">{{vm.loggedInUser.email}}</div>
+            </div>
         </div>
     </div>
 </div>

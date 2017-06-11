@@ -26,6 +26,9 @@
             .logo-text {
                 margin-left: 40px;
             }
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
     .user {
@@ -33,54 +36,70 @@
         align-items: center;
         justify-content: flex-end;
         .user-inner {
-            flex:1;
+            flex: 1;
             text-align: right;
             margin-right: 15px;
             i {
                 position: absolute;
-                right: 60px;
+                right: 7px;
+                top: 2px;
             }
-        }
-        .on-indicator {
-            position: absolute;
-            right: 78px;
-            border: 2px solid #2ecc71;
-            background-color: #2ecc71;
-            border-radius: 50%;
-            width: 10px;
-            height: 10px;
-            top: 17px;
-            transition: all .4s ease;
-            .tooltip-text {
-                background-color: #ffffff!important;
-                color: #2ecc71;
-            }
-            &:hover {
-                cursor: pointer;
-                .tooltip-text {
-                    opacity: 1;
-                    transition: all .4s ease;
+            .login-text {
+                &:hover {
+                    cursor: pointer;
                 }
             }
         }
-        .off-indicator {
-            position: absolute;
-            right: 78px;
-            border: 2px solid gray;
-            background-color: gray;
-            border-radius: 50%;
-            width: 10px;
-            height: 10px;
-            top: 17px;
-            transition: all 1s ease;
-            &:hover {
-                cursor: pointer;
+        .indicators {
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            position: relative;
+            .on-indicator {
+                position: absolute;
+                border: 2px solid #2ecc71;
+                background-color: #2ecc71;
+                border-radius: 50%;
+                width: 10px;
+                height: 10px;
+                top: 3px;
+                transition: all .4s ease;
                 .tooltip-text {
-                    opacity: 1;
-                    transition: all .4s ease;
+                    background-color: #ffffff!important;
+                    color: #2ecc71;
+                }
+                &:hover {
+                    cursor: pointer;
+                    .tooltip-text {
+                        opacity: 1;
+                        transition: all .4s ease;
+                    }
+                }
+            }
+            .off-indicator {
+                position: absolute;
+                border: 2px solid gray;
+                background-color: gray;
+                border-radius: 50%;
+                width: 10px;
+                height: 10px;
+                top: 3px;
+                transition: all 1s ease;
+                &:hover {
+                    cursor: pointer;
+                    .tooltip-text {
+                        opacity: 1;
+                        transition: all .4s ease;
+                    }
                 }
             }
         }
+        .user-info {
+            display: inline-block;
+            width: auto;
+            float: right;
+        }
+
         .tooltip-wrap {
             .tooltip-text {
                 position: absolute;

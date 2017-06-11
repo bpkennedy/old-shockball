@@ -430,6 +430,9 @@ template {
 .titleBar-wrapper .logo .logo-inner .logo-text {
   margin-left: 40px;
 }
+.titleBar-wrapper .logo .logo-inner:hover {
+  cursor: pointer;
+}
 .titleBar-wrapper .user {
   display: flex;
   align-items: center;
@@ -442,47 +445,60 @@ template {
 }
 .titleBar-wrapper .user .user-inner i {
   position: absolute;
-  right: 60px;
+  right: 7px;
+  top: 2px;
 }
-.titleBar-wrapper .user .on-indicator {
+.titleBar-wrapper .user .user-inner .login-text:hover {
+  cursor: pointer;
+}
+.titleBar-wrapper .user .indicators {
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  position: relative;
+}
+.titleBar-wrapper .user .indicators .on-indicator {
   position: absolute;
-  right: 78px;
   border: 2px solid #2ecc71;
   background-color: #2ecc71;
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  top: 17px;
+  top: 3px;
   transition: all .4s ease;
 }
-.titleBar-wrapper .user .on-indicator .tooltip-text {
+.titleBar-wrapper .user .indicators .on-indicator .tooltip-text {
   background-color: #ffffff!important;
   color: #2ecc71;
 }
-.titleBar-wrapper .user .on-indicator:hover {
+.titleBar-wrapper .user .indicators .on-indicator:hover {
   cursor: pointer;
 }
-.titleBar-wrapper .user .on-indicator:hover .tooltip-text {
+.titleBar-wrapper .user .indicators .on-indicator:hover .tooltip-text {
   opacity: 1;
   transition: all .4s ease;
 }
-.titleBar-wrapper .user .off-indicator {
+.titleBar-wrapper .user .indicators .off-indicator {
   position: absolute;
-  right: 78px;
   border: 2px solid gray;
   background-color: gray;
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  top: 17px;
+  top: 3px;
   transition: all 1s ease;
 }
-.titleBar-wrapper .user .off-indicator:hover {
+.titleBar-wrapper .user .indicators .off-indicator:hover {
   cursor: pointer;
 }
-.titleBar-wrapper .user .off-indicator:hover .tooltip-text {
+.titleBar-wrapper .user .indicators .off-indicator:hover .tooltip-text {
   opacity: 1;
   transition: all .4s ease;
+}
+.titleBar-wrapper .user .user-info {
+  display: inline-block;
+  width: auto;
+  float: right;
 }
 .titleBar-wrapper .user .tooltip-wrap .tooltip-text {
   position: absolute;
