@@ -39,6 +39,7 @@ angular
         },
         resolve: {
             // controller will not be loaded until $requireSignIn resolves
+            'auth': 'auth',
             // Auth refers to our $firebaseAuth wrapper in the factory below
             'currentUser': ['auth', function(auth) {
                 // $requireSignIn returns a promise so the resolve waits for it to complete
