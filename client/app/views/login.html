@@ -18,28 +18,4 @@
         <a class="link register-link " ui-sref="root.signup" ng-if="!vm.loggedInUser">Register</a>
         <a class="link forgot-password-link" ui-sref="root.forgotpassword" ng-if="vm.loggedInUser">Forgot Password</a>
     </div>
-
-
-    <!-- <br><br>
-
-    <button ng-click="vm.signIn()">Login</button>
-
-    <br><br>
-
-    <button ng-click="vm.signOut()">Logout</button>
-
-    <br><br>
-
-    <button ng-click="vm.createUser()">Create User</button>
-
-    <br><br>
-
-    <button ng-click="vm.deleteUser()">Delete User</button>
-
-    <br><br>
-
-    <button ng-click="vm.getUserToken()">Get ID Token</button> -->
-
-    <p ng-if="vm.message">Message: <strong>{{ vm.message }}</strong></p>
-    <p ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
 </div>

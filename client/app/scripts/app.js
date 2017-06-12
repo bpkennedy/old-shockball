@@ -21,7 +21,8 @@ angular
     'ui.router',
     'chart.js',
     'agGrid',
-    'firebase'
+    'firebase',
+    'toaster'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');

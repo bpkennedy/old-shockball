@@ -35,6 +35,7 @@ angular.module('shockballApp')
 
     auth.$onAuthStateChanged(function(firebaseUser) {
         vm.loggedInUser = firebaseUser;
+        $scope.$apply();
     });
 
     $scope.$on('presence:app true', function() {

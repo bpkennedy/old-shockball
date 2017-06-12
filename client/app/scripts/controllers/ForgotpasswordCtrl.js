@@ -8,26 +8,27 @@
  * Controller of the shockballApp
  */
 angular.module('shockballApp')
-  .controller('ForgotpasswordCtrl', function ($state, auth) {
+  .controller('ForgotpasswordCtrl', function ($state, auth, toaster) {
       var vm = this;
       vm.email = null;
-      vm.message = null;
-      vm.error = null;
       vm.updatePassword = updatePassword;
 
       function updatePassword() {
-          clearValidation();
           auth.$sendPasswordResetEmail(vm.email).then(function() {
-              vm.message = "Password changed successfully!";
+              toaster.pop({
+                  type: 'success',
+                  title: 'Reset email sent',
+                  timeout: 3000
+              });
               $state.go('root.dashboard');
           }).catch(function(error) {
-              vm.error = "Error: " + error;
+              console.log(error);
+              toaster.pop({
+                  type: 'error',
+                  title: 'Error: Password did not update, no email sent.',
+                  timeout: 3000
+              });
           });
-      }
-
-      function clearValidation() {
-          vm.message = null;
-          vm.error = null;
       }
 
   });

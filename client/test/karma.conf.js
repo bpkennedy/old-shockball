@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/moment-countdown/dist/moment-countdown.js',
       'bower_components/firebase/firebase.js',
       'bower_components/angularfire/dist/angularfire.js',
+      'bower_components/AngularJS-Toaster/toaster.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/chart.js',
