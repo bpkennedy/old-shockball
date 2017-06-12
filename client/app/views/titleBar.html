@@ -14,7 +14,7 @@
             </div>
             <div class="user-info">
                 <div class="login-text" ng-if="!vm.loggedInUser" ng-click="vm.goToLogin()">Login</div>
-                <div class="login-text" ng-if="vm.loggedInUser" ng-click="vm.goToLogin()">{{vm.loggedInUser.email}}</div>
+                <div class="login-text" ng-if="vm.loggedInUser" ng-click="vm.goToLogin()">{{vm.loggedInUser.displayName || vm.loggedInUser.email}}</div>
             </div>
         </div>
     </div>

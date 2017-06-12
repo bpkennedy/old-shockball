@@ -8,21 +8,19 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('LoginCtrl', function ($scope, auth, currentUser) {
+.controller('LoginCtrl', function ($scope, auth, currentUser, toaster) {
     var vm = this;
-    vm.message = null;
-    vm.error = null;
     vm.email = null;
     vm.password = null;
     vm.handle = null;
     vm.loggedInUser = null;
-    vm.createUser = createUser;
-    vm.deleteUser = deleteUser;
+    // vm.createUser = createUser;
+    // vm.deleteUser = deleteUser;
     vm.signIn = signIn;
     vm.signOut = signOut;
-    vm.updateEmail = updateEmail;
-    vm.updatePassword = updatePassword;
-    vm.getUserToken = getUserToken;
+    // vm.updateEmail = updateEmail;
+    // vm.updatePassword = updatePassword;
+    // vm.getUserToken = getUserToken;
 
     function init() {
         setUser();
@@ -35,85 +33,102 @@ angular.module('shockballApp')
     }
 
     function signIn() {
-        clearValidation();
-
         // Sign in with email/password
         auth.$signInWithEmailAndPassword(vm.email, vm.password)
         .then(function(firebaseUser) {
+            console.log('user has signed in and is: ');
+            console.log(firebaseUser);
             vm.email = null;
             vm.password = null;
-            vm.message = "User signed in as: " + firebaseUser.email;
+            toaster.pop({
+                type: 'success',
+                title: 'Welcome back',
+                timeout: 3000
+            });
         }).catch(function(error) {
-            vm.error = "Error: " + error;
+            console.log(error);
+            toaster.pop({
+                type: 'error',
+                title: 'Error: could not sign in',
+                timeout: 3000
+            });
         });
     }
 
     function signOut() {
-        clearValidation();
-
         // Sign out.  Null is returned
         auth.$signOut();
         $scope.$applyAsync();
         if (!currentUser) {
-            vm.message = "User signed out.";
+            toaster.pop({
+                type: 'success',
+                title: 'Success',
+                body: 'Signed out.',
+                timeout: 3000
+            });
         } else {
-            vm.error = "Something went wrong, failed to sign out.";
+            toaster.pop({
+                type: 'error',
+                title: 'Error: Could not sign out',
+                timeout: 3000
+            });
         }
     }
 
-    function updateEmail() {
-        clearValidation();
-        auth.$updateEmail(vm.email).then(function() {
-            vm.message = "Email changed successfully!";
-        }).catch(function(error) {
-            vm.error = "Error: " + error;
-        });
-    }
+    // function updateEmail() {
+    //     auth.$updateEmail(vm.email).then(function() {
+    //         vm.message = "Email changed successfully!";
+    //     }).catch(function(error) {
+    //         vm.error = "Error: " + error;
+    //     });
+    // }
 
-    function updatePassword() {
-        clearValidation();
-        auth.$updatePassword(vm.password).then(function() {
-            vm.message = "Password changed successfully!";
-        }).catch(function(error) {
-            vm.error = "Error: " + error;
-        });
-    }
+    // function updatePassword() {
+    //     auth.$updatePassword(vm.password).then(function() {
+    //         vm.message = "Password changed successfully!";
+    //     }).catch(function(error) {
+    //         vm.error = "Error: " + error;
+    //     });
+    // }
 
-    function createUser() {
-        clearValidation();
+    // function createUser() {
+    //     // Create a new user
+    //     auth.$createUserWithEmailAndPassword(vm.email, vm.password)
+    //     .then(function(firebaseUser) {
+    //         vm.message = "User created with uid: " + firebaseUser.uid;
+    //     }).catch(function(error) {
+    //         vm.error = "Error: " + error;
+    //     });
+    // }
 
-        // Create a new user
-        auth.$createUserWithEmailAndPassword(vm.email, vm.password)
-        .then(function(firebaseUser) {
-            vm.message = "User created with uid: " + firebaseUser.uid;
-        }).catch(function(error) {
-            vm.error = "Error: " + error;
-        });
-    }
+    // function deleteUser() {
+    //     // Delete the currently signed-in user
+    //     auth.$deleteUser().then(function() {
+    //         toaster.pop({
+    //             type: 'success',
+    //             title: 'User deleted',
+    //             timeout: 3000
+    //         });
+    //     }).catch(function(error) {
+    //         toaster.pop({
+    //             type: 'error',
+    //             title: 'Error: Could not delete user',
+    //             timeout: 3000
+    //         });
+    //     });
+    // }
 
-    function deleteUser() {
-        clearValidation();
-
-        // Delete the currently signed-in user
-        auth.$deleteUser().then(function() {
-            vm.message = "User deleted";
-        }).catch(function(error) {
-            vm.error = "Error: " + error;
-        });
-    }
-
-    function getUserToken() {
-        auth.$getAuth().getToken(true).then(function(idToken) {
-            vm.message = "User idToken is: " + idToken;
-        }).catch(function(error) {
-            vm.error = "Error: " + error;
-        });
-    }
-
-    function clearValidation() {
-        vm.message = null;
-        vm.error = null;
-    }
+    // function getUserToken() {
+    //     auth.$getAuth().getToken(true).then(function(idToken) {
+    //         console.log(idToken);
+    //     }).catch(function(error) {
+    //         toaster.pop({
+    //             type: 'error',
+    //             title: 'Error: Could not get user token',
+    //             timeout: 3000
+    //         });
+    //     });
+    // }
 
     auth.$onAuthStateChanged(function(firebaseUser) {
         vm.loggedInUser = firebaseUser;

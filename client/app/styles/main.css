@@ -659,6 +659,10 @@ template {
 .player-bg {
   background: #ffffff;
 }
+.toast-top-custom {
+  top: 50px;
+  right: 0px;
+}
 /*Miscellaneous*/
 #smokeCanvas {
   background: black none repeat scroll 0 0;
