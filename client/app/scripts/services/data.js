@@ -8,7 +8,7 @@
  * Factory in the shockballApp.
  */
 angular.module('shockballApp')
-  .factory('Data', function ($http, utils) {
+  .factory('Data', function ($window, $http, utils) {
       var allTeams = {
           data: []
       };
@@ -29,13 +29,13 @@ angular.module('shockballApp')
       }
 
       function fetchPrimaryEvents(playerId) {
-          return $http.get('/events/primarySource/' + playerId.toString(), {cache: true}).then(function(response) {
+          return $http.get('/events/actor/' + playerId.toString(), {cache: true}).then(function(response) {
               if (response.data) {
                   var primarySourceEvents = utils.unpackObjectKeys(response.data);
 
                   _.forEach(primarySourceEvents, function(value) {
-                      var primarySourcePlayer = findPlayer(allPlayers.data, value, 'primarySource');
-                      var secondarySourcePlayer = findPlayer(allPlayers.data, value, 'secondarySource');
+                      var primarySourcePlayer = findPlayer(allPlayers.data, value, 'actor');
+                      var secondarySourcePlayer = findPlayer(allPlayers.data, value, 'oppActor');
                       value.primarySourceName = primarySourcePlayer.firstName;
                       value.secondarySourceName = secondarySourcePlayer.firstName;
                   });
@@ -45,13 +45,13 @@ angular.module('shockballApp')
       }
 
       function fetchSecondaryEvents(playerId) {
-          return $http.get('/events/secondarySource/' + playerId.toString(), {cache: true}).then(function(response) {
+          return $http.get('/events/oppActor/' + playerId.toString(), {cache: true}).then(function(response) {
               if (response.data) {
                   var secondarySourceEvents = utils.unpackObjectKeys(response.data);
 
                   _.forEach(secondarySourceEvents, function(value) {
-                      var primarySourcePlayer = findPlayer(allPlayers.data, value, 'primarySource');
-                      var secondarySourcePlayer = findPlayer(allPlayers.data, value, 'secondarySource');
+                      var primarySourcePlayer = findPlayer(allPlayers.data, value, 'actor');
+                      var secondarySourcePlayer = findPlayer(allPlayers.data, value, 'oppActor');
                       value.primarySourceName = primarySourcePlayer.firstName;
                       value.secondarySourceName = secondarySourcePlayer.firstName;
                   });
@@ -118,6 +118,31 @@ angular.module('shockballApp')
           });
       }
 
+      function postEvent(eventData) {
+          return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
+              var eventObj = {
+                 actor: eventData.actor,
+                 oppActor: eventData.oppActor || null,
+                 secondaryOppActor: eventData.secondaryOppActor || null,
+                 type: eventData.type,
+                 team: eventData.team || null,
+                 match: eventData.match || null,
+                 oppTeam:  eventData.oppTeam || null,
+                 time: new Date().toJSON()
+             };
+              return $http({
+                  method: 'POST',
+                  url: '/events/test',
+                  data: eventObj,
+                  params: {
+                      idToken: idToken
+                  }
+              });
+          }).catch(function(error) {
+             return console.log('error getting token: ' + error);
+          });
+      }
+
       function init() {
           getAllTeams();
           getAllPlayers();
@@ -132,6 +157,7 @@ angular.module('shockballApp')
         fetchHomeMatches: fetchHomeMatches,
         fetchAwayMatches: fetchAwayMatches,
         fetchPrimaryEvents: fetchPrimaryEvents,
-        fetchSecondaryEvents: fetchSecondaryEvents
+        fetchSecondaryEvents: fetchSecondaryEvents,
+        postEvent: postEvent
       };
   });

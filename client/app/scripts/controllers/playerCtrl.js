@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('PlayerCtrl', function ($scope, $stateParams, Data, backgroundSvc) {
+.controller('PlayerCtrl', function ($http, $scope, $stateParams, Data, backgroundSvc) {
     var vm = this;
     vm.playerId = $stateParams.playerId;
     vm.playerData = {};
