@@ -44,17 +44,23 @@
             }
         }
         .sign-in-button {
-            background-color: #3498DB;
-            color: #ffffff;
+            background-color: @secondary-background-color;
+            border: @secondary-border;
+            color: @nav-font-color;
             &:hover {
-                background-color: #0676BE;
+                color: @secondary-font-color;
+                border: @secondary-hover-border;
+                background-color: @secondary-hover-background;
             }
         }
         .sign-out-button {
-            background-color: #424040;
-            color: #ffffff;
+            background-color: @secondary-background-color;
+            border: @secondary-border;
+            color: @nav-font-color;
             &:hover {
-                background-color: #000000;
+                color: @secondary-font-color;
+                border: @secondary-hover-border;
+                background-color: @secondary-hover-background;
             }
         }
     }
@@ -62,7 +68,7 @@
         display: flex;
         .link {
             flex:1;
-            color: #3498DB;
+            color: @secondary-font-color;
             text-decoration: underline;
             transition: all .2s ease-in;
             font-size:0.8em;
