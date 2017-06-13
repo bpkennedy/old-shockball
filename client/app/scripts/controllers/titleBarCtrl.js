@@ -8,15 +8,20 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('TitleBarCtrl', function ($scope, $state, auth, currentUser) {
+.controller('TitleBarCtrl', function ($rootScope, $scope, $state, auth, currentUser) {
     var vm = this;
     vm.loggedInUser = null;
     vm.isRunningEngine = false;
     vm.goToLogin = goToLogin;
     vm.goToHome = goToHome;
+    vm.openPresence = openPresence;
 
     function init() {
         setUser();
+    }
+
+    function openPresence() {
+        $rootScope.$broadcast('titlebar: open nav');
     }
 
     function goToHome() {

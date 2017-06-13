@@ -29,6 +29,7 @@
         <!-- <smoke></smoke> -->
     </div>
     <div ui-view="titleBar" class="titlebar-container"></div>
+    <div ui-view="presencePanel" class="presence-container"></div>
     <div ui-view="container" class="main-container"></div>
 
     <!-- Insert this line above script imports  -->
@@ -64,6 +65,7 @@
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.js"></script>
     <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
+    <script src="bower_components/Idle.Js/build/idle.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -88,6 +90,7 @@
     <script src="scripts/directives/tooltip.js"></script>
     <script src="scripts/controllers/SignupCtrl.js"></script>
     <script src="scripts/controllers/ForgotpasswordCtrl.js"></script>
+    <script src="scripts/controllers/PresenceCtrl.js"></script>
     <!-- endbuild -->
     <script>if (window.module) module = window.module;</script>
 </body>

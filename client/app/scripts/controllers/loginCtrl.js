@@ -8,16 +8,18 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('LoginCtrl', function ($scope, auth, currentUser, toaster) {
+.controller('LoginCtrl', function ($window, $rootScope, $scope, auth, currentUser, toaster) {
     var vm = this;
     vm.email = null;
     vm.password = null;
     vm.handle = null;
     vm.loggedInUser = null;
+    vm.pic = null;
     // vm.createUser = createUser;
     // vm.deleteUser = deleteUser;
     vm.signIn = signIn;
     vm.signOut = signOut;
+    vm.updatePic = updatePic;
     // vm.updateEmail = updateEmail;
     // vm.updatePassword = updatePassword;
     // vm.getUserToken = getUserToken;
@@ -36,7 +38,6 @@ angular.module('shockballApp')
         // Sign in with email/password
         auth.$signInWithEmailAndPassword(vm.email, vm.password)
         .then(function(firebaseUser) {
-            console.log('user has signed in and is: ');
             console.log(firebaseUser);
             vm.email = null;
             vm.password = null;
@@ -45,6 +46,7 @@ angular.module('shockballApp')
                 title: 'Welcome back',
                 timeout: 3000
             });
+            $rootScope.$broadcast('login:signed in');
         }).catch(function(error) {
             console.log(error);
             toaster.pop({
@@ -56,23 +58,63 @@ angular.module('shockballApp')
     }
 
     function signOut() {
+        var userTempHolder = angular.copy(vm.loggedInUser);
         // Sign out.  Null is returned
-        auth.$signOut();
-        $scope.$applyAsync();
-        if (!currentUser) {
+        auth.$signOut().then(function() {
             toaster.pop({
                 type: 'success',
                 title: 'Success',
                 body: 'Signed out.',
                 timeout: 3000
             });
+            $rootScope.$broadcast('login:signed out', { user: userTempHolder });
+        });
+    }
+
+    function updatePic() {
+        var rawAuth = $window.firebase.auth().currentUser;
+        if (vm.pic) {
+            rawAuth.updateProfile({
+                photoURL: vm.pic
+            }).then(function() {
+                updateProfilePic(rawAuth);
+            }).catch(function(error) {
+                console.log(error);
+                toaster.pop({
+                    type: 'error',
+                    title: 'Error updating user display name.',
+                    timeout: 3000
+                });
+            });
         } else {
             toaster.pop({
                 type: 'error',
-                title: 'Error: Could not sign out',
+                title: 'You must enter a url to change your picture.',
                 timeout: 3000
             });
         }
+    }
+
+    function updateProfilePic(user) {
+        var users = $window.firebase.database().ref('users');
+        users.child(user.uid).update({
+            photoUrl: user.photoURL
+        }).then(function(response) {
+            console.log(response);
+            toaster.pop({
+                type: 'success',
+                title: 'User profile created',
+                timeout: 3000
+            });
+            vm.pic = null;
+        }).catch(function(error) {
+            console.log(error);
+            toaster.pop({
+                type: 'error',
+                title: 'Error updating user profile pic property',
+                timeout: 3000
+            });
+        });
     }
 
     // function updateEmail() {

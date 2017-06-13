@@ -1,6 +1,7 @@
 <div class="login-wrapper">
-    <h2>Log In</h2>
-    <div class="login-inputs">
+    <div class="login-inputs" ng-if="!vm.loggedInUser">
+        <h2>Log In</h2>
+
         <div class="form-item">
             <label for="email" >Email Address:</label>
             <input type="text" name="email" ng-model="vm.email">
@@ -10,8 +11,16 @@
             <input type="password" ng-model="vm.password">
         </div>
     </div>
+    <div class="login-inputs" ng-if="vm.loggedInUser">
+        <h2>Account Settings</h2>
+        <div class="form-item">
+            <label for="pic">Player Profile Image URL</label>
+            <input type="url" ng-model="vm.pic">
+        </div>
+    </div>
     <div class="buttons">
         <div ng-cloak class="button sign-in-button" ng-click="vm.signIn()" ng-if="!vm.loggedInUser">Sign In</div>
+        <div ng-cloak class="button sign-in-button" ng-click="vm.updatePic()" ng-if="vm.loggedInUser">Update Photo</div>
         <div ng-cloak class="button sign-out-button" ng-click="vm.signOut()" ng-if="vm.loggedInUser">Sign Out</div>
     </div>
     <div class="links">

@@ -36,6 +36,11 @@ angular
                 templateUrl: 'views/titleBar.html',
                 controller: 'TitleBarCtrl',
                 controllerAs: 'vm'
+            },
+            'presencePanel@': {
+                templateUrl: 'views/presence.html',
+                controller: 'PresenceCtrl',
+                controllerAs: 'vm'
             }
         },
         resolve: {
@@ -43,9 +48,11 @@ angular
             'auth': 'auth',
             // Auth refers to our $firebaseAuth wrapper in the factory below
             'currentUser': ['auth', function(auth) {
+
                 // $requireSignIn returns a promise so the resolve waits for it to complete
                 // If the promise is rejected, it will throw a $stateChangeError (see above)
                 return auth.$waitForSignIn();
+
             }]
         }
     })
@@ -121,11 +128,10 @@ angular
         }
     });
 })
-.config(function () {
-})
 .run(['$rootScope', 'firebaseSvc', '$state', 'presence', function ($rootScope, firebaseSvc, $state, presence) {
     firebaseSvc.initialize();
     presence.init();
+    
     // for authentication, managing the state if error..
     $rootScope.$on('$stateChangeError',
     function (event, toState, toParams, fromState, fromParams, error) {

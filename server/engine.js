@@ -33,9 +33,9 @@ function trackPresence() {
     dbRoot.on('value', function(snapshot) {
       if (snapshot.val()) {
         presenceRef.onDisconnect().remove();
-        presenceRef.set(true);
+        presenceRef.child('app').set(true);
     } else {
-        presenceRef.set(false);
+        presenceRef.child('app').set(false);
     }
     });
 }
