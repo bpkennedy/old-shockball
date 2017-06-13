@@ -19,6 +19,7 @@
     "firebase-admin": "^5.0.0",
     "http-proxy": "^1.14.0",
     "jade": "~1.11.0",
+    "joi": "^10.5.2",
     "lodash": "^4.17.4",
     "morgan": "~1.7.0",
     "querybase": "^0.6.0",
