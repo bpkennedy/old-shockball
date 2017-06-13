@@ -4,7 +4,7 @@
         <li ng-repeat="person in vm.presenceUsers" ng-if="person.handle">
             <div class="presence-person">
                 <div class="presence-status">
-                    <img ng-src="{{person.photoURL || vm.defaulPic}}" ng-class="vm.getPresence(person.class)" alt="">
+                    <img ng-src="{{person.photoURL}}" fallback-src="../images/defaultImage.png" ng-class="vm.getPresence(person.class)" alt="">
                 </div>
                 <div class="handle">
                     <div class="handle-text">

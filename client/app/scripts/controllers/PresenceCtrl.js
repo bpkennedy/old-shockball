@@ -15,6 +15,7 @@ angular.module('shockballApp')
     vm.userRef = {};
     vm.presenceUsers = [];
     vm.defaultPic = '../images/defaultImage.png';
+    vm.failedPlayerPic = false;
     vm.openPanel = false;
     vm.getPresence = getPresence;
     var idle = new window.Idle({

@@ -1,6 +1,3 @@
-@primary-background-color: #3498db;
-@primary-font-color: #ffffff;
-
 .titleBar-wrapper {
     display: flex;
     align-items: center;
@@ -63,7 +60,7 @@
                 width: 10px;
                 height: 10px;
                 top: 3px;
-                transition: all .4s ease;
+                transition: @transition;
                 .tooltip-text {
                     background-color: #ffffff!important;
                     color: #2ecc71;
@@ -72,7 +69,7 @@
                     cursor: pointer;
                     .tooltip-text {
                         opacity: 1;
-                        transition: all .4s ease;
+                        transition: @transition;
                     }
                 }
             }
@@ -89,7 +86,7 @@
                     cursor: pointer;
                     .tooltip-text {
                         opacity: 1;
-                        transition: all .4s ease;
+                        transition: @transition;
                     }
                 }
             }
@@ -111,7 +108,70 @@
                 opacity: 0.0;
                 padding: 10px;
                 border-radius: 3px;
-                transition: all .4s ease;
+                transition: @transition;
+            }
+        }
+    }
+    .nav-bar {
+        position: absolute;
+        width: 100%;
+        top: 50px;
+        height: 50px;
+        background-color: @secondary-background-color;
+        color: #ffffff;
+        .nav-item-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            .nav-item {
+                transition: @transition;
+                border-right:1px solid @secondary-font-color;
+                position: relative;
+                flex:1;
+                font-weight: 300;
+                height: 100%;
+                line-height: 50px;
+                transition: @transition;
+                i {
+                    position: absolute;
+                    left: 0;
+                    top: 10px;
+                    padding-right: 10px;
+                    right: 72px;
+                    font-size: 1.8em;
+                    color: @secondary-font-color;
+                    @media @breakpoint {
+                        padding: 0;
+                        right: 0;
+                    }
+                }
+                span {
+                    @media @breakpoint {
+                        display: none;
+                    }
+                }
+                .fa-bullhorn {
+                    padding-right: 25px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    background-color: #4578A6;
+                    transition: @transition;
+                }
+            }
+            .active {
+                background-color: @secondary-font-color;
+                transition: @transition;
+                i {
+                    color: #ffffff;
+                    transition: @transition;
+                }
             }
         }
     }

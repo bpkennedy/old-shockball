@@ -22,7 +22,8 @@ angular
     'chart.js',
     'agGrid',
     'firebase',
-    'toaster'
+    'toaster',
+    'dcbImgFallback'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -87,6 +88,16 @@ angular
             }
         }
     })
+    .state('root.events', {
+        url:'/events',
+        views: {
+            'container@': {
+                templateUrl: 'views/events.html',
+                controller: 'EventsCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
     .state('root.profile', {
         url:'/profile',
         views: {
@@ -131,7 +142,7 @@ angular
 .run(['$rootScope', 'firebaseSvc', '$state', 'presence', function ($rootScope, firebaseSvc, $state, presence) {
     firebaseSvc.initialize();
     presence.init();
-    
+
     // for authentication, managing the state if error..
     $rootScope.$on('$stateChangeError',
     function (event, toState, toParams, fromState, fromParams, error) {

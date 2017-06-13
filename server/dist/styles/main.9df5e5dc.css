@@ -406,8 +406,8 @@ template {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #3498db;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #757677;
   height: 50px;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
@@ -465,7 +465,7 @@ template {
   width: 10px;
   height: 10px;
   top: 3px;
-  transition: all .4s ease;
+  transition: all 0.2s ease;
 }
 .titleBar-wrapper .user .indicators .on-indicator .tooltip-text {
   background-color: #ffffff!important;
@@ -476,7 +476,7 @@ template {
 }
 .titleBar-wrapper .user .indicators .on-indicator:hover .tooltip-text {
   opacity: 1;
-  transition: all .4s ease;
+  transition: all 0.2s ease;
 }
 .titleBar-wrapper .user .indicators .off-indicator {
   position: absolute;
@@ -493,7 +493,7 @@ template {
 }
 .titleBar-wrapper .user .indicators .off-indicator:hover .tooltip-text {
   opacity: 1;
-  transition: all .4s ease;
+  transition: all 0.2s ease;
 }
 .titleBar-wrapper .user .user-info {
   display: inline-block;
@@ -510,7 +510,71 @@ template {
   opacity: 0.0;
   padding: 10px;
   border-radius: 3px;
-  transition: all .4s ease;
+  transition: all 0.2s ease;
+}
+.titleBar-wrapper .nav-bar {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  height: 50px;
+  background-color: #386B98;
+  color: #ffffff;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item {
+  border-right: 1px solid #2d567a;
+  position: relative;
+  flex: 1;
+  font-weight: 300;
+  height: 100%;
+  line-height: 50px;
+  transition: all 0.2s ease;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item i {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  padding-right: 10px;
+  right: 72px;
+  font-size: 1.8em;
+  color: #2d567a;
+}
+@media only screen and (max-width: 568px) {
+  .titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item i {
+    padding: 0;
+    right: 0;
+  }
+}
+@media only screen and (max-width: 568px) {
+  .titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item span {
+    display: none;
+  }
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item .fa-bullhorn {
+  padding-right: 25px;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item:hover {
+  cursor: pointer;
+  background-color: #4578A6;
+  transition: all 0.2s ease;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .active {
+  background-color: #2d567a;
+  transition: all 0.2s ease;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .active i {
+  color: #ffffff;
+  transition: all 0.2s ease;
 }
 .player-wrapper {
   width: 100%;
@@ -578,7 +642,7 @@ template {
 }
 .player-wrapper .center-column .tables .panel > div:hover {
   cursor: pointer;
-  background-color: #3498db;
+  background-color: #ffffff;
 }
 .login-wrapper {
   width: 250px;
@@ -622,25 +686,31 @@ template {
   transition: all 0.2s ease-in;
 }
 .login-wrapper .buttons .sign-in-button {
-  background-color: #3498DB;
+  background-color: #386B98;
+  border: 3px solid #386B98;
   color: #ffffff;
 }
 .login-wrapper .buttons .sign-in-button:hover {
-  background-color: #0676BE;
+  color: #2d567a;
+  border: 3px solid #2d567a;
+  background-color: #ffffff;
 }
 .login-wrapper .buttons .sign-out-button {
-  background-color: #424040;
+  background-color: #386B98;
+  border: 3px solid #386B98;
   color: #ffffff;
 }
 .login-wrapper .buttons .sign-out-button:hover {
-  background-color: #000000;
+  color: #2d567a;
+  border: 3px solid #2d567a;
+  background-color: #ffffff;
 }
 .login-wrapper .links {
   display: flex;
 }
 .login-wrapper .links .link {
   flex: 1;
-  color: #3498DB;
+  color: #2d567a;
   text-decoration: underline;
   transition: all 0.2s ease-in;
   font-size: 0.8em;
@@ -661,7 +731,7 @@ template {
   width: 250px;
   position: fixed;
   right: -250px;
-  background: rgba(211, 211, 211, 0.5);
+  background-color: #f5f6f7;
   transition: all 0.2s ease-in;
   overflow-x: hidden;
 }
@@ -675,10 +745,12 @@ template {
   padding: 0;
 }
 .presence-wrapper ul .presence-header {
-  padding: 15px;
+  padding: 14px;
   text-align: center;
   font-size: 1.2em;
-  color: #777;
+  background-color: #393f45;
+  color: #eaebec;
+  font-weight: 300;
 }
 .presence-wrapper ul .presence-person {
   position: relative;
@@ -727,6 +799,17 @@ template {
 .toast-top-custom {
   top: 50px;
   right: 0px;
+}
+.main-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 100px;
+  background-color: #eaebec;
+  z-index: -1;
+}
+label {
+  padding-bottom: 5px;
 }
 /*Miscellaneous*/
 #smokeCanvas {
