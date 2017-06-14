@@ -21,7 +21,7 @@ angular.module('shockballApp')
     }
 
     function openPresence() {
-        $rootScope.$broadcast('titlebar: open nav');
+        $rootScope.$broadcast('titlebar: toggle nav');
     }
 
     function goToHome() {
@@ -49,6 +49,11 @@ angular.module('shockballApp')
     });
 
     $scope.$on('presence:app false', function() {
+        vm.isRunningEngine = false;
+        $scope.$applyAsync();
+    });
+
+    $scope.$on('presence:close panel', function() {
         vm.isRunningEngine = false;
         $scope.$applyAsync();
     });

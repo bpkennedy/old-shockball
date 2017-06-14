@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('SignupCtrl', function ($rootScope, $window, $state, auth, toaster) {
+.controller('SignupCtrl', function ($rootScope, $window, $state, auth) {
     var vm = this;
     vm.email = null;
     vm.password = null;
@@ -25,18 +25,16 @@ angular.module('shockballApp')
                 createProfile(firebaseUser);
                 $state.go('root.dashboard');
             }).catch(function(error) {
-                console.log(error);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error: User could not be created.',
-                    timeout: 3000
+                $window.iziToast.error({
+                    icon: 'fa fa-warning',
+                    message: error
                 });
             });
         } else {
-            toaster.pop({
-                type: 'error',
-                title: 'Passwords do not match',
-                timeout: 3000
+            $window.iziToast.warning({
+                title: 'Warning',
+                icon: 'fa fa-exclamation-circle',
+                message: 'Passwords do not match.'
             });
         }
     }
@@ -47,12 +45,11 @@ angular.module('shockballApp')
             displayName: vm.handle
         }).then(function() {
             //nothing needed
-        }).catch(function(error) {
-            console.log(error);
-            toaster.pop({
-                type: 'error',
-                title: 'Error updating user display name.',
-                timeout: 3000
+        }).catch(function() {
+            $window.iziToast.error({
+                title: 'Warning',
+                icon: 'fa fa-warning',
+                message: 'Could not update user display name.'
             });
         });
     }
@@ -66,10 +63,10 @@ angular.module('shockballApp')
             email: user.email,
             created: date
         }).then(function() {
-            toaster.pop({
-                type: 'success',
-                title: 'User profile created',
-                timeout: 3000
+            $window.iziToast.success({
+                title: 'OK',
+                icon: 'fa fa-thumbs-o-up',
+                message: 'User profile created'
             });
         });
     }

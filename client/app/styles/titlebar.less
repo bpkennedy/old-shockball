@@ -165,6 +165,26 @@
                     transition: @transition;
                 }
             }
+            .presence {
+                max-width: 70px;
+                position: relative;
+                i {
+                    position: absolute;
+                    width: 40px;
+                    height: 40px;
+                    top: 4px;
+                    left: 15px;
+                    padding: 0;
+                    border-radius: 50%;
+                    border: 1px solid @secondary-font-color;
+                    &:before {
+                        position: absolute;
+                        top: 8px;
+                        left: 8px;
+                        font-size: 0.8em;
+                    }
+                }
+            }
             .active {
                 background-color: @secondary-font-color;
                 transition: @transition;

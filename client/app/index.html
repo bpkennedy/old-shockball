@@ -12,7 +12,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css" />
+    <link rel="stylesheet" href="bower_components/izitoast/dist/css/iziToast.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -23,14 +23,14 @@
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <toaster-container toaster-options="{ 'position-class': 'toast-top-custom' }"></toaster-container>
-
-    <div class="smoke-directive-holder">
-        <!-- <smoke></smoke> -->
+    <div id="wrapper">
+        <div class="smoke-directive-holder">
+            <!-- <smoke></smoke> -->
+        </div>
+        <div ui-view="titleBar" class="titlebar-container"></div>
+        <div ui-view="presencePanel" class="presence-container"></div>
+        <div ui-view="container" class="main-container"></div>
     </div>
-    <div ui-view="titleBar" class="titlebar-container"></div>
-    <div ui-view="presencePanel" class="presence-container"></div>
-    <div ui-view="container" class="main-container"></div>
 
     <!-- Insert this line above script imports  -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -64,9 +64,9 @@
     <script src="bower_components/moment-countdown/dist/moment-countdown.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.js"></script>
-    <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
     <script src="bower_components/Idle.Js/build/idle.js"></script>
     <script src="bower_components/angular-img-fallback/angular.dcb-img-fallback.min.js"></script>
+    <script src="bower_components/izitoast/dist/js/iziToast.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -93,6 +93,7 @@
     <script src="scripts/controllers/ForgotpasswordCtrl.js"></script>
     <script src="scripts/controllers/PresenceCtrl.js"></script>
     <script src="scripts/controllers/EventsCtrl.js"></script>
+    <script src="scripts/services/iziToast.js"></script>
     <!-- endbuild -->
     <script>if (window.module) module = window.module;</script>
 </body>

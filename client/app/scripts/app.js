@@ -22,7 +22,6 @@ angular
     'chart.js',
     'agGrid',
     'firebase',
-    'toaster',
     'dcbImgFallback'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -139,7 +138,8 @@ angular
         }
     });
 })
-.run(['$rootScope', 'firebaseSvc', '$state', 'presence', function ($rootScope, firebaseSvc, $state, presence) {
+.run(['$rootScope', 'firebaseSvc', '$state', 'presence', 'iziToast', function ($rootScope, firebaseSvc, $state, presence, iziToast) {
+    iziToast.init();
     firebaseSvc.initialize();
     presence.init();
 

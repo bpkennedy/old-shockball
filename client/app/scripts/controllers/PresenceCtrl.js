@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('PresenceCtrl', function ($scope, $window, auth, currentUser, toaster) {
+.controller('PresenceCtrl', function ($rootScope, $scope, $window, auth) {
     var vm = this;
     vm.userId = '';
     vm.amOnline = {};
@@ -17,6 +17,7 @@ angular.module('shockballApp')
     vm.defaultPic = '../images/defaultImage.png';
     vm.failedPlayerPic = false;
     vm.openPanel = false;
+    vm.togglePanel = togglePanel;
     vm.getPresence = getPresence;
     var idle = new window.Idle({
         onAway: onAway,
@@ -104,15 +105,18 @@ angular.module('shockballApp')
         }
     }
 
+    function togglePanel() {
+        vm.openPanel = !vm.openPanel;
+    }
+
     $window.firebase.database().ref('presence').on("value", function(snapshot) {
         vm.presenceUsers = snapshot.val();
         $scope.$applyAsync();
     }, function(error) {
-        console.log(error);
-        toaster.pop({
-            type: 'error',
-            title: 'Error: could not get presence users',
-            timeout: 3000
+        $window.iziToast.error({
+            title: 'Error',
+            icon: 'fa fa-warning',
+            message: error
         });
     });
 
@@ -124,8 +128,8 @@ angular.module('shockballApp')
         init();
     });
 
-    $scope.$on('titlebar: open nav', function() {
-        vm.openPanel = !vm.openPanel;
+    $scope.$on('titlebar: toggle nav', function() {
+        togglePanel();
     });
 
     init();
