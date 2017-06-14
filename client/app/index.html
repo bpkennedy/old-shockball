@@ -24,9 +24,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div id="wrapper">
-        <div class="smoke-directive-holder">
-            <!-- <smoke></smoke> -->
-        </div>
+        <loader></loader>
         <div ui-view="titleBar" class="titlebar-container"></div>
         <div ui-view="presencePanel" class="presence-container"></div>
         <div ui-view="container" class="main-container"></div>
@@ -94,6 +92,7 @@
     <script src="scripts/controllers/PresenceCtrl.js"></script>
     <script src="scripts/controllers/EventsCtrl.js"></script>
     <script src="scripts/services/iziToast.js"></script>
+    <script src="scripts/directives/loader.js"></script>
     <!-- endbuild -->
     <script>if (window.module) module = window.module;</script>
 </body>
