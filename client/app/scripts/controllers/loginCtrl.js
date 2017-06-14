@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('LoginCtrl', function ($window, $rootScope, $scope, auth, currentUser) {
+.controller('LoginCtrl', function ($window, $rootScope, $scope, auth, currentUser, loaderSvc) {
     var vm = this;
     vm.email = null;
     vm.password = null;
@@ -35,6 +35,7 @@ angular.module('shockballApp')
     }
 
     function signIn() {
+        loaderSvc.toggleOn();
         // Sign in with email/password
         auth.$signInWithEmailAndPassword(vm.email, vm.password)
         .then(function(firebaseUser) {
@@ -47,11 +48,13 @@ angular.module('shockballApp')
                 message: 'Train hard.  Git gud.',
                 position: 'bottomCenter'
             });
+            loaderSvc.toggleOff();
         }).catch(function(error) {
             $window.iziToast.error({
                 icon: 'fa fa-warning',
                 message: error
             });
+            loaderSvc.toggleOff();
         });
     }
 
@@ -71,6 +74,7 @@ angular.module('shockballApp')
     function updatePic() {
         var rawAuth = $window.firebase.auth().currentUser;
         if (vm.pic) {
+            loaderSvc.toggleOn();
             rawAuth.updateProfile({
                 photoURL: vm.pic
             }).then(function() {
@@ -80,6 +84,7 @@ angular.module('shockballApp')
                     icon: 'fa fa-warning',
                     message: error,
                 });
+                loaderSvc.toggleOff();
             });
         } else {
             $window.iziToast.warning({
@@ -102,11 +107,13 @@ angular.module('shockballApp')
                 message: 'User profile updated'
             });
             vm.pic = null;
+            loaderSvc.toggleOff();
         }).catch(function(error) {
             $window.iziToast.error({
                 icon: 'fa fa-warning',
                 message: error,
             });
+            loaderSvc.toggleOff();
         });
     }
 

@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('SignupCtrl', function ($rootScope, $window, $state, auth) {
+.controller('SignupCtrl', function ($rootScope, $window, $state, auth, loaderSvc) {
     var vm = this;
     vm.email = null;
     vm.password = null;
@@ -18,6 +18,7 @@ angular.module('shockballApp')
 
     function createUser() {
         if (vm.password === vm.passwordConfirm) {
+            loaderSvc.toggleOn();
             // Create a new user
             auth.$createUserWithEmailAndPassword(vm.email, vm.password)
             .then(function(firebaseUser) {
@@ -29,6 +30,7 @@ angular.module('shockballApp')
                     icon: 'fa fa-warning',
                     message: error
                 });
+                loaderSvc.toggleOff();
             });
         } else {
             $window.iziToast.warning({
@@ -45,12 +47,14 @@ angular.module('shockballApp')
             displayName: vm.handle
         }).then(function() {
             //nothing needed
+            loaderSvc.toggleOff();
         }).catch(function() {
             $window.iziToast.error({
                 title: 'Warning',
                 icon: 'fa fa-warning',
                 message: 'Could not update user display name.'
             });
+            loaderSvc.toggleOff();
         });
     }
 
@@ -68,6 +72,13 @@ angular.module('shockballApp')
                 icon: 'fa fa-thumbs-o-up',
                 message: 'User profile created'
             });
+            loaderSvc.toggleOff();
+        }).catch(function(error) {
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: error
+            });
+            loaderSvc.toggleOff();
         });
     }
 
