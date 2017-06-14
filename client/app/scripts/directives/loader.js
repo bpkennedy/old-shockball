@@ -9,14 +9,29 @@
 angular.module('shockballApp')
   .directive('loader', function () {
     return {
-      templateUrl: '/views/loader.html',
       restrict: 'EA',
       scope: {
           title: '@'
       },
       controller: 'LoaderCtrl',
       controllerAs: 'vm',
-      bindToController: true
+      bindToController: true,
+      template: "<div class=\"loader\" ng-if=\"vm.show\">" +
+        "  <div class=\"pitch\"></div>" +
+        "  <div class=\"circle\"></div>" +
+        "  <div class=\"players\">" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "    <div class=\"player\"></div>" +
+        "  </div>" +
+        "</div>",
     };
 });
 
