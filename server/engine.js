@@ -12,6 +12,7 @@ var matches = [];
 var count = 1;
 
 function initializeEngine() {
+    setPresenceAtStartup();
     trackPresence();
     setMatchesListener();
 }
@@ -27,6 +28,10 @@ function setMatchesListener() {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
+}
+
+function setPresenceAtStartup() {
+    presenceRef.child('app').set(true);
 }
 
 function trackPresence() {
