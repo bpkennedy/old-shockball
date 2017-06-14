@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('LoginCtrl', function ($window, $rootScope, $scope, auth, currentUser, toaster) {
+.controller('LoginCtrl', function ($window, $rootScope, $scope, auth, currentUser) {
     var vm = this;
     vm.email = null;
     vm.password = null;
@@ -38,21 +38,19 @@ angular.module('shockballApp')
         // Sign in with email/password
         auth.$signInWithEmailAndPassword(vm.email, vm.password)
         .then(function(firebaseUser) {
-            console.log(firebaseUser);
             vm.email = null;
             vm.password = null;
-            toaster.pop({
-                type: 'success',
-                title: 'Welcome back',
-                timeout: 3000
-            });
             $rootScope.$broadcast('login:signed in');
+            $window.iziToast.info({
+                icon: 'fa fa-info-circle',
+                title: 'Yo, '  + firebaseUser.displayName,
+                message: 'Train hard.  Git gud.',
+                position: 'bottomCenter'
+            });
         }).catch(function(error) {
-            console.log(error);
-            toaster.pop({
-                type: 'error',
-                title: 'Error: could not sign in',
-                timeout: 3000
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: error
             });
         });
     }
@@ -61,11 +59,10 @@ angular.module('shockballApp')
         var userTempHolder = angular.copy(vm.loggedInUser);
         // Sign out.  Null is returned
         auth.$signOut().then(function() {
-            toaster.pop({
-                type: 'success',
-                title: 'Success',
-                body: 'Signed out.',
-                timeout: 3000
+            $window.iziToast.info({
+                icon: 'fa fa-info-circle',
+                message: 'Signed out',
+                position: 'bottomCenter'
             });
             $rootScope.$broadcast('login:signed out', { user: userTempHolder });
         });
@@ -79,18 +76,16 @@ angular.module('shockballApp')
             }).then(function() {
                 updateProfilePic(rawAuth);
             }).catch(function(error) {
-                console.log(error);
-                toaster.pop({
-                    type: 'error',
-                    title: 'Error updating user display name.',
-                    timeout: 3000
+                $window.iziToast.error({
+                    icon: 'fa fa-warning',
+                    message: error,
                 });
             });
         } else {
-            toaster.pop({
-                type: 'error',
-                title: 'You must enter a url to change your picture.',
-                timeout: 3000
+            $window.iziToast.warning({
+                title: 'Warning',
+                icon: 'fa fa-exclamation-circle',
+                message: 'You must enter a url to change your picture.',
             });
         }
     }
@@ -101,18 +96,16 @@ angular.module('shockballApp')
             photoUrl: user.photoURL
         }).then(function(response) {
             console.log(response);
-            toaster.pop({
-                type: 'success',
-                title: 'User profile created',
-                timeout: 3000
+            $window.iziToast.success({
+                title: 'OK',
+                icon: 'fa fa-thumbs-o-up',
+                message: 'User profile updated'
             });
             vm.pic = null;
         }).catch(function(error) {
-            console.log(error);
-            toaster.pop({
-                type: 'error',
-                title: 'Error updating user profile pic property',
-                timeout: 3000
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: error,
             });
         });
     }

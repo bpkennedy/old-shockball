@@ -1,7 +1,12 @@
 <div class="presence-wrapper" ng-class="{ 'open': vm.openPanel }">
     <ul>
-        <li class="presence-header">Player Presence-{{vm.presenceUsers.length + 1}}</li>
-        <li ng-repeat="person in vm.presenceUsers" ng-if="person.handle">
+        <li class="presence-header">
+            <span>Player Presence-{{vm.presenceUsers.length + 1}}</span>
+            <div class="close-presence" ng-click="vm.togglePanel()">
+                <i class="fa fa-close"></i>
+            </div>
+        </li>
+        <li class="presence-item" ng-repeat="person in vm.presenceUsers" ng-if="person.handle">
             <div class="presence-person">
                 <div class="presence-status">
                     <img ng-src="{{person.photoURL}}" fallback-src="../images/defaultImage.png" ng-class="vm.getPresence(person.class)" alt="">

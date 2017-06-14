@@ -7,7 +7,7 @@
     </div>
     <div class="user">
         <div class="user-inner">
-            <div class="indicators" ng-click="vm.openPresence()">
+            <div class="indicators">
                 <div class="on-indicator" tooltip title="Simulation Online" ng-if="vm.isRunningEngine"></div>
                 <div class="off-indicator" tooltip title="Simulation Offline" ng-if="!vm.isRunningEngine"></div>
                 <i class="fa fa-lock"></i>
@@ -27,6 +27,9 @@
             <li class="nav-item" ui-sref="root.events" ui-sref-active="active">
                 <i class="fa fa-bullhorn"></i>
                 <span>Events</span>
+            </li>
+            <li class="nav-item presence" ng-click="vm.openPresence()">
+                <i class="fa fa-users"></i>
             </li>
         </ul>
     </div>

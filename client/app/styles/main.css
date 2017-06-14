@@ -568,6 +568,26 @@ template {
   background-color: #4578A6;
   transition: all 0.2s ease;
 }
+.titleBar-wrapper .nav-bar .nav-item-wrapper .presence {
+  max-width: 70px;
+  position: relative;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .presence i {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 4px;
+  left: 15px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #2d567a;
+}
+.titleBar-wrapper .nav-bar .nav-item-wrapper .presence i:before {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 0.8em;
+}
 .titleBar-wrapper .nav-bar .nav-item-wrapper .active {
   background-color: #2d567a;
   transition: all 0.2s ease;
@@ -650,6 +670,7 @@ template {
   padding-top: 25px;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
+  color: #757677;
 }
 .login-wrapper h2 {
   margin-top: 0;
@@ -726,44 +747,87 @@ template {
 .login-wrapper .links .forgot-password-link {
   text-align: right;
 }
-.presence-wrapper {
+.presence-container {
+  width: 100%;
   height: 100%;
-  width: 250px;
+}
+.presence-container .presence-wrapper {
+  height: 100%;
+  width: 300px;
   position: fixed;
-  right: -250px;
+  right: -300px;
   background-color: #f5f6f7;
   transition: all 0.2s ease-in;
   overflow-x: hidden;
+  z-index: 2;
 }
-.presence-wrapper.open {
+@media only screen and (max-width: 568px) {
+  .presence-container .presence-wrapper {
+    width: 100%;
+    right: -100%;
+  }
+}
+.presence-container .presence-wrapper.open {
   right: 0px;
   transition: all 0.2s ease-in;
 }
-.presence-wrapper ul {
+.presence-container .presence-wrapper ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.presence-wrapper ul .presence-header {
+.presence-container .presence-wrapper ul .close-presence {
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  width: 22px;
+  height: 22px;
+  color: #EAEBEC;
+}
+.presence-container .presence-wrapper ul .close-presence:hover {
+  cursor: pointer;
+  color: #ffffff;
+}
+.presence-container .presence-wrapper ul .close-presence i {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  position: relative;
+}
+.presence-container .presence-wrapper ul .close-presence i:before {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 0.8em;
+  font-weight: 300;
+}
+.presence-container .presence-wrapper ul .presence-header {
   padding: 14px;
-  text-align: center;
+  text-align: left;
   font-size: 1.2em;
   background-color: #393f45;
   color: #eaebec;
   font-weight: 300;
 }
-.presence-wrapper ul .presence-person {
+@media only screen and (max-width: 568px) {
+  .presence-container .presence-wrapper ul li.presence-item {
+    padding: 5px;
+    padding-left: 20px;
+  }
+}
+.presence-container .presence-wrapper ul li .presence-person {
   position: relative;
   width: 100%;
   height: 50px;
 }
-.presence-wrapper ul .presence-person .presence-status {
+.presence-container .presence-wrapper ul li .presence-person .presence-status {
   position: absolute;
   width: 50px;
   height: 50px;
   padding-left: 20px;
 }
-.presence-wrapper ul .presence-person .presence-status img {
+.presence-container .presence-wrapper ul li .presence-person .presence-status img {
   width: 40px;
   height: 40px;
   position: absolute;
@@ -771,23 +835,23 @@ template {
   top: 3px;
   right: 3px;
 }
-.presence-wrapper ul .presence-person .presence-status img.online {
+.presence-container .presence-wrapper ul li .presence-person .presence-status img.online {
   border: 3px solid #5FBA7D;
 }
-.presence-wrapper ul .presence-person .presence-status img.away {
+.presence-container .presence-wrapper ul li .presence-person .presence-status img.away {
   border: 3px solid #EFDF90;
 }
-.presence-wrapper ul .presence-person .presence-status img.offline {
+.presence-container .presence-wrapper ul li .presence-person .presence-status img.offline {
   border: 3px solid #d3d3d3;
 }
-.presence-wrapper ul .presence-person .handle {
+.presence-container .presence-wrapper ul li .presence-person .handle {
   position: absolute;
   line-height: 50px;
   height: 50px;
   width: calc(100% - 75px);
   padding-left: 75px;
 }
-.presence-wrapper ul .presence-person .handle .handle-text {
+.presence-container .presence-wrapper ul li .presence-person .handle .handle-text {
   width: 165px;
   overflow: hidden;
   white-space: nowrap;
@@ -806,10 +870,40 @@ template {
   height: 100%;
   top: 100px;
   background-color: #eaebec;
-  z-index: -1;
+  z-index: 0;
+  padding-bottom: 50px;
+  min-height: 500px;
 }
 label {
   padding-bottom: 5px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-bottom: solid 2px #969696;
+}
+input[type="text"].focus,
+input[type="email"].focus,
+input[type="password"].focus {
+  border-bottom: solid 2px #969696;
+}
+html,
+body {
+  height: 100%;
+}
+#wrapper {
+  position: relative;
+  overflow-x: hidden;
+  height: 100%;
 }
 /*Miscellaneous*/
 #smokeCanvas {
