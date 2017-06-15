@@ -37,6 +37,7 @@ angular.module('shockballApp')
     vm.calculateTimeRemaining = calculateTimeRemaining;
     vm.loadMatches = loadMatches;
     vm.loadEvents = loadEvents;
+    vm.postMessage = postMessage;
 
     vm.gridOptions = {
         columnDefs: vm.columnDefs,
@@ -46,6 +47,24 @@ angular.module('shockballApp')
             vm.gridOptions.api.setRowData(vm.rowData);
         }
     };
+
+    function postMessage() {
+        var eventObj = {
+           actor: 'TKrS4nijrBhz562wRsmnwUwExBv2',
+           oppActor: null,
+           secondaryOppActor: null,
+           type: 'hit',
+           team: null,
+           match: null,
+           oppTeam: null,
+           time: new Date().toJSON()
+       };
+       Data.postMessage(eventObj).then(function(response) {
+           console.log(response);
+       }).catch(function (error) {
+           console.log(error);
+       });
+    }
 
     function init() {
         backgroundSvc.setCurrentBg('player-bg');
