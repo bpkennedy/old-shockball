@@ -80,6 +80,7 @@ var matches = require('./routes/matches');
 var events = require('./routes/events');
 
 var engine = require('./engine.js');
+var queue = require('./queue.js');
 
 
 app.use('/teams', teams);

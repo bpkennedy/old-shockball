@@ -6,7 +6,7 @@ var db = admin.database();
 var dbRoot = db.ref();
 var matchesRef = db.ref("matches");
 var eventsRef = db.ref("events");
-var presenceRef = db.ref("presence");
+var presenceRef = db.ref("presence/app");
 var matches = [];
 
 var count = 1;
@@ -31,16 +31,16 @@ function setMatchesListener() {
 }
 
 function setPresenceAtStartup() {
-    presenceRef.child('app').set(true);
+    presenceRef.set(true);
 }
 
 function trackPresence() {
     dbRoot.on('value', function(snapshot) {
       if (snapshot.val()) {
-        presenceRef.onDisconnect().remove();
-        presenceRef.child('app').set(true);
+        presenceRef.onDisconnect().set(false);
+        presenceRef.set(true);
     } else {
-        presenceRef.child('app').set(false);
+        presenceRef.set(false);
     }
     });
 }

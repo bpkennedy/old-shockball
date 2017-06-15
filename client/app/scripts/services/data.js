@@ -118,7 +118,7 @@ angular.module('shockballApp')
           });
       }
 
-      function postEvent(eventData) {
+      function postMessage(eventData) {
           return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
               var eventObj = {
                  actor: eventData.actor,
@@ -128,15 +128,13 @@ angular.module('shockballApp')
                  team: eventData.team || null,
                  match: eventData.match || null,
                  oppTeam:  eventData.oppTeam || null,
-                 time: new Date().toJSON()
+                 time: new Date().toJSON(),
+                 idToken: idToken
              };
               return $http({
                   method: 'POST',
-                  url: '/events/test',
-                  data: eventObj,
-                  params: {
-                      idToken: idToken
-                  }
+                  url: '/events/new',
+                  data: eventObj
               });
           }).catch(function(error) {
              return console.log('error getting token: ' + error);
@@ -158,6 +156,6 @@ angular.module('shockballApp')
         fetchAwayMatches: fetchAwayMatches,
         fetchPrimaryEvents: fetchPrimaryEvents,
         fetchSecondaryEvents: fetchSecondaryEvents,
-        postEvent: postEvent
+        postMessage: postMessage
       };
   });
