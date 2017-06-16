@@ -1124,6 +1124,19 @@ loader .player:nth-child(10) {
     transform: translateX(14px) translateY(-56px);
   }
 }
+.events-wrapper .header-row {
+  background-color: #eaebec;
+  border-bottom-color: #d0d1d2;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  height: 50px;
+}
+.events-wrapper .header-row .header-title {
+  height: 100%;
+  line-height: 50px;
+  font-weight: 300;
+  text-align: center;
+}
 .player-bg {
   background: #ffffff;
 }
@@ -1136,7 +1149,7 @@ loader .player:nth-child(10) {
   width: 100%;
   height: 100%;
   top: 100px;
-  background-color: #eaebec;
+  background-color: #ffffff;
   z-index: 0;
   padding-bottom: 50px;
   min-height: 500px;

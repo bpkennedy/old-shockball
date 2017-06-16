@@ -51,12 +51,13 @@ angular.module('shockballApp')
     function postMessage() {
         var eventObj = {
            actor: 'TKrS4nijrBhz562wRsmnwUwExBv2',
-           oppActor: null,
+           oppActor: '246810',
            secondaryOppActor: null,
            type: 'hit',
-           team: null,
+           intensity: '3',
+           team: '246888',
            match: null,
-           oppTeam: null,
+           oppTeam: '987654',
            time: new Date().toJSON()
        };
        Data.postMessage(eventObj).then(function(response) {

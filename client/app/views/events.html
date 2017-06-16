@@ -1,3 +1,20 @@
 <div class="events-wrapper">
-    <p>Events stuff here.</p>
+    <div class="header-row">
+        <div class="header-title">
+            Activity
+        </div>
+    </div>
+    <ul class="events">
+        <li class="event" ng-repeat="event in vm.events">
+            {{event.actor}}
+            <div class="action-wrapper {{event.type | eventFilter}}">
+                <div class="actor">{{event.actor}}</div>
+
+                <div class="opp-actor">{{event.oppActor}}</div>
+                <div class="">
+
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>
