@@ -8,9 +8,10 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('EventsCtrl', function ($window, $scope, Data) {
+.controller('EventsCtrl', function ($state, $window, $scope) {
     var vm = this;
     vm.events = [];
+    vm.navToPlayer = navToPlayer;
 
     function init() {
         getPublicEvents();
@@ -27,6 +28,10 @@ angular.module('shockballApp')
                 message: error
             });
         });
+    }
+
+    function navToPlayer(id) {
+        $state.go('root.player', {playerId: id});
     }
 
     init();

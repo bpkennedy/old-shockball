@@ -10,6 +10,8 @@ var eventsRef = db.ref('events');
 
 // data schema for queue message
 var Joi = require('joi');
+var teams = [];
+var players = [];
 
 var eventSchema = Joi.object().keys({
     actor: Joi.string().alphanum().required(),
@@ -49,67 +51,70 @@ var queue = new Queue(dbRoot, function(data, progress, resolve, reject) {
     });
 });
 
-function populateVerbPhrase(data) {
-    return new Promise(function(resolve, reject) {
-        if (data.intensity) {
-            var populatedData = data;
-            var verbsByType = [];
-            var verbsPerIntensity = [];
-            db.ref('verbphrase').orderByChild('type').equalTo(data.type).once('value').then(function(snapshot) {
-                verbsByType = snapshot.val();
-                verbsPerIntensity = _.filter(verbsByType, function(verbItem) {
-                    return verbItem.intensity === data.intensity;
-                });
-                var randomVerb = verbsPerIntensity[Math.floor(Math.random()*verbsPerIntensity.length)];
-                populatedData.verbPhrase = randomVerb.verb;
-                resolve(populatedData);
-            }).catch(function(error) {
-                reject(error);
-            });
-        } else {
-            reject('not a match event');
-        }
+function listenToCollections() {
+    db.ref('teams').on('value', function(snapshot) {
+        teams = snapshot.val();
+        db.ref('players').on('value', function(snapshot) {
+            players = snapshot.val();
+        }, function(error) {
+            console.log(error);
+        });
+    }, function(error) {
+        console.log(error);
     });
 }
 
 function populateEvent(data) {
     return new Promise(function(resolve, reject) {
         var populatedData = data;
-        var teams = [];
-        var players = [];
-        db.ref('teams').once('value').then(function(snapshot) {
-            teams = snapshot.val();
-            db.ref('players').once('value').then(function(snapshot) {
-                players = snapshot.val();
-                _.map(data, function(eventProp, index) {
-                    if (index === 'actor') {
-                        populatedData.actorFirstName = players[eventProp]['firstName'];
-                        populatedData.actorLastName = players[eventProp]['lastName'];
-                        populatedData.actorPicUrl = players[eventProp]['picUrl'];
-                        return;
-                    }
-                    if (index === 'oppActor') {
-                        populatedData.oppActorFirstName = players[eventProp]['firstName'];
-                        populatedData.oppActorLastName = players[eventProp]['lastName'];
-                        populatedData.oppActorPicUrl = players[eventProp]['picUrl'];
-                        return;
-                    }
-                    if (index === 'team') {
-                        populatedData.teamName = teams[eventProp]['name'];
-                        populatedData.teamPicUrl = teams[eventProp]['picUrl'];
-                        return;
-                    }
-                    if (index === 'oppTeam') {
-                        populatedData.oppTeamName = teams[eventProp]['name'];
-                        populatedData.oppTeamPicUrl = teams[eventProp]['picUrl'];
-                        return;
-                    }
-                })
-                populatedData = populateVerbPhrase(populatedData);
-                resolve(populatedData);
-            }).catch(function(error) {
-                reject(error);
+        _.map(data, function(eventProp, index) {
+            if (index === 'actor') {
+                populatedData.actorFirstName = players[eventProp]['firstName'];
+                populatedData.actorLastName = players[eventProp]['lastName'];
+                populatedData.actorPicUrl = players[eventProp]['picUrl'];
+                return;
+            }
+            if (index === 'oppActor') {
+                populatedData.oppActorFirstName = players[eventProp]['firstName'];
+                populatedData.oppActorLastName = players[eventProp]['lastName'];
+                populatedData.oppActorPicUrl = players[eventProp]['picUrl'];
+                return;
+            }
+            if (index === 'team') {
+                populatedData.teamName = teams[eventProp]['name'];
+                populatedData.teamPicUrl = teams[eventProp]['picUrl'];
+                return;
+            }
+            if (index === 'oppTeam') {
+                populatedData.oppTeamName = teams[eventProp]['name'];
+                populatedData.oppTeamPicUrl = teams[eventProp]['picUrl'];
+                return;
+            }
+        });
+        if (populatedData.intensity) {
+            populatedData = populateVerbPhrase(populatedData);
+        }
+        if (populatedData) {
+            resolve(populatedData);
+        } else {
+            reject('bad data');
+        }
+    });
+}
+
+function populateVerbPhrase(data) {
+    return new Promise(function(resolve, reject) {
+        var populatedData = data;
+        var verbsByType = [];
+        var verbsPerIntensity = [];
+        db.ref('verbphrase').orderByChild('type').equalTo(data.type).once('value').then(function(snapshot) {
+            verbsByType = snapshot.val();
+            verbsPerIntensity = _.filter(verbsByType, function(verbItem) {
+                return verbItem.intensity === data.intensity;
             });
+            var randomVerb = verbsPerIntensity[Math.floor(Math.random()*verbsPerIntensity.length)];
+            populatedData.verbPhrase = randomVerb.verb;
+            resolve(populatedData);
         }).catch(function(error) {
             reject(error);
         });
@@ -126,6 +131,13 @@ function sendMessage(message) {
     queueRef.push(message);
 }
 
+function init() {
+    listenToCollections();
+}
+
+init()
+
 module.exports = {
-    sendMessage: sendMessage
+    sendMessage: sendMessage,
+    populateEvent: populateEvent
 };

@@ -6,13 +6,27 @@
     </div>
     <ul class="events">
         <li class="event" ng-repeat="event in vm.events">
-            {{event.actor}}
             <div class="action-wrapper {{event.type | eventFilter}}">
-                <div class="actor">{{event.actor}}</div>
-
-                <div class="opp-actor">{{event.oppActor}}</div>
-                <div class="">
-
+                <div class="team-pic">
+                    <img ng-src="{{event.teamPicUrl}}" alt="">
+                </div>
+                <div class="opp-team-pic">
+                    <img ng-src="{{event.oppTeamPicUrl}}" alt="">
+                </div>
+                <div class="event-info">
+                    <div class="actor-pic">
+                        <img ng-src="{{event.actorPicUrl}}" alt="">
+                    </div>
+                    <div class="event-actor-text">
+                        <div ng-click="vm.navToPlayer(event.actor)">
+                            <span class="actor-name">{{event.actorFirstName}} {{event.actorLastName}}</span>
+                            <span class="verb-text">{{event.verbPhrase}}</span>
+                            <span class="opp-actor-name">{{event.oppActorFirstName}} {{event.oppActorLastName}}</span>
+                        </div>
+                    </div>
+                    <div class="opp-actor-pic">
+                        <img ng-src="{{event.oppActorPicUrl}}" alt="">
+                    </div>
                 </div>
             </div>
         </li>

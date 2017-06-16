@@ -75,6 +75,9 @@ angular
                 controller: 'PlayerCtrl',
                 controllerAs: 'vm'
             }
+        },
+        params: {
+            isPlayer: null
         }
     })
     .state('root.about', {
