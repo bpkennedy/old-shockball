@@ -35,5 +35,8 @@
     }
   },
   "appPath": "app",
-  "moduleName": "shockballApp"
+  "moduleName": "shockballApp",
+  "resolutions": {
+    "firebase": "3.x.x"
+  }
 }

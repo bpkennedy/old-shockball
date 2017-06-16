@@ -125,6 +125,7 @@ angular.module('shockballApp')
                  oppActor: eventData.oppActor || null,
                  secondaryOppActor: eventData.secondaryOppActor || null,
                  type: eventData.type,
+                 intensity: eventData.intensity || null,
                  team: eventData.team || null,
                  match: eventData.match || null,
                  oppTeam:  eventData.oppTeam || null,

@@ -1124,6 +1124,196 @@ loader .player:nth-child(10) {
     transform: translateX(14px) translateY(-56px);
   }
 }
+.events-wrapper .header-row {
+  background-color: #eaebec;
+  border-bottom-color: #d0d1d2;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  height: 50px;
+}
+.events-wrapper .header-row .header-title {
+  height: 100%;
+  line-height: 50px;
+  font-weight: 300;
+  text-align: center;
+}
+.events-wrapper .events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .events-wrapper .events {
+    width: 100%;
+    transition: all 0.2s ease;
+  }
+}
+.events-wrapper .events .event {
+  height: 120px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  transition: all 0.2s ease;
+}
+.events-wrapper .events .event.ng-enter {
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+.events-wrapper .events .event.ng-enter-active {
+  opacity: 1;
+}
+@media only screen and (max-width: 568px) {
+  .events-wrapper .events .event {
+    padding-left: 0;
+    padding-right: 0;
+    transition: all 0.2s ease;
+  }
+}
+.events-wrapper .events .event .action-wrapper {
+  height: 100%;
+  width: calc(100% - 200px);
+  display: block;
+  margin: 0 auto;
+  background-color: #e1e1e1;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .events-wrapper .events .event .action-wrapper {
+    width: calc(100% - 160px);
+    transition: all 0.2s ease;
+  }
+}
+.events-wrapper .events .event .action-wrapper .team-pic {
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 8px;
+  left: 54px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .events-wrapper .events .event .action-wrapper .team-pic {
+    left: 2px;
+    transition: all 0.2s ease;
+  }
+}
+.events-wrapper .events .event .action-wrapper .team-pic img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #e1e1e1;
+  border-width: 7px;
+}
+.events-wrapper .events .event .action-wrapper .opp-team-pic {
+  height: 123px;
+  width: 132px;
+  position: absolute;
+  top: 8px;
+  right: 43px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .events-wrapper .events .event .action-wrapper .opp-team-pic {
+    right: 0;
+    transition: all 0.2s ease;
+  }
+}
+.events-wrapper .events .event .action-wrapper .opp-team-pic img {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #e1e1e1;
+  border-width: 6px;
+}
+.events-wrapper .events .event .action-wrapper .event-info {
+  width: calc(100% - 115px);
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.events-wrapper .events .event .action-wrapper .event-info .actor-pic {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100px;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .events-wrapper .events .event .action-wrapper .event-info .actor-pic {
+    display: none;
+    transition: all 0.2s ease;
+  }
+}
+.events-wrapper .events .event .action-wrapper .event-info .actor-pic img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.events-wrapper .events .event .action-wrapper .event-info .opp-actor-pic {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100px;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .events-wrapper .events .event .action-wrapper .event-info .opp-actor-pic {
+    display: none;
+    transition: all 0.2s ease;
+  }
+}
+.events-wrapper .events .event .action-wrapper .event-info .opp-actor-pic img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text {
+  flex: 1;
+  text-align: center;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text .actor-name {
+  color: #2d567a;
+  transition: all 0.2s ease;
+  font-size: 1em;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text .actor-name:hover {
+  cursor: pointer;
+  color: #0676BE;
+  transition: all 0.2s ease;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text .verb-text {
+  text-transform: lowercase;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text .opp-actor-name {
+  color: #2d567a;
+  transition: all 0.2s ease;
+  font-size: 1em;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text .opp-actor-name:hover {
+  cursor: pointer;
+  color: #0676BE;
+  transition: all 0.2s ease;
+}
 .player-bg {
   background: #ffffff;
 }
@@ -1136,7 +1326,7 @@ loader .player:nth-child(10) {
   width: 100%;
   height: 100%;
   top: 100px;
-  background-color: #eaebec;
+  background-color: #ffffff;
   z-index: 0;
   padding-bottom: 50px;
   min-height: 500px;
