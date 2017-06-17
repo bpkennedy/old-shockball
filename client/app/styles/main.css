@@ -1192,6 +1192,39 @@ loader .player:nth-child(10) {
     transition: all 0.2s ease;
   }
 }
+.events-wrapper .events .event .action-wrapper.hit .event-type {
+  background-color: #e67e22!important;
+}
+.events-wrapper .events .event .action-wrapper.score .event-type {
+  background-color: #2ecc71!important;
+}
+.events-wrapper .events .event .action-wrapper.block .event-type {
+  background-color: #34495e!important;
+}
+.events-wrapper .events .event .action-wrapper.pass .event-type {
+  background-color: #3498db!important;
+}
+.events-wrapper .events .event .action-wrapper.foul .event-type {
+  background-color: #f1c40f!important;
+  color: #000000!important;
+}
+.events-wrapper .events .event .action-wrapper.injury .event-type {
+  background-color: #e74c3c!important;
+}
+.events-wrapper .events .event .action-wrapper.miss .event-type {
+  background-color: #16a085!important;
+}
+.events-wrapper .events .event .action-wrapper.substitution .eventy-type {
+  background-color: #95a5a6!important;
+  color: #000000!important;
+}
+.events-wrapper .events .event .action-wrapper.contract .event-type {
+  background-color: #9b59b6!important;
+}
+.events-wrapper .events .event .action-wrapper.newPlayer .event-type {
+  background-color: #95a5a6!important;
+  color: #000000!important;
+}
 .events-wrapper .events .event .action-wrapper .team-pic {
   height: 120px;
   width: 120px;
@@ -1290,6 +1323,30 @@ loader .player:nth-child(10) {
 .events-wrapper .events .event .action-wrapper .event-info .event-actor-text {
   flex: 1;
   text-align: center;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text .event-type {
+  position: absolute;
+  top: 7px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  background-color: #ccc;
+  padding: 5px;
+  border-radius: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  color: #ecf0f1;
+}
+.events-wrapper .events .event .action-wrapper .event-info .event-actor-text .time {
+  font-style: italic;
+  font-size: 0.8em;
+  position: absolute;
+  bottom: 10px;
+  color: #999999;
 }
 .events-wrapper .events .event .action-wrapper .event-info .event-actor-text .actor-name {
   color: #2d567a;
