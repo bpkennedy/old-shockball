@@ -22,7 +22,8 @@ angular
     'chart.js',
     'agGrid',
     'firebase',
-    'dcbImgFallback'
+    'dcbImgFallback',
+    'angularMoment'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');

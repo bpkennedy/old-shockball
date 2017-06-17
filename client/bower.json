@@ -18,7 +18,8 @@
     "angularfire": "^2.3.0",
     "Idle.Js": "idle.js#^1.0.0",
     "angular-img-fallback": "^0.2.0",
-    "izitoast": "^1.1.2"
+    "izitoast": "^1.1.2",
+    "angular-moment": "^1.0.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -32,6 +33,12 @@
     },
     "moment-countdown": {
       "main": "dist/moment-countdown.js"
+    },
+    "angular-emoji": {
+      "main": [
+        "dist/emoji.min.js",
+        "dist/emoji.min.css"
+      ]
     }
   },
   "appPath": "app",
