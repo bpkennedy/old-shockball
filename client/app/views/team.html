@@ -1,0 +1,14 @@
+<div class="team-wrapper">
+    <div class="team-info">
+        <div class="">
+            <h2>{{vm.teamData.name}}</h2>
+            <img ng-src="{{vm.teamData.picUrl}}" alt="">
+        </div>
+    </div>
+    <div class="team-players">
+        <div class="" ng-repeat="player in vm.teamPlayersData">
+            <h4>{{player.firstName}} {{player.lastName}}</h4>
+            <img ng-src="{{player.picUrl}}" alt="">
+        </div>
+    </div>
+</div>

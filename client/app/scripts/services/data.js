@@ -24,6 +24,10 @@ angular.module('shockballApp')
           return $http.get('/teams/' + teamId, {cache: true});
       }
 
+      function fetchTeamPlayers(teamId) {
+          return $http.get('/players/team/' + teamId, {cache: true});
+      }
+
       function fetchPlayerContract(id) {
           return $http.get('/contracts/' + id.toString(), {cache: true});
       }
@@ -151,6 +155,7 @@ angular.module('shockballApp')
 
       return {
         fetchPlayer: fetchPlayer,
+        fetchTeamPlayers: fetchTeamPlayers,
         fetchTeam: fetchTeam,
         fetchPlayerContract: fetchPlayerContract,
         fetchHomeMatches: fetchHomeMatches,

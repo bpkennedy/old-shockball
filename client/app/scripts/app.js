@@ -80,6 +80,20 @@ angular
             isPlayer: null
         }
     })
+    .state('root.team', {
+        url:'/team/:teamId',
+        parent: 'root',
+        views: {
+            'container@': {
+                templateUrl: 'views/team.html',
+                controller: 'TeamCtrl',
+                controllerAs: 'vm'
+            }
+        },
+        params: {
+            isTeam: null
+        }
+    })
     .state('root.about', {
         url:'/about',
         views: {
