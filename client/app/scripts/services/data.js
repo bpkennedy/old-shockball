@@ -20,12 +20,42 @@ angular.module('shockballApp')
           return $http.get('/players/' + id, {cache: true});
       }
 
+      function fetchAllPlayers() {
+          return $http.get('/players', {cache: true}).then(function(response) {
+             allPlayers.data = utils.unpackObjectKeys(response.data);
+             return allPlayers;
+          });
+      }
+
       function fetchTeam(teamId) {
           return $http.get('/teams/' + teamId, {cache: true});
       }
 
       function fetchTeamPlayers(teamId) {
           return $http.get('/players/team/' + teamId, {cache: true});
+      }
+
+      function fetchAllTeams() {
+          return $http.get('/teams', {cache: true}).then(function(response) {
+              allTeams.data = utils.unpackObjectKeys(response.data);
+              return allTeams;
+          });
+      }
+
+      function fetchDivisions() {
+          return $http.get('/divisions', {cache: true});
+      }
+
+      function fetchConferences() {
+          return $http.get('/conferences', {cache:true});
+      }
+
+      function fetchDivisionTeams(divisionId) {
+          return $http.get('/teams/division/' + divisionId, {cache: true});
+      }
+
+      function fetchConferenceDivisions(conferenceId) {
+          return $http.get('/divisions/conference/' + conferenceId, { cache: true});
       }
 
       function fetchPlayerContract(id) {
@@ -155,8 +185,14 @@ angular.module('shockballApp')
 
       return {
         fetchPlayer: fetchPlayer,
+        fetchAllPlayers: fetchAllPlayers,
         fetchTeamPlayers: fetchTeamPlayers,
         fetchTeam: fetchTeam,
+        fetchAllTeams: fetchAllTeams,
+        fetchDivisions: fetchDivisions,
+        fetchConferences: fetchConferences,
+        fetchDivisionTeams: fetchDivisionTeams,
+        fetchConferenceDivisions: fetchConferenceDivisions,
         fetchPlayerContract: fetchPlayerContract,
         fetchHomeMatches: fetchHomeMatches,
         fetchAwayMatches: fetchAwayMatches,

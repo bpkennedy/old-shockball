@@ -1,0 +1,28 @@
+<div class="league-wrapper">
+    <div class="header-row">
+        <div class="header-title">
+            Filter:
+        </div>
+        <div class="conference-pick">
+            <ui-select ng-model="vm.selectedConf.value" name="league-pick" theme="select2" on-select="vm.setConference(vm.selectedConf.value)">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="conference in (vm.conferences | filter: $select.search) track by conference.objectKey">
+                    <span ng-bind="conference.name"></span>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="division-pick">
+            <ui-select ng-model="vm.selectedDiv.value" name="division-pick" theme="select2" on-select="vm.setDivision(vm.selectedDiv.value)">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="division in (vm.divisions | filter: $select.search) track by division.objectKey">
+                    <span ng-bind="division.name"></span>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <div ag-grid="vm.gridOptions" class="ag-material" id="myGrid" style="height:300px;width:100%;"></div>
+</div>

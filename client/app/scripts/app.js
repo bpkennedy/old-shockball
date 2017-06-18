@@ -23,7 +23,8 @@ angular
     'agGrid',
     'firebase',
     'dcbImgFallback',
-    'angularMoment'
+    'angularMoment',
+    'ui.select'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -93,6 +94,17 @@ angular
         },
         params: {
             isTeam: null
+        }
+    })
+    .state('root.league', {
+        url:'/league',
+        parent: 'root',
+        views: {
+            'container@': {
+                templateUrl: 'views/league.html',
+                controller: 'LeagueCtrl',
+                controllerAs: 'vm'
+            }
         }
     })
     .state('root.about', {

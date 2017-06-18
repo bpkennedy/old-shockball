@@ -78,6 +78,9 @@ var leagues = require('./routes/leagues');
 var contracts = require('./routes/contracts');
 var matches = require('./routes/matches');
 var events = require('./routes/events');
+var divisions = require('./routes/divisions');
+var conferences = require('./routes/conferences');
+
 
 var engine = require('./engine.js');
 var queue = require('./queue.js');
@@ -89,5 +92,7 @@ app.use('/leagues', leagues);
 app.use('/contracts', contracts);
 app.use('/matches', matches);
 app.use('/events', events);
+app.use('/divisions', divisions);
+app.use('/conferences', conferences);
 
 module.exports = app;

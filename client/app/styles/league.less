@@ -1,0 +1,44 @@
+.league-wrapper {
+    .ag-material .ag-cell-not-inline-editing {
+        padding: 0;
+    }
+    .ui-select-container {
+        min-width: 200px;
+    }
+    .team-link {
+        color: @secondary-font-color;
+        text-decoration: underline;
+        transition: @transition;
+        &:hover {
+            cursor:pointer;
+            color: #0676BE;
+            transition: @transition;
+        }
+    }
+    .header-row {
+        background-color: #eaebec;
+        border-bottom-color: #d0d1d2;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        height: 50px;
+        .header-title {
+            height: 100%;
+            line-height: 50px;
+            font-weight: 300;
+            text-align: center;
+            display: inline-block;
+            width: 200px;
+        }
+        .conference-pick {
+            display: inline-block;
+            width: auto;
+            min-width: 200px;
+        }
+        .division-pick {
+            display: inline-block;
+            width: auto;
+            min-width: 200px;
+        }
+    }
+
+}
