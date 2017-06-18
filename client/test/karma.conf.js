@@ -39,6 +39,7 @@ module.exports = function(config) {
       'bower_components/angular-img-fallback/angular.dcb-img-fallback.min.js',
       'bower_components/izitoast/dist/js/iziToast.js',
       'bower_components/angular-moment/angular-moment.js',
+      'bower_components/angular-ui-select/dist/select.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/chart.js',

@@ -5,11 +5,10 @@ var router = express.Router();
 
 // Get a database reference to our posts
 var db = admin.database();
-var ref = db.ref("teams");
-var divisionsRef = db.ref("divisions");
+var ref = db.ref("divisions");
 
 
-/* GET teams listing. */
+/* GET divisions listing. */
 router.get('/', function(req, res, next) {
     ref.once("value", function(snapshot) {
     //   console.log(snapshot.val());
@@ -20,7 +19,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-// get team by id
+// get division by id
 router.get('/:uid', function(req, res, next) {
     if (req.params.uid) {
         ref.child(req.params.uid).once("value", function(snapshot) {
@@ -34,17 +33,17 @@ router.get('/:uid', function(req, res, next) {
     }
 });
 
-// get all teams in a division (by division id)
-router.get('/division/:uid', function (req, res, next) {
+// get divisions by conference (by conference id)
+router.get('/conference/:uid', function (req, res, next) {
     if (req.params.uid) {
-        ref.orderByChild("division").equalTo(req.params.uid).once("value", function(snapshot) {
+        ref.orderByChild("conference").equalTo(req.params.uid).once("value", function(snapshot) {
             res.send(snapshot.val());
-        }, function (errorObject) {
-          res.send(errorObject);
-          console.log("The read failed: " + errorObject.code);
+        }, function(errorObject) {
+            res.send(errorObject);
+            console.log("The read failed: " + errorObject.code);
         });
     } else {
-        res.send({ message: 'Failed to pass in a division uid' });
+        res.send({ message: 'Failed to pass in a league uid' });
     }
 });
 
