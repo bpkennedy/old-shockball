@@ -18,7 +18,6 @@ angular.module('shockballApp')
 
     function setData() {
         Data.fetchTime().then(function(response) {
-            console.log(response);
             vm.testData = response;
         });
     }

@@ -34,7 +34,6 @@ angular.module('shockballApp')
         angularCompileRows: true,
         onGridReady: function(event) {
             console.log(event);
-            console.log('fired on ready');
         },
     };
     $scope.goToTeam = goToTeam;
@@ -89,8 +88,6 @@ angular.module('shockballApp')
     function setLeagueModel() {
         Data.fetchAllTeams().then(function(response) {
             vm.leagueTeams = response.data;
-            console.log('league teams are');
-            console.log(vm.leagueTeams);
             updateGrid();
         });
     }
