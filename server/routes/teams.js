@@ -6,7 +6,6 @@ var router = express.Router();
 // Get a database reference to our posts
 var db = admin.database();
 var ref = db.ref("teams");
-var divisionsRef = db.ref("divisions");
 
 
 /* GET teams listing. */
