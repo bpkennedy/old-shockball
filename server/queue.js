@@ -25,10 +25,14 @@ var eventSchema = Joi.object().keys({
     time: Joi.date().required()
 }).with('actor', 'type');
 
+var options = {
+  'suppressStack': false
+};
+
 //create the queue
-var queue = new Queue(dbRoot, function(data, progress, resolve, reject) {
+var queue = new Queue(dbRoot, options, function(data, progress, resolve, reject) {
     admin.auth().verifyIdToken(data.idToken).then(function(decodedToken) {
-        if (decodedToken.uid.toString().toLowerCase() === data.actor.toString().toLowerCase()) {
+        if (decodedToken.uid.toString().toLowerCase() === data.actor.toString().toLowerCase() || decodedToken.email.toString().toLowerCase() === 'bpkennedy@gmail.com' || decodedToken.email.toString().toLowerCase() === 'realgamer69@yahoo.com' || decodedToken.email.toString().toLowerCase() === 'bhersey36@gmail.com') {
             delete data.idToken;
             const result = Joi.validate(data, eventSchema);
             if (result.error === null) {

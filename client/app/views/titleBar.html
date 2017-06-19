@@ -32,6 +32,10 @@
                 <i class="fa fa-globe"></i>
                 <span>League</span>
             </li>
+            <li class="nav-item" ng-if="vm.isAdmin" ui-sref="root.admin" ui-sref-active="active">
+                <i class="fa fa-wrench"></i>
+                <span>Admin</span>
+            </li>
             <li class="nav-item presence" ng-click="vm.openPresence()">
                 <i class="fa fa-users"></i>
             </li>

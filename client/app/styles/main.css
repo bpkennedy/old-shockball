@@ -1412,6 +1412,39 @@ loader .player:nth-child(10) {
   width: auto;
   min-width: 200px;
 }
+.admin-wrapper .events {
+  padding: 15px;
+  background-color: #ccc;
+  width: 330px;
+  border-radius: 5px;
+  margin-left: 25px;
+  margin-top: 20px;
+}
+.admin-wrapper .events .input-group {
+  height: 50px;
+  padding-bottom: 10px;
+}
+.admin-wrapper .events .input-group .type-input {
+  min-width: 300px;
+}
+.admin-wrapper .events .input-group label {
+  padding-bottom: 5px;
+  display: block;
+}
+.admin-wrapper .events .submit-event {
+  padding: 10px;
+  color: #ffffff;
+  background-color: #386B98;
+  transition: all 0.2s ease;
+}
+.admin-wrapper .events .submit-event:hover {
+  color: #2d567a;
+  background-color: #ffffff;
+  border-color: 3px solid #2d567a;
+  border-style: solid;
+  border-width: 1px;
+  transition: all 0.2s ease;
+}
 .player-bg {
   background: #ffffff;
 }
