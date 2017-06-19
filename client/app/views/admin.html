@@ -1,0 +1,77 @@
+<div class="admin-wrapper">
+    <div class="events">
+        <h2>Create an Event</h2>
+        <div class="event-info">
+            <div class="event-">
+                <div class="input-group">
+                    <label for="actor">Actor</label>
+                    <ui-select ng-model="vm.actor.selected" theme="select2" style="min-width: 300px;" title="Choose a person">
+                      <ui-select-match placeholder="Select a person in the list or search his name/objectKey...">{{$select.selected.firstName}} {{$select.selected.lastName}}</ui-select-match>
+                      <ui-select-choices repeat="person in (vm.people | filter: $select.search) track by person.objectKey">
+                        <div ng-bind-html="person.firstName | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="input-group">
+                    <label for="actor">Opposing Actor</label>
+                    <ui-select ng-model="vm.oppActor.selected" theme="select2" style="min-width: 300px;" title="Choose a person">
+                      <ui-select-match placeholder="Select an oppActor in the list or search his name/objectKey...">{{$select.selected.firstName}} {{$select.selected.lastName}}</ui-select-match>
+                      <ui-select-choices repeat="person in (vm.people | filter: $select.search) track by person.objectKey">
+                        <div ng-bind-html="person.firstName | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="input-group">
+                    <label for="type">Type</label>
+                    <ui-select class="type-input" ng-model="vm.type.selected" name="type" theme="select2">
+                        <ui-select-match>
+                            <span ng-bind="$select.selected.title"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="type in (vm.types | filter: $select.search) track by type.id">
+                            <span ng-bind="type.title"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="input-group">
+                    <label for="intensity">Intensity</label>
+                    <ui-select ng-model="vm.intensity.selected" name="intensity" theme="select2">
+                        <ui-select-match>
+                            <span ng-bind="$select.selected.title"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="intensity in (vm.intensities | filter: $select.search) track by intensity.id">
+                            <span ng-bind="intensity.title"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="input-group">
+                    <label for="team">Team Id</label>
+                    <ui-select ng-model="vm.team.selected" theme="select2" style="min-width: 300px;" title="Choose a team">
+                      <ui-select-match placeholder="Select a team in the list">{{$select.selected.name}}</ui-select-match>
+                      <ui-select-choices repeat="team in (vm.teams | filter: $select.search) track by team.objectKey">
+                        <div ng-bind-html="team.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="input-group">
+                    <label for="match">Match Id</label>
+                    <ui-select ng-model="vm.match.selected" theme="select2" style="min-width: 300px;" title="Choose a match">
+                      <ui-select-match placeholder="Select a match in the list">{{$select.selected.objectKey}}</ui-select-match>
+                      <ui-select-choices repeat="match in (vm.matches | filter: $select.search) track by match.objectKey">
+                        <div ng-bind-html="match.objectKey | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="input-group">
+                    <label for="oppTeam">OppTeam Id</label>
+                    <ui-select ng-model="vm.oppTeam.selected" theme="select2" style="min-width: 300px;" title="Choose a team">
+                      <ui-select-match placeholder="Select a team in the list">{{$select.selected.name}}</ui-select-match>
+                      <ui-select-choices repeat="team in (vm.teams | filter: $select.search) track by team.objectKey">
+                        <div ng-bind-html="team.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="submit-event" ng-click="vm.sendEvent()">Submit</div>
+            </div>
+        </div>
+    </div>
+</div>

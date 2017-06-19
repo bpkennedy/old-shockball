@@ -1,0 +1,38 @@
+.admin-wrapper {
+    .events {
+        padding: 15px;
+        background-color: #ccc;
+        width: 330px;
+        border-radius: 5px;
+        margin-left: 25px;
+        margin-top: 20px;
+        .input-group {
+            height: 50px;
+            padding-bottom: 10px;
+            .type-input {
+                min-width: 300px;
+            }
+            label {
+                padding-bottom: 5px;
+                display: block;
+            }
+            .ui-select-container {
+
+            }
+        }
+        .submit-event {
+            padding: 10px;
+            color: #ffffff;
+            background-color: @secondary-background-color;
+            transition: @transition;
+            &:hover {
+                color: @secondary-font-color;
+                background-color: @secondary-hover-background;
+                border-color: @secondary-hover-border;
+                border-style: solid;
+                border-width: 1px;
+                transition: @transition;
+            }
+        }
+    }
+}

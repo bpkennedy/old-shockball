@@ -42,6 +42,10 @@ angular.module('shockballApp')
           });
       }
 
+      function fetchAllMatches() {
+          return $http.get('/matches', {cache:true});
+      }
+
       function fetchDivisions() {
           return $http.get('/divisions', {cache: true});
       }
@@ -189,6 +193,7 @@ angular.module('shockballApp')
         fetchTeamPlayers: fetchTeamPlayers,
         fetchTeam: fetchTeam,
         fetchAllTeams: fetchAllTeams,
+        fetchAllMatches: fetchAllMatches,
         fetchDivisions: fetchDivisions,
         fetchConferences: fetchConferences,
         fetchDivisionTeams: fetchDivisionTeams,
