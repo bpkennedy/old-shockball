@@ -44,8 +44,6 @@ var apiProxy = httpProxy.createProxyServer(proxyOptions);
 
 // Grab all requests to the server with "/space/".
 app.all("/time/*", function(req, res) {
-    console.log("Request made to /time/");
-    console.log(req.url);
     apiProxy.web(req, res, {target: swcMe});
 });
 

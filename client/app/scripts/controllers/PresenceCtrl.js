@@ -24,7 +24,6 @@ angular.module('shockballApp')
         onAwayBack: onBack,
         awayTimeout: 60000 //away with 60 seconds of inactivity
     }).start();
-    console.log(idle);
 
     function getPresence(className) {
         return className;
