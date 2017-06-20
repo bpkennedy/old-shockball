@@ -11,6 +11,11 @@ angular.module('shockballApp')
 .controller('AdminCtrl', function (Data, utils, $scope, $window) {
     var vm = this;
     vm.sendEvent = sendEvent;
+    vm.showEvents = true;
+    vm.showActivations = false;
+    vm.showPanel = showPanel;
+    vm.approvePlayer = approvePlayer;
+    vm.rejectPlayer = rejectPlayer;
     vm.event = {
        actor: '',
        oppActor: null,
@@ -42,6 +47,7 @@ angular.module('shockballApp')
     vm.people = [];
     vm.teams = [];
     vm.matches = [];
+    vm.playerSubmissions = [];
     vm.type = { selected: vm.types[0] };
     vm.intensity = { selected: vm.intensities[0] };
     vm.actor = { selected : "someemail@email.com" };
@@ -52,8 +58,27 @@ angular.module('shockballApp')
 
     function init() {
         getPlayers();
+        getPlayerSubmissions();
         getTeams();
         getMatches();
+    }
+
+    function showPanel(panel) {
+        if (panel === 'events') {
+            vm.showEvents = true;
+            vm.showActivations = false;
+        } else if (panel === 'activations') {
+            vm.showEvents = false;
+            vm.showActivations = true;
+        }
+    }
+
+    function approvePlayer() {
+
+    }
+
+    function rejectPlayer() {
+        
     }
 
     function getPlayers() {
@@ -61,6 +86,14 @@ angular.module('shockballApp')
             vm.people = response.data;
             $scope.$applyAsync();
         });
+    }
+
+    function getPlayerSubmissions() {
+        Data.fetchAllPlayerSubmissions().then(function(response) {
+            console.log('response is');
+            console.log(response);
+            vm.playerSubmissions = response;
+        })
     }
 
     function getTeams() {

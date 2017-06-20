@@ -20,10 +20,20 @@ angular.module('shockballApp')
           return $http.get('/players/' + id, {cache: true});
       }
 
+      function fetchPlayerSubmission(id) {
+          return $http.get('/players/submit/' + id, {cache:true});
+      }
+
       function fetchAllPlayers() {
           return $http.get('/players', {cache: true}).then(function(response) {
              allPlayers.data = utils.unpackObjectKeys(response.data);
              return allPlayers;
+          });
+      }
+
+      function fetchAllPlayerSubmissions() {
+          return $http.get('/players/submit/', {cache:true}).then(function(response) {
+              return utils.unpackObjectKeys(response.data);
           });
       }
 
@@ -180,6 +190,14 @@ angular.module('shockballApp')
           });
       }
 
+      function submitPlayer(data) {
+          return $http({
+              method: 'POST',
+              url: '/players/submit',
+              data: data
+          });
+      }
+
       function init() {
           getAllTeams();
           getAllPlayers();
@@ -189,7 +207,9 @@ angular.module('shockballApp')
 
       return {
         fetchPlayer: fetchPlayer,
+        fetchPlayerSubmission: fetchPlayerSubmission,
         fetchAllPlayers: fetchAllPlayers,
+        fetchAllPlayerSubmissions: fetchAllPlayerSubmissions,
         fetchTeamPlayers: fetchTeamPlayers,
         fetchTeam: fetchTeam,
         fetchAllTeams: fetchAllTeams,
@@ -203,6 +223,7 @@ angular.module('shockballApp')
         fetchAwayMatches: fetchAwayMatches,
         fetchPrimaryEvents: fetchPrimaryEvents,
         fetchSecondaryEvents: fetchSecondaryEvents,
-        postMessage: postMessage
+        postMessage: postMessage,
+        submitPlayer: submitPlayer
       };
   });

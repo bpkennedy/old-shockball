@@ -1,5 +1,6 @@
 var admin = require("firebase-admin");
 var Queue = require('firebase-queue');
+var engine = require('./engine.js');
 
 var _ = require("lodash");
 
@@ -39,6 +40,7 @@ var queue = new Queue(dbRoot, options, function(data, progress, resolve, reject)
                 populateEvent(data).then(function(response) {
                     var populatedData = response;
                     createEvent(populatedData);
+                    engine.processEvent(populatedData);
                     resolve(populatedData);
                 }).catch(function(error) {
                     reject(error);

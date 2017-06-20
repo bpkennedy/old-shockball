@@ -7,6 +7,7 @@ var dbRoot = db.ref();
 var matchesRef = db.ref("matches");
 var eventsRef = db.ref("events");
 var presenceRef = db.ref("presence/app");
+var playerSubmissions = db.ref("playerSubmissions");
 var matches = [];
 
 var count = 1;
@@ -45,4 +46,14 @@ function trackPresence() {
     });
 }
 
+function processEvent(event) {
+    if (event.type === 'player submitted') {
+        playerSubmissions.push().set(event);
+    }
+}
+
 initializeEngine();
+
+module.exports = {
+    processEvent: processEvent
+};

@@ -102,6 +102,17 @@ angular
             isPlayer: null
         }
     })
+    .state('root.playerCreate', {
+        url:'/playerCreate',
+        parent: 'root',
+        views: {
+            'container@': {
+                templateUrl: 'views/playerCreate.html',
+                controller: 'PlayerCreateCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
     .state('root.team', {
         url:'/team/:teamId',
         parent: 'root',

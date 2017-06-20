@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('PlayerCtrl', function ($http, $scope, $stateParams, Data, backgroundSvc) {
+.controller('PlayerCtrl', function ($http, $scope, $state, $stateParams, Data) {
     var vm = this;
     vm.playerId = $stateParams.playerId;
     vm.playerData = {};
@@ -17,36 +17,11 @@ angular.module('shockballApp')
     vm.matchesData = [];
     vm.eventsData = [];
     vm.showEvents = false;
-    vm.columnDefs = [
-        {headerName: "Make", field: "make"},
-        {headerName: "Model", field: "model"},
-        {headerName: "Price", field: "price"}
-    ];
-    vm.rowData = [
-        {make: "Toyota", model: "Celica", price: 35000},
-        {make: "Ford", model: "Mondeo", price: 32000},
-        {make: "Porsche", model: "Boxter", price: 72000}
-    ];
-    //   vm.columnDefs = [];
-    //   vm.rowData = [];
-    //   vm.gridOptions = {
-    //       columnDefs: vm.columnDefs,
-    //       rowData: vm.rowData
-    //   };
 
     vm.calculateTimeRemaining = calculateTimeRemaining;
     vm.loadMatches = loadMatches;
     vm.loadEvents = loadEvents;
     vm.postMessage = postMessage;
-
-    vm.gridOptions = {
-        columnDefs: vm.columnDefs,
-        rowData: vm.rowData,
-        onGridReady: function(event) {
-            console.log(event);
-            vm.gridOptions.api.setRowData(vm.rowData);
-        }
-    };
 
     function postMessage() {
         var eventObj = {
@@ -68,12 +43,15 @@ angular.module('shockballApp')
     }
 
     function init() {
-        backgroundSvc.setCurrentBg('player-bg');
         setPlayerModel(vm.playerId);
     }
 
     function setPlayerModel(id) {
         Data.fetchPlayer(id).then(function(response) {
+            if (response.data === "") {
+                //player does not exist in players collection, needs to create
+                $state.go('root.playerCreate');
+            }
             vm.playerData = response.data;
             sortPlayerSkills(vm.playerData);
             if (vm.playerData.team) {
@@ -82,7 +60,6 @@ angular.module('shockballApp')
                 setContractModel(vm.playerId);
                 setEventsModel(vm.playerId);
             }
-            //  console.log(vm.playerData);
         });
     }
 
