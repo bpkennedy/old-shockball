@@ -24,6 +24,7 @@
       "joi": "^10.5.2",
       "lodash": "^4.17.4",
       "morgan": "~1.7.0",
+      "nodemailer": "^4.0.1",
       "querybase": "^0.6.0",
       "serve-favicon": "^2.3.0",
       "simple-oauth2": "^1.2.0"

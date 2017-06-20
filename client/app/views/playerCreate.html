@@ -1,0 +1,129 @@
+<div class="player-create-wrapper">
+    <div class="header-row">
+        <div class="header-title">
+            Create your player
+        </div>
+    </div>
+    <div class="not-activated" ng-if="vm.isAwaitingActivation">
+        <h3>Your player creation request is being reviewed</h3>
+        <p class="activation-text">Our admin team, Alex Malik, Damij Maximus, and Tholme So, will validate your player creation application and activate your account.  We normally reach out over SWCombine Darkness Message for you to confirm that this is really you.</p>
+    </div>
+    <div class="player-form" ng-if="!vm.isAwaitingActivation">
+        <div class="bio">
+            <h4 class="bio-header">Biography</h4>
+            <div class="input-group">
+                <label for="first-name">First Name</label>
+                <input type="text" name="first-name" value="" ng-model="vm.application.firstName">
+            </div>
+            <div class="input-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" name="last-name" value="" ng-model="vm.application.lastName">
+            </div>
+            <div class="input-group">
+                <label for="species">Species</label>
+                <input type="text" name="species" value="" ng-model="vm.application.species">
+            </div>
+            <div class="input-group">
+                <label for="pic-url">Picture Url</label>
+                <input type="url" name="pic-url" value="" ng-model="vm.application.picUrl">
+            </div>
+            <div class="input-group">
+                <label for="birth-planet">Birth Planet</label>
+                <input type="text" name="birth-planet" value="" ng-model="vm.application.planet">
+            </div>
+            <div class="input-group">
+                <label for="age">Age</label>
+                <input type="number" name="age" value="" ng-model="vm.application.age">
+            </div>
+            <div class="input-group">
+                <label for="gender">Gender</label>
+                <ui-select class="gender-input" ng-model="vm.gender.selected" name="type" theme="select2">
+                    <ui-select-match>
+                        <span ng-bind="$select.selected.title"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="gender in (vm.genders | filter: $select.search) track by gender.id">
+                        <span ng-bind="gender.title"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="game-skills">
+            <h4 class="skills-header">Skills</h4>
+            <div class="input-group">
+                <label for="role">Role</label>
+                <ui-select class="role-input" ng-model="vm.role.selected" name="type" theme="select2">
+                    <ui-select-match>
+                        <span ng-bind="$select.selected.title"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="role in (vm.roles | filter: $select.search) track by role.id">
+                        <span ng-bind="role.title"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="input-group">
+                <label for="aggro">Aggressiveness</label>
+                <input type="number" name="aggro" min="0" max="100" value="" ng-model="vm.application.aggro">
+            </div>
+            <div class="skills">
+                <div class="total-points">Total Points to Spend: {{vm.totalPoints}}</div>
+                <div class="input-group">
+                    <label for="throwing">Throwing</label>
+                    <div>
+                        <div class="decrement fa fa-minus" ng-click="vm.decrement('throwing')"></div>
+                        <div class="number">{{vm.application.throwing}}</div>
+                        <div class="increment fa fa-plus" ng-click="vm.increment('throwing')"></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="passing">Passing</label>
+                    <div>
+                        <div class="decrement fa fa-minus" ng-click="vm.decrement('passing')"></div>
+                        <div class="number">{{vm.application.passing}}</div>
+                        <div class="increment fa fa-plus" ng-click="vm.increment('passing')"></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="blocking">Blocking</label>
+                    <div>
+                        <div class="decrement fa fa-minus" ng-click="vm.decrement('blocking')"></div>
+                        <div class="number">{{vm.application.blocking}}</div>
+                        <div class="increment fa fa-plus" ng-click="vm.increment('blocking')"></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="toughness">Toughness</label>
+                    <div>
+                        <div class="decrement fa fa-minus" ng-click="vm.decrement('toughness')"></div>
+                        <div class="number">{{vm.application.toughness}}</div>
+                        <div class="increment fa fa-plus" ng-click="vm.increment('toughness')"></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="vision">Vision</label>
+                    <div>
+                        <div class="decrement fa fa-minus" ng-click="vm.decrement('vision')"></div>
+                        <div class="number">{{vm.application.vision}}</div>
+                        <div class="increment fa fa-plus" ng-click="vm.increment('vision')"></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="endurance">Endurance</label>
+                    <div>
+                        <div class="decrement fa fa-minus" ng-click="vm.decrement('endurance')"></div>
+                        <div class="number">{{vm.application.endurance}}</div>
+                        <div class="increment fa fa-plus" ng-click="vm.increment('endurance')"></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="leadership">Leadership</label>
+                    <div>
+                        <div class="decrement fa fa-minus" ng-click="vm.decrement('leadership')"></div>
+                        <div class="number">{{vm.application.leadership}}</div>
+                        <div class="increment fa fa-plus" ng-click="vm.increment('leadership')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button" ng-click="vm.submitPlayer()">Create</div>
+    </div>
+</div>

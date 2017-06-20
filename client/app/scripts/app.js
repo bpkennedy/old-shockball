@@ -102,6 +102,17 @@ angular
             isPlayer: null
         }
     })
+    .state('root.playerCreate', {
+        url:'/playerCreate',
+        parent: 'root',
+        views: {
+            'container@': {
+                templateUrl: 'views/playerCreate.html',
+                controller: 'PlayerCreateCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
     .state('root.team', {
         url:'/team/:teamId',
         parent: 'root',
@@ -143,16 +154,6 @@ angular
             'container@': {
                 templateUrl: 'views/events.html',
                 controller: 'EventsCtrl',
-                controllerAs: 'vm'
-            }
-        }
-    })
-    .state('root.profile', {
-        url:'/profile',
-        views: {
-            'container@': {
-                templateUrl: 'views/profile.html',
-                controller: 'ProfileCtrl',
                 controllerAs: 'vm'
             }
         }

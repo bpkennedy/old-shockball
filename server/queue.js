@@ -1,5 +1,6 @@
 var admin = require("firebase-admin");
 var Queue = require('firebase-queue');
+var engine = require('./engine.js');
 
 var _ = require("lodash");
 
@@ -17,7 +18,7 @@ var eventSchema = Joi.object().keys({
     actor: Joi.string().alphanum().required(),
     oppActor: Joi.string().alphanum().allow(null),
     secondaryOppActor: Joi.string().alphanum().allow(null),
-    type: Joi.string().alphanum().required(),
+    type: Joi.string().required(),
     intensity: Joi.string().allow(null),
     match: Joi.string().alphanum().allow(null),
     team: Joi.string().alphanum().allow(null),
@@ -39,12 +40,14 @@ var queue = new Queue(dbRoot, options, function(data, progress, resolve, reject)
                 populateEvent(data).then(function(response) {
                     var populatedData = response;
                     createEvent(populatedData);
+                    engine.processEvent(populatedData);
                     resolve(populatedData);
                 }).catch(function(error) {
                     reject(error);
                 });
 
             } else {
+                console.log(result.error);
                 reject({ message: 'invalid data format', data: data, idToken: data.idToken });
             }
         } else {

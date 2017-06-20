@@ -1,5 +1,13 @@
 <div class="admin-wrapper">
-    <div class="events">
+    <div class="header-row">
+        <div class="header-title" ng-click="vm.showPanel('events')">
+            Create Events
+        </div>
+        <div class="header-title" ng-click="vm.showPanel('activations')">
+            Player Activation
+        </div>
+    </div>
+    <div class="events" ng-if="vm.showEvents">
         <h2>Create an Event</h2>
         <div class="event-info">
             <div class="event-">
@@ -72,6 +80,15 @@
                 </div>
                 <div class="submit-event" ng-click="vm.sendEvent()">Submit</div>
             </div>
+        </div>
+    </div>
+    <div class="player-submissions" ng-if="vm.showActivations">
+        <div class="submission" ng-repeat="(key, value) in vm.playerSubmissions">
+            <div class="approve-buttons">
+                <div class="approve" ng-click="vm.approvePlayer(value)">Approve Player</div>
+                <div class="reject" ng-click="vm.rejectPlayer(key)">Reject Player</div>
+            </div>
+            <pre>{{value | json}}</pre>
         </div>
     </div>
 </div>
