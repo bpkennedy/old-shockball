@@ -8,9 +8,9 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('PlayerCtrl', function ($http, $scope, $state, $stateParams, Data) {
+.controller('PlayerCtrl', function ($http, $scope, $state, $stateParams, Data, $window) {
     var vm = this;
-    vm.playerId = $stateParams.playerId;
+    vm.playerId = $stateParams.playerId ? $stateParams.playerId : $window.firebase.auth().currentUser.uid;
     vm.playerData = {};
     vm.teamData = {};
     vm.contractData = {};
@@ -21,26 +21,6 @@ angular.module('shockballApp')
     vm.calculateTimeRemaining = calculateTimeRemaining;
     vm.loadMatches = loadMatches;
     vm.loadEvents = loadEvents;
-    vm.postMessage = postMessage;
-
-    function postMessage() {
-        var eventObj = {
-           actor: 'TKrS4nijrBhz562wRsmnwUwExBv2',
-           oppActor: '246810',
-           secondaryOppActor: null,
-           type: 'hit',
-           intensity: '3',
-           team: '246888',
-           match: null,
-           oppTeam: '987654',
-           time: new Date().toJSON()
-       };
-       Data.postMessage(eventObj).then(function(response) {
-           console.log(response);
-       }).catch(function (error) {
-           console.log(error);
-       });
-    }
 
     function init() {
         setPlayerModel(vm.playerId);

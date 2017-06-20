@@ -83,12 +83,12 @@
         </div>
     </div>
     <div class="player-submissions" ng-if="vm.showActivations">
-        <div class="submission" ng-repeat="sub in vm.playerSubmissions">
+        <div class="submission" ng-repeat="(key, value) in vm.playerSubmissions">
             <div class="approve-buttons">
-                <div class="approve" ng-click="vm.approvePlayer()">Approve Player</div>
-                <div class="reject" ng-click="vm.rejectPlayer()">Reject Player</div>
+                <div class="approve" ng-click="vm.approvePlayer(value)">Approve Player</div>
+                <div class="reject" ng-click="vm.rejectPlayer(key)">Reject Player</div>
             </div>
-            <pre>{{sub | json}}</pre>
+            <pre>{{value | json}}</pre>
         </div>
     </div>
 </div>

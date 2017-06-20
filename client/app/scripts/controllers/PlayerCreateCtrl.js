@@ -64,6 +64,7 @@ angular.module('shockballApp')
         vm.application.uid = $window.firebase.auth().currentUser.uid;
         $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
             vm.application.idToken = idToken;
+            vm.application.uid = vm.userId;
             vm.application.role = vm.role.selected.title;
             vm.application.gender = vm.gender.selected.title;
             var isValid = validateForm();

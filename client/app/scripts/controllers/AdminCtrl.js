@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('AdminCtrl', function (Data, utils, $scope, $window) {
+.controller('AdminCtrl', function (Data, utils, $scope, $window, Events) {
     var vm = this;
     vm.sendEvent = sendEvent;
     vm.showEvents = true;
@@ -73,12 +73,42 @@ angular.module('shockballApp')
         }
     }
 
-    function approvePlayer() {
-
+    function approvePlayer(submission) {
+        Data.createPlayer(submission).then(function(response) {
+            var player = response.data;
+            var newPlayer = {};
+            newPlayer.actor = player.uid;
+            newPlayer.oppActor = null;
+            newPlayer.secondaryOppActor = null;
+            newPlayer.type = 'player created';
+            newPlayer.intensity = null;
+            newPlayer.match = null;
+            newPlayer.team = null;
+            newPlayer.oppTeam = null;
+            newPlayer.time = new Date().toJSON();
+            Events.create(newPlayer).then(function(response) {
+                console.log(response);
+                $window.iziToast.info({
+                    icon: 'fa fa-info-circle',
+                    message: 'New Player Event created',
+                    position: 'bottomCenter'
+                });
+            }).catch(function (error) {
+                console.log(error);
+                $window.iziToast.error({
+                    icon: 'fa fa-warning',
+                    message: error
+                });
+            });
+            init();
+        });
     }
 
-    function rejectPlayer() {
-        
+    function rejectPlayer(key) {
+        Data.rejectPlayer(key).then(function(response) {
+            console.log(response);
+            init();
+        });
     }
 
     function getPlayers() {
@@ -90,10 +120,8 @@ angular.module('shockballApp')
 
     function getPlayerSubmissions() {
         Data.fetchAllPlayerSubmissions().then(function(response) {
-            console.log('response is');
-            console.log(response);
             vm.playerSubmissions = response;
-        })
+        });
     }
 
     function getTeams() {
@@ -111,25 +139,17 @@ angular.module('shockballApp')
     }
 
     function sendEvent() {
-        if (vm.type.selected.title && vm.actor.selected.objectKey) {
-            vm.event = {};
-            vm.event.actor = vm.actor.selected.objectKey;
-            vm.event.oppActor = vm.oppActor.selected.objectKey || null;
-            vm.event.secondaryOppActor = null;
-            vm.event.type = vm.type.selected.title;
-            vm.event.intensity = vm.intensity.selected.title || null;
-            vm.event.match = vm.match.selected.objectKey || null;
-            vm.event.team = vm.team.selected.objectKey || null;
-            vm.event.oppTeam = vm.oppTeam.selected.objectKey || null;
-            vm.event.time = new Date().toJSON();
-        } else {
-            $window.iziToast.error({
-                icon: 'fa fa-warning',
-                message: 'Error: at minimum, events require a type and actor'
-            });
-        }
-
-        Data.postMessage(vm.event).then(function(response) {
+        vm.event = {};
+        vm.event.actor = vm.actor.selected.objectKey;
+        vm.event.oppActor = vm.oppActor.selected.objectKey || null;
+        vm.event.secondaryOppActor = null;
+        vm.event.type = vm.type.selected.title;
+        vm.event.intensity = vm.intensity.selected.title || null;
+        vm.event.match = vm.match.selected.objectKey || null;
+        vm.event.team = vm.team.selected.objectKey || null;
+        vm.event.oppTeam = vm.oppTeam.selected.objectKey || null;
+        vm.event.time = new Date().toJSON();
+        Events.create(vm.event).then(function(response) {
             console.log(response);
             $window.iziToast.info({
                 icon: 'fa fa-info-circle',

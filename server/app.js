@@ -84,6 +84,7 @@ var conferences = require('./routes/conferences');
 
 var engine = require('./engine.js');
 var queue = require('./queue.js');
+var mailer = require('./mailer.js');
 
 
 app.use('/teams', teams);

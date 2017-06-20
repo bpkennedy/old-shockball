@@ -604,7 +604,7 @@ template {
 .player-wrapper .left-column {
   flex: 1;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.6);
+  background: #EAEBEC;
   max-width: 200px;
   display: flex;
   flex-direction: column;
@@ -619,50 +619,6 @@ template {
 }
 .player-wrapper .left-column .player-xp {
   color: #ffffff;
-}
-.player-wrapper .center-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.player-wrapper .center-column .radars {
-  flex: 1;
-  display: flex;
-  justify-content: space-around;
-}
-.player-wrapper .center-column .radars .skills-radar {
-  flex: 1 1 0;
-  max-width: 220px;
-}
-.player-wrapper .center-column .radars .secondary-radar {
-  flex: 1 1 0;
-  max-width: 220px;
-}
-.player-wrapper .center-column .tables {
-  flex: 1;
-}
-.player-wrapper .center-column .tables .panel {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 50px;
-  justify-content: center;
-  background-color: #2980b9;
-  color: #ffffff;
-}
-.player-wrapper .center-column .tables .panel > div {
-  flex: 1;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-right: 1px solid #dddddd;
-  height: 100%;
-  color: #ffffff;
-}
-.player-wrapper .center-column .tables .panel > div:hover {
-  cursor: pointer;
-  background-color: #ffffff;
 }
 .login-wrapper {
   width: 250px;

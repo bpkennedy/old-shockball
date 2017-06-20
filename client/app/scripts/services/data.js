@@ -17,7 +17,7 @@ angular.module('shockballApp')
       };
 
       function fetchPlayer(id) {
-          return $http.get('/players/' + id, {cache: true});
+          return $http.get('/players/' + id, {cache: false});
       }
 
       function fetchPlayerSubmission(id) {
@@ -32,7 +32,7 @@ angular.module('shockballApp')
       }
 
       function fetchAllPlayerSubmissions() {
-          return $http.get('/players/submit/', {cache:true}).then(function(response) {
+          return $http.get('/players/submit/', {cache:false}).then(function(response) {
               return utils.unpackObjectKeys(response.data);
           });
       }
@@ -168,22 +168,43 @@ angular.module('shockballApp')
 
       function postMessage(eventData) {
           return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
-              var eventObj = {
-                 actor: eventData.actor,
-                 oppActor: eventData.oppActor || null,
-                 secondaryOppActor: eventData.secondaryOppActor || null,
-                 type: eventData.type,
-                 intensity: eventData.intensity || null,
-                 team: eventData.team || null,
-                 match: eventData.match || null,
-                 oppTeam:  eventData.oppTeam || null,
-                 time: new Date().toJSON(),
-                 idToken: idToken
-             };
+             eventData.idToken = idToken;
               return $http({
                   method: 'POST',
                   url: '/events/new',
-                  data: eventObj
+                  data: eventData
+              });
+          }).catch(function(error) {
+             return console.log('error getting token: ' + error);
+          });
+      }
+
+      function createPlayer(data) {
+          return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
+              data.idToken = idToken;
+              data.objectKey = null;
+              return $http({
+                  method: 'POST',
+                  url: '/players/new',
+                  data: data
+              });
+          }).catch(function(error) {
+              console.log('error getting token: ');
+              console.log(error);
+              return;
+          });
+      }
+
+      function rejectPlayer(key) {
+          return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
+              var data = {
+                  key: key,
+                  idToken: idToken
+              };
+              return $http({
+                  method: 'POST',
+                  url: '/players/reject',
+                  data: data
               });
           }).catch(function(error) {
              return console.log('error getting token: ' + error);
@@ -224,6 +245,8 @@ angular.module('shockballApp')
         fetchPrimaryEvents: fetchPrimaryEvents,
         fetchSecondaryEvents: fetchSecondaryEvents,
         postMessage: postMessage,
-        submitPlayer: submitPlayer
+        submitPlayer: submitPlayer,
+        createPlayer: createPlayer,
+        rejectPlayer: rejectPlayer
       };
   });

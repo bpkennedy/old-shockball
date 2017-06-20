@@ -7,7 +7,6 @@
         <div class="firstName">{{vm.playerData.firstName}}</div>
         <div class="lastName">{{vm.playerData.lastName}}</div>
         <div class="role">{{vm.playerData.role}}</div>
-        <button type="button" name="button" ng-click="vm.postMessage()">Send Message Test</button>
         <div class="biography">
             <div class="label">biography</div>
             <ul>
@@ -36,31 +35,6 @@
                 <div class="label">team</div>
                 <div class="team-name">{{vm.teamData.name}}</div>
                 <div class="time-left">{{vm.calculateTimeRemaining(vm.contractData.endDate)}}</div>
-            </div>
-        </div>
-    </div>
-    <div class="center-column">
-        <div class="radars">
-            <div class="skills-radar">
-                <canvas id="radar" width="220" height="220" class="chart chart-radar" chart-data="::vm.playerData.skills" chart-labels="::vm.playerData.skillLabels"></canvas>
-            </div>
-            <div class="secondary-radar">
-                <canvas id="radar" width="220" height="220" class="chart chart-radar" chart-data="::vm.playerData.scndSkills" chart-labels="::vm.playerData.scndSkillLabels"></canvas>
-            </div>
-        </div>
-        <div class="tables">
-            <div class="panel">
-                <!-- <div class="player-league-stats">player stats</div> -->
-                <div class="matches" ng-click="vm.loadMatches()">matches</div>
-                <div class="recent-events" ng-click="vm.loadEvents()">recent activity</div>
-            </div>
-            <div class="data-table" ng-if="!vm.showEvents">
-                <div ag-grid="vm.gridOptions" class="ag-bootstrap" id="myGrid" style="height:300px;width:100%;"></div>
-            </div>
-            <div class="event-wrapper" ng-if="vm.showEvents">
-                <div class="event-item" ng-repeat="event in vm.eventsData">
-                    Action type: {{event.actionType}}
-                </div>
             </div>
         </div>
     </div>

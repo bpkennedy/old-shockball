@@ -158,16 +158,6 @@ angular
             }
         }
     })
-    .state('root.profile', {
-        url:'/profile',
-        views: {
-            'container@': {
-                templateUrl: 'views/profile.html',
-                controller: 'ProfileCtrl',
-                controllerAs: 'vm'
-            }
-        }
-    })
     .state('root.login', {
         url:'/login',
         views: {

@@ -18,7 +18,7 @@ var eventSchema = Joi.object().keys({
     actor: Joi.string().alphanum().required(),
     oppActor: Joi.string().alphanum().allow(null),
     secondaryOppActor: Joi.string().alphanum().allow(null),
-    type: Joi.string().alphanum().required(),
+    type: Joi.string().required(),
     intensity: Joi.string().allow(null),
     match: Joi.string().alphanum().allow(null),
     team: Joi.string().alphanum().allow(null),
@@ -47,6 +47,7 @@ var queue = new Queue(dbRoot, options, function(data, progress, resolve, reject)
                 });
 
             } else {
+                console.log(result.error);
                 reject({ message: 'invalid data format', data: data, idToken: data.idToken });
             }
         } else {
