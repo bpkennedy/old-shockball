@@ -31,6 +31,10 @@ angular.module('shockballApp')
           });
       }
 
+      function fetchAllUsers() {
+          return $http.get('/users', {cache: true});
+      }
+
       function fetchAllPlayerSubmissions() {
           return $http.get('/players/submit/', {cache:false}).then(function(response) {
               return utils.unpackObjectKeys(response.data);
@@ -195,6 +199,22 @@ angular.module('shockballApp')
           });
       }
 
+      function createTeam() {
+          return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
+              data.idToken = idToken;
+              data.objectKey = null;
+              return $http({
+                  method: 'POST',
+                  url: '/teams/new',
+                  data: data
+              });
+          }).catch(function(error) {
+              console.log('error getting token: ');
+              console.log(error);
+              return;
+          });
+      }
+
       function rejectPlayer(key) {
           return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
               var data = {
@@ -230,6 +250,7 @@ angular.module('shockballApp')
         fetchPlayer: fetchPlayer,
         fetchPlayerSubmission: fetchPlayerSubmission,
         fetchAllPlayers: fetchAllPlayers,
+        fetchAllUsers: fetchAllUsers,
         fetchAllPlayerSubmissions: fetchAllPlayerSubmissions,
         fetchTeamPlayers: fetchTeamPlayers,
         fetchTeam: fetchTeam,
@@ -247,6 +268,7 @@ angular.module('shockballApp')
         postMessage: postMessage,
         submitPlayer: submitPlayer,
         createPlayer: createPlayer,
+        createTeam: createTeam,
         rejectPlayer: rejectPlayer
       };
   });

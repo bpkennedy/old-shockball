@@ -1473,6 +1473,9 @@ loader .player:nth-child(10) {
   border-width: 1px;
   transition: all 0.2s ease;
 }
+.admin-wrapper .teams .ui-select-container {
+  min-width: 200px;
+}
 .player-create-wrapper .header-row {
   background-color: #eaebec;
   border-bottom-color: #d0d1d2;

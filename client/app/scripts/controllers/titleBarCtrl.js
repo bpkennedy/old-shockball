@@ -22,8 +22,12 @@ angular.module('shockballApp')
     }
 
     function isAdmin() {
-        if (vm.loggedInUser.email === 'bpkennedy@gmail.com' || vm.loggedInUser.email === 'realgamer69@yahoo.com' || vm.loggedInUser.email === 'bhersey36@gmail.com') {
-            vm.isAdmin = true;
+        if (vm.loggedInUser) {
+            if (vm.loggedInUser.email === 'bpkennedy@gmail.com' || vm.loggedInUser.email === 'realgamer69@yahoo.com' || vm.loggedInUser.email === 'bhersey36@gmail.com') {
+                vm.isAdmin = true;
+            } else {
+                vm.isAdmin = false;
+            }
         } else {
             vm.isAdmin = false;
         }
