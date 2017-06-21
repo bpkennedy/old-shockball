@@ -51,8 +51,9 @@ if (app.get('env') === 'development') {
 if (app.get('env') === 'production') {
     admin.initializeApp({
         credential: admin.credential.cert({
-            "private_key": process.env.FIREBASE_PRIVATE_KEY,
-            "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+            "projectId": process.env.FIREBASE_PROJECT_ID,
+            "clientEmail": process.env.FIREBASE_CLIENT_EMAIL,
+            "privateKey": process.env.FIREBASE_PRIVATE_KEY,
         }),
         databaseURL: process.env.FIREBASE_DATABASE_URL
     });
