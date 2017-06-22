@@ -10,7 +10,8 @@
 angular.module('shockballApp')
 .controller('AdminCtrl', function ($http, Data, utils, $scope, $window, Events) {
     var vm = this;
-    vm.sendEvent = sendEvent;
+    vm.sendNewPlayerEvent = sendNewPlayerEvent;
+    vm.createTeam = createTeam;
     vm.showEvents = true;
     vm.showActivations = false;
     vm.showPanel = showPanel;
@@ -96,12 +97,32 @@ angular.module('shockballApp')
             vm.teamData.picUrl = vm.teamData.picUrl;
             vm.teamData.owner = vm.owner.selected.uid;
             var isValid = validateForm();
-
+            if (isValid === true) {
+                Data.createTeam(vm.teamData).then(function(response) {
+                    var newTeam = utils.unpackObjectKeys([ response.data ]);
+                    sendNewTeamEvent(newTeam);
+                    $window.iziToast.success({
+                        title: 'OK',
+                        icon: 'fa fa-thumbs-o-up',
+                        message: 'New Team created',
+                        position: 'bottomCenter'
+                    });
+                }).catch(function (error) {
+                    $window.iziToast.error({
+                        icon: 'fa fa-warning',
+                        message: error,
+                        position: 'bottomCenter'
+                    });
+                });
+            } else {
+                $window.iziToast.error({
+                    icon: 'fa fa-warning',
+                    message: 'Error: ' + isValid
+                });
+            }
         });
 
-        Data.createTeam().then(function(response) {
 
-        })
     }
 
     function validateForm() {
@@ -116,42 +137,10 @@ angular.module('shockballApp')
         }
     }
 
-    function submitPlayer() {
-        vm.application.uid = $window.firebase.auth().currentUser.uid;
-        $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
-            vm.application.idToken = idToken;
-            vm.application.uid = vm.userId;
-            vm.application.role = vm.role.selected.title;
-            vm.application.gender = vm.gender.selected.title;
-            var isValid = validateForm();
-            if (isValid === true) {
-                Data.submitPlayer(vm.application).then(function(response) {
-                    console.log(response);
-                    vm.isAwaitingActivation = true;
-                    $window.iziToast.info({
-                        icon: 'fa fa-info-circle',
-                        message: 'Player submitted for creation',
-                        position: 'bottomCenter'
-                    });
-                }).catch(function (error) {
-                    $window.iziToast.error({
-                        icon: 'fa fa-warning',
-                        message: error
-                    });
-                });
-            } else {
-                $window.iziToast.error({
-                    icon: 'fa fa-warning',
-                    message: 'Error: ' + isValid
-                });
-            }
-        });
-    }
-
     function getUsers() {
         Data.fetchAllUsers().then(function(response) {
             vm.users = utils.unpackObjectKeys(response.data);
-        })
+        });
     }
 
     function getDivisionNames() {
@@ -189,8 +178,9 @@ angular.module('shockballApp')
             newPlayer.time = new Date().toJSON();
             Events.create(newPlayer).then(function(response) {
                 console.log(response);
-                $window.iziToast.info({
-                    icon: 'fa fa-info-circle',
+                $window.iziToast.success({
+                    title: 'OK',
+                    icon: 'fa fa-thumbs-o-up',
                     message: 'New Player Event created',
                     position: 'bottomCenter'
                 });
@@ -198,7 +188,8 @@ angular.module('shockballApp')
                 console.log(error);
                 $window.iziToast.error({
                     icon: 'fa fa-warning',
-                    message: error
+                    message: error,
+                    position: 'bottomCenter'
                 });
             });
             init();
@@ -239,7 +230,31 @@ angular.module('shockballApp')
         });
     }
 
-    function sendEvent() {
+    function sendNewTeamEvent(newTeam) {
+        vm.team = {};
+        vm.team.team = newTeam[0].uid;
+        vm.team.actor = newTeam[0].owner;
+        vm.team.type = 'team created';
+        vm.team.time = new Date().toJSON();
+        Events.create(vm.team).then(function(response) {
+            console.log(response);
+            $window.iziToast.success({
+                title: 'OK',
+                icon: 'fa fa-thumbs-o-up',
+                message: 'New team event created',
+                position: 'bottomCenter'
+            });
+        }).catch(function (error) {
+            console.log(error);
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: error,
+                position: 'bottomCenter'
+            });
+        });
+    }
+
+    function sendNewPlayerEvent() {
         vm.event = {};
         vm.event.actor = vm.actor.selected.objectKey;
         vm.event.oppActor = vm.oppActor.selected.objectKey || null;
@@ -252,16 +267,18 @@ angular.module('shockballApp')
         vm.event.time = new Date().toJSON();
         Events.create(vm.event).then(function(response) {
             console.log(response);
-            $window.iziToast.info({
-                icon: 'fa fa-info-circle',
-                message: 'Event created',
+            $window.iziToast.success({
+                title: 'OK',
+                icon: 'fa fa-thumbs-o-up',
+                message: 'New Event created',
                 position: 'bottomCenter'
             });
         }).catch(function (error) {
             console.log(error);
             $window.iziToast.error({
                 icon: 'fa fa-warning',
-                message: error
+                message: error,
+                position: 'bottomCenter'
             });
         });
     }

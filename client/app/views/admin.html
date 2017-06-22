@@ -81,7 +81,7 @@
                       </ui-select-choices>
                     </ui-select>
                 </div>
-                <div class="submit-event" ng-click="vm.sendEvent()">Submit</div>
+                <div class="submit-event" ng-click="vm.sendNewPlayerEvent()">Submit</div>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
                     <label for="type">Division</label>
                     <ui-select class="type-input" ng-model="vm.division.selected" name="type" theme="select2">
                         <ui-select-match>
-                            <span ng-bind="$select.selected.title"></span>
+                            <span ng-bind="$select.selected.conferenceName"></span>
                         </ui-select-match>
                         <ui-select-choices repeat="division in (vm.divisionNames | filter: $select.search) track by division.uid">
                             <span ng-bind="division.conferenceName"></span>

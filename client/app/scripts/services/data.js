@@ -199,7 +199,7 @@ angular.module('shockballApp')
           });
       }
 
-      function createTeam() {
+      function createTeam(data) {
           return $window.firebase.auth().currentUser.getToken(true).then(function(idToken) {
               data.idToken = idToken;
               data.objectKey = null;

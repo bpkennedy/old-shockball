@@ -15,14 +15,14 @@ var teams = [];
 var players = [];
 
 var eventSchema = Joi.object().keys({
-    actor: Joi.string().alphanum().required(),
-    oppActor: Joi.string().alphanum().allow(null),
-    secondaryOppActor: Joi.string().alphanum().allow(null),
+    actor: Joi.string().required(),
+    oppActor: Joi.string().allow(null),
+    secondaryOppActor: Joi.string().allow(null),
     type: Joi.string().required(),
     intensity: Joi.string().allow(null),
-    match: Joi.string().alphanum().allow(null),
-    team: Joi.string().alphanum().allow(null),
-    oppTeam: Joi.string().alphanum().allow(null),
+    match: Joi.string().allow(null),
+    team: Joi.string().allow(null),
+    oppTeam: Joi.string().allow(null),
     time: Joi.date().required()
 }).with('actor', 'type');
 

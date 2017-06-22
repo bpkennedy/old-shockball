@@ -1177,7 +1177,11 @@ loader .player:nth-child(10) {
 .events-wrapper .events .event .action-wrapper.contract .event-type {
   background-color: #9b59b6!important;
 }
-.events-wrapper .events .event .action-wrapper.newPlayer .event-type {
+.events-wrapper .events .event .action-wrapper.player-created .event-type {
+  background-color: #95a5a6!important;
+  color: #000000!important;
+}
+.events-wrapper .events .event .action-wrapper.team-created .event-type {
   background-color: #95a5a6!important;
   color: #000000!important;
 }
@@ -1366,6 +1370,9 @@ loader .player:nth-child(10) {
 .league-wrapper .header-row .division-pick {
   display: inline-block;
   width: auto;
+  min-width: 200px;
+}
+.admin-wrapper .ui-select-container {
   min-width: 200px;
 }
 .admin-wrapper .header-row {

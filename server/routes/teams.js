@@ -51,11 +51,13 @@ router.get('/division/:uid', function (req, res, next) {
 router.post('/new', function(req, res) {
     if (req.body && req.body.uid && req.body.idToken) {
         req.body.idToken = null;
-        ref.child(req.body.uid).set(req.body);
-        ref.child(req.body.uid).once("value", function(snapshot) {
-            res.status(200);
-            res.send(snapshot.val());
-        });
+        ref.push(req.body).then(function(snapshot) {
+            ref.child(snapshot.key).update({ uid: snapshot.key });
+            ref.child(snapshot.key).once("value", function(newTeamSnap) {
+                res.status(200);
+                res.send(newTeamSnap.val());
+            });
+        })
     } else {
         res.status(400);
         res.send({ message: 'missing params or idToken' });
