@@ -47,4 +47,21 @@ router.get('/division/:uid', function (req, res, next) {
     }
 });
 
+//POST create new team
+router.post('/new', function(req, res) {
+    if (req.body && req.body.uid && req.body.idToken) {
+        req.body.idToken = null;
+        ref.push(req.body).then(function(snapshot) {
+            ref.child(snapshot.key).update({ uid: snapshot.key });
+            ref.child(snapshot.key).once("value", function(newTeamSnap) {
+                res.status(200);
+                res.send(newTeamSnap.val());
+            });
+        })
+    } else {
+        res.status(400);
+        res.send({ message: 'missing params or idToken' });
+    }
+});
+
 module.exports = router;

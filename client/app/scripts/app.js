@@ -100,6 +100,16 @@ angular
         },
         params: {
             isPlayer: null
+        },
+        resolve: {
+          // controller will not be loaded until $requireSignIn resolves
+          'auth': 'auth',
+          // Auth refers to our $firebaseAuth wrapper in the factory below
+          "currentUser": ["auth", function(auth) {
+            // $requireSignIn returns a promise so the resolve waits for it to complete
+            // If the promise is rejected, it will throw a $routeChangeError (see above)
+            return auth.$requireSignIn();
+          }]
         }
     })
     .state('root.playerCreate', {
@@ -111,6 +121,16 @@ angular
                 controller: 'PlayerCreateCtrl',
                 controllerAs: 'vm'
             }
+        },
+        resolve: {
+          // controller will not be loaded until $requireSignIn resolves
+          'auth': 'auth',
+          // Auth refers to our $firebaseAuth wrapper in the factory below
+          "currentUser": ["auth", function(auth) {
+            // $requireSignIn returns a promise so the resolve waits for it to complete
+            // If the promise is rejected, it will throw a $routeChangeError (see above)
+            return auth.$requireSignIn();
+          }]
         }
     })
     .state('root.team', {
@@ -125,6 +145,16 @@ angular
         },
         params: {
             isTeam: null
+        },
+        resolve: {
+          // controller will not be loaded until $requireSignIn resolves
+          'auth': 'auth',
+          // Auth refers to our $firebaseAuth wrapper in the factory below
+          "currentUser": ["auth", function(auth) {
+            // $requireSignIn returns a promise so the resolve waits for it to complete
+            // If the promise is rejected, it will throw a $routeChangeError (see above)
+            return auth.$requireSignIn();
+          }]
         }
     })
     .state('root.league', {
@@ -136,16 +166,16 @@ angular
                 controller: 'LeagueCtrl',
                 controllerAs: 'vm'
             }
-        }
-    })
-    .state('root.about', {
-        url:'/about',
-        views: {
-            'container@': {
-                templateUrl: 'views/about.html',
-                controller: 'AboutCtrl',
-                controllerAs: 'vm'
-            }
+        },
+        resolve: {
+          // controller will not be loaded until $requireSignIn resolves
+          'auth': 'auth',
+          // Auth refers to our $firebaseAuth wrapper in the factory below
+          "currentUser": ["auth", function(auth) {
+            // $requireSignIn returns a promise so the resolve waits for it to complete
+            // If the promise is rejected, it will throw a $routeChangeError (see above)
+            return auth.$requireSignIn();
+          }]
         }
     })
     .state('root.events', {
@@ -156,6 +186,16 @@ angular
                 controller: 'EventsCtrl',
                 controllerAs: 'vm'
             }
+        },
+        resolve: {
+          // controller will not be loaded until $requireSignIn resolves
+          'auth': 'auth',
+          // Auth refers to our $firebaseAuth wrapper in the factory below
+          "currentUser": ["auth", function(auth) {
+            // $requireSignIn returns a promise so the resolve waits for it to complete
+            // If the promise is rejected, it will throw a $routeChangeError (see above)
+            return auth.$requireSignIn();
+          }]
         }
     })
     .state('root.login', {

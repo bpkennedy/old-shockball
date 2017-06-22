@@ -96,5 +96,6 @@ app.use('/matches', matches);
 app.use('/events', events);
 app.use('/divisions', divisions);
 app.use('/conferences', conferences);
+app.use('/users', users);
 
 module.exports = app;

@@ -6,6 +6,9 @@
         <div class="header-title" ng-click="vm.showPanel('activations')">
             Player Activation
         </div>
+        <div class="header-title" ng-click="vm.showPanel('teams')">
+            Create Teams
+        </div>
     </div>
     <div class="events" ng-if="vm.showEvents">
         <h2>Create an Event</h2>
@@ -78,7 +81,7 @@
                       </ui-select-choices>
                     </ui-select>
                 </div>
-                <div class="submit-event" ng-click="vm.sendEvent()">Submit</div>
+                <div class="submit-event" ng-click="vm.sendNewPlayerEvent()">Submit</div>
             </div>
         </div>
     </div>
@@ -89,6 +92,44 @@
                 <div class="reject" ng-click="vm.rejectPlayer(key)">Reject Player</div>
             </div>
             <pre>{{value | json}}</pre>
+        </div>
+    </div>
+    <div class="events" ng-if="vm.showTeams">
+        <h2>Create a Team</h2>
+        <div class="event-info">
+            <div class="team">
+                <div class="input-group">
+                    <label for="name">Team Name</label>
+                    <input type="text" name="name" value="" ng-model="vm.teamData.name">
+                </div>
+                <div class="input-group">
+                    <label for="pic-url">Team Logo URL</label>
+                    <input type="url" name="pic-url" value="" ng-model="vm.teamData.picUrl">
+                </div>
+                <div class="input-group">
+                    <label for="type">Division</label>
+                    <ui-select class="type-input" ng-model="vm.division.selected" name="type" theme="select2">
+                        <ui-select-match>
+                            <span ng-bind="$select.selected.conferenceName"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="division in (vm.divisionNames | filter: $select.search) track by division.uid">
+                            <span ng-bind="division.conferenceName"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="input-group">
+                    <label for="owner">Owner</label>
+                    <ui-select ng-model="vm.owner.selected" name="owner" theme="select2">
+                        <ui-select-match>
+                            <span ng-bind="$select.selected.handle"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="user in (vm.users | filter: $select.search) track by user.uid">
+                            <span ng-bind="user.handle"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="submit-event" ng-click="vm.createTeam()">Submit</div>
+            </div>
         </div>
     </div>
 </div>

@@ -1177,7 +1177,11 @@ loader .player:nth-child(10) {
 .events-wrapper .events .event .action-wrapper.contract .event-type {
   background-color: #9b59b6!important;
 }
-.events-wrapper .events .event .action-wrapper.newPlayer .event-type {
+.events-wrapper .events .event .action-wrapper.player-created .event-type {
+  background-color: #95a5a6!important;
+  color: #000000!important;
+}
+.events-wrapper .events .event .action-wrapper.team-created .event-type {
   background-color: #95a5a6!important;
   color: #000000!important;
 }
@@ -1368,6 +1372,9 @@ loader .player:nth-child(10) {
   width: auto;
   min-width: 200px;
 }
+.admin-wrapper .ui-select-container {
+  min-width: 200px;
+}
 .admin-wrapper .header-row {
   background-color: #eaebec;
   border-bottom-color: #d0d1d2;
@@ -1472,6 +1479,9 @@ loader .player:nth-child(10) {
   border-style: solid;
   border-width: 1px;
   transition: all 0.2s ease;
+}
+.admin-wrapper .teams .ui-select-container {
+  min-width: 200px;
 }
 .player-create-wrapper .header-row {
   background-color: #eaebec;

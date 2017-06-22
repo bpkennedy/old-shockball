@@ -19,7 +19,9 @@ angular.module('shockballApp')
             foul: 'foul',
             train: 'train',
             miss: 'miss',
-            block: 'block'
+            block: 'block',
+            'player created': 'player-created',
+            'team created': 'team-created'
         };
         var className = eventClassTypes[eventType] ? eventClassTypes[eventType] : 'generic';
         return className;

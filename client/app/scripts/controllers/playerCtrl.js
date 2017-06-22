@@ -144,7 +144,11 @@ angular.module('shockballApp')
 
     function calculateTimeRemaining(endDate) {
         var timeRemaining = moment().countdown(endDate, countdown.WEEKS, NaN).toString();
-        return '(' + timeRemaining + ' left)';
+        if (!timeRemaining) {
+            return '';
+        } else {
+            return '(' + timeRemaining + ' left)';
+        }
     }
 
     init();
