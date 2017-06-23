@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('LoginCtrl', function ($window, $rootScope, $scope, auth, currentUser, loaderSvc) {
+.controller('LoginCtrl', function ($window, $rootScope, $scope, auth, currentUser, loaderSvc, Events) {
     var vm = this;
     vm.email = null;
     vm.password = null;
@@ -101,17 +101,34 @@ angular.module('shockballApp')
             photoUrl: user.photoURL
         }).then(function(response) {
             console.log(response);
-            $window.iziToast.success({
-                title: 'OK',
-                icon: 'fa fa-thumbs-o-up',
-                message: 'User profile updated'
-            });
-            vm.pic = null;
-            loaderSvc.toggleOff();
+            updatePlayerPic(user.photoURL);
         }).catch(function(error) {
             $window.iziToast.error({
                 icon: 'fa fa-warning',
                 message: error,
+            });
+            loaderSvc.toggleOff();
+        });
+    }
+
+    function updatePlayerPic(picUrl) {
+        var eventToSend = {};
+        eventToSend.actor = vm.loggedInUser.uid;
+        eventToSend.type = 'picUpdate:' + picUrl;
+        Events.create(eventToSend).then(function(response) {
+            console.log(response);
+            $window.iziToast.success({
+                title: 'OK',
+                icon: 'fa fa-thumbs-o-up',
+                message: 'User and Player pic updated'
+            });
+            vm.pic = null;
+            loaderSvc.toggleOff();
+        }).catch(function (error) {
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: error,
+                position: 'bottomCenter'
             });
             loaderSvc.toggleOff();
         });

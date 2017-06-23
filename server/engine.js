@@ -57,6 +57,14 @@ function trainSkill(event) {
     });
 }
 
+function updatePlayerPic(uid, url) {
+    playersRef.child(uid).update({ picUrl: url });
+}
+
+function createEvent(populatedData) {
+    eventsRef.push().set(populatedData);
+}
+
 function processEvent(event) {
     if (event.type === 'player submitted') {
         playerSubmissions.push().set(event);
@@ -64,7 +72,14 @@ function processEvent(event) {
     }
     if (event.type.indexOf('train:') > -1) {
         trainSkill(event);
+        return;
     }
+    if (event.type.indexOf('picUpdate:') > -1) {
+        var profilePic = event.type.split(':').pop();
+        updatePlayerPic(event.actor, profilePic);
+        return;
+    }
+    createEvent(event);
 }
 
 initializeEngine();
