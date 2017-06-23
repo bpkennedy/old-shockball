@@ -747,6 +747,9 @@ template {
   .player-wrapper .right-column .skills {
     transition: all 0.2s ease;
     flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 70px;
   }
 }
 .player-wrapper .right-column .skills .radar-chart {
@@ -780,6 +783,8 @@ template {
 }
 .player-wrapper .right-column .skills .training-container p {
   text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .player-wrapper .right-column .skills .training-container p .train-skill-text {
   color: #2ecc71;

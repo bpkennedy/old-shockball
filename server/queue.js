@@ -39,7 +39,6 @@ var queue = new Queue(dbRoot, options, function(data, progress, resolve, reject)
             if (result.error === null) {
                 populateEvent(data).then(function(response) {
                     var populatedData = response;
-                    createEvent(populatedData);
                     engine.processEvent(populatedData);
                     resolve(populatedData);
                 }).catch(function(error) {
