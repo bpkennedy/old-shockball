@@ -1,34 +1,99 @@
 <div class="player-wrapper">
     <div class="left-column">
+        <h2 class="player-name">{{::vm.playerData.firstName}} {{::vm.playerData.lastName}}</h2>
         <div class="player-pic">
             <img ng-src="{{vm.playerData.picUrl}}" alt="">
         </div>
-        <div class="player-xp">EXP: {{vm.playerData.xp}}</div>
-        <div class="firstName">{{vm.playerData.firstName}}</div>
-        <div class="lastName">{{vm.playerData.lastName}}</div>
-        <div class="role">{{vm.playerData.role}}</div>
-        <div class="biography">
-            <div class="label">biography</div>
-            <ul>
-                <li>
-                    <div class="bio-prop">Gender</div>
-                    <div class="bio-prop-value">{{vm.playerData.gender}}</div>
-                </li>
-                <li>
-                    <div class="bio-prop">Species</div>
-                    <div class="bio-prop-value">{{vm.playerData.species}}</div>
-                </li>
-                <li>
-                    <div class="bio-prop">Age</div>
-                    <div class="bio-prop-value">{{vm.playerData.age}}</div>
-                </li>
-                <li>
-                    <div class="bio-prop">Birth Planet</div>
-                    <div class="bio-prop-value">{{vm.playerData.planet}}</div>
-                </li>
-            </ul>
+        <div class="role">{{::vm.playerData.role}}</div>
+
+        <div class="experience">
+            <div class="skill">
+                <div class="skill-name">
+                    Experience
+                </div>
+                <div class="skill-value">
+                    <div class="skill-number">
+                        {{::vm.playerData.xp}}
+                    </div>
+                    <div class="meter">
+                      <span ng-style="{ 'width': '15%' }"></span>
+                    </div>
+                    <div class="end-spacer"></div>
+                </div>
+            </div>
         </div>
-        <div class="contract">
+
+        <div class="aggression">
+            <div class="skill">
+                <div class="skill-name">
+                    Aggression
+                </div>
+                <div class="skill-value">
+                    <div class="skill-number">
+                        {{::vm.playerData.aggro}}
+                    </div>
+                    <div class="meter">
+                      <span ng-style="{ 'width': vm.playerData.aggro + '%' }"></span>
+                    </div>
+                    <div class="end-spacer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status">
+            <div class="label">Status</div>
+            <div class="skill morale">
+                <div class="skill-name">
+                    Morale
+                </div>
+                <div class="skill-value">
+                    <div class="skill-number">
+                        {{::vm.playerData.morale}}
+                    </div>
+                    <div class="meter">
+                      <span ng-style="{ 'width': vm.playerData.morale + '%' }"></span>
+                    </div>
+                    <div class="end-spacer"></div>
+                </div>
+            </div>
+            <div class="skill fatigue">
+                <div class="skill-name">
+                    Fatigue
+                </div>
+                <div class="skill-value">
+                    <div class="skill-number">
+                        {{::vm.playerData.fatigue}}
+                    </div>
+                    <div class="meter">
+                      <span ng-style="{ 'width': vm.playerData.fatigue + '%' }"></span>
+                    </div>
+                    <div class="end-spacer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="biography">
+            <div class="label">Biography</div>
+            <div class="bio-container">
+                <div class="bio-item">
+                    <div class="bio-prop">Gender:</div>
+                    <div class="bio-prop-value">{{::vm.playerData.gender}}</div>
+                </div>
+                <div class="bio-item">
+                    <div class="bio-prop">Species:</div>
+                    <div class="bio-prop-value">{{::vm.playerData.species}}</div>
+                </div>
+                <div class="bio-item">
+                    <div class="bio-prop">Age:</div>
+                    <div class="bio-prop-value">{{::vm.playerData.age}}</div>
+                </div>
+                <div class="bio-item">
+                    <div class="bio-prop">Birth Planet:</div>
+                    <div class="bio-prop-value">{{::vm.playerData.planet}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="contract">
             <div class="label">contract</div>
             <div class="salary">{{vm.contractData.salary}}</div>
             <div class="team">
@@ -36,6 +101,89 @@
                 <div class="team-name">{{vm.teamData.name}}</div>
                 <div class="time-left">{{vm.calculateTimeRemaining(vm.contractData.endDate)}}</div>
             </div>
+        </div> -->
+    </div>
+    <div class="right-column">
+        <div class="header-row">
+            <div class="header-title" ng-click="vm.showPanel('skills')">
+                Skills
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('stats')">
+                Stats
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('activities')">
+                Activity
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('contract')">
+                Contract
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('matches')">
+                Matches
+            </div>
+        </div>
+        <div class="skills" ng-if="vm.showSkills">
+            <div class="radar-chart">
+                <canvas id="radar" class="chart chart-radar"
+                    chart-data="vm.radarData" chart-options="options" chart-labels="vm.radarLabels">
+                </canvas>
+            </div>
+            <div class="skill-container">
+                <div class="skill-repeater" ng-repeat="skill in vm.playerSkills">
+                    <div class="skill">
+                        <div class="skill-name">
+                            {{::skill.title}}
+                        </div>
+                        <div class="skill-value">
+                            <div class="skill-number">
+                                {{::skill.value}}
+                            </div>
+                            <div class="meter">
+                              <span ng-style="{ 'width': skill.value + '%' }"></span>
+                            </div>
+                            <div class="end-spacer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="training-container" ng-if="vm.isCurrentUser">
+                <h4 class="training-title">Training</h4>
+                <p ng-if="!vm.isTrainingMode">Currently training <span class="train-skill-text">{{vm.playerData.training}}</span> at <span class="train-skill-text">{{vm.playerData.trainingIntensity}}</span> intensity.</p>
+                <div class="training-form" ng-if="vm.isTrainingMode">
+                    <div class="input-group">
+                        <label for="actor">Train Skill:</label>
+                        <ui-select ng-model="vm.trainSkill.selected" theme="select2" style="min-width: 300px;" title="Choose a skill to train">
+                          <ui-select-match placeholder="Select a skill to train">{{$select.selected.title}}</ui-select-match>
+                          <ui-select-choices repeat="trainSkill in (vm.playerSkills | filter: $select.search) track by trainSkill.title">
+                            <div ng-bind-html="trainSkill.title | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="input-group">
+                        <label for="actor">Training Intensity:</label>
+                        <ui-select ng-model="vm.trainIntensity.selected" theme="select2" style="min-width: 300px;" title="Choose a training intensity">
+                          <ui-select-match placeholder="Select a training intensity">{{$select.selected.title}}</ui-select-match>
+                          <ui-select-choices repeat="trainIntensity in (vm.intensities | filter: $select.search) track by trainIntensity.title">
+                            <div ng-bind-html="trainIntensity.title | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="train-button button" ng-if="!vm.isTrainingMode" ng-click="vm.changeTraining()">Change</div>
+                <div class="train-save button save" ng-if="vm.isTrainingMode" ng-click="vm.saveTraining()">Save</div>
+                <div class="train-cancel button cancel" ng-if="vm.isTrainingMode" ng-click="vm.cancelTraining()">Cancel</div>
+            </div>
+        </div>
+        <div class="stats" ng-if="vm.showStats">
+            stats go here
+        </div>
+        <div class="activity" ng-if="vm.showActivities">
+            activity goes here
+        </div>
+        <div class="contract" ng-if="vm.showContract">
+            contract goes here
+        </div>
+        <div class="matches" ng-if="vm.showMatches">
+            matches go here
         </div>
     </div>
 </div>

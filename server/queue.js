@@ -43,6 +43,7 @@ var queue = new Queue(dbRoot, options, function(data, progress, resolve, reject)
                     engine.processEvent(populatedData);
                     resolve(populatedData);
                 }).catch(function(error) {
+                    console.log(error);
                     reject(error);
                 });
 
@@ -98,7 +99,7 @@ function populateEvent(data) {
                 return;
             }
         });
-        if (populatedData.intensity) {
+        if (populatedData.intensity && populatedData.type.indexOf('train:') < 0) {
             populatedData = populateVerbPhrase(populatedData);
         }
         if (populatedData) {
