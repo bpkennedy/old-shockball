@@ -6,6 +6,7 @@ var db = admin.database();
 var dbRoot = db.ref();
 var matchesRef = db.ref("matches");
 var eventsRef = db.ref("events");
+var playersRef = db.ref("players");
 var presenceRef = db.ref("presence/app");
 var playerSubmissions = db.ref("playerSubmissions");
 var matches = [];
@@ -46,9 +47,23 @@ function trackPresence() {
     });
 }
 
+function trainSkill(event) {
+    var skill = event.type.split(':').pop();
+    var player = event.actor;
+    var intensity = event.intensity;
+    playersRef.child(player).update({
+        training: skill,
+        trainingIntensity: intensity
+    });
+}
+
 function processEvent(event) {
     if (event.type === 'player submitted') {
         playerSubmissions.push().set(event);
+        return;
+    }
+    if (event.type.indexOf('train:') > -1) {
+        trainSkill(event);
     }
 }
 

@@ -78,14 +78,14 @@ angular
             }
         },
         resolve: {
-          // controller will not be loaded until $requireSignIn resolves
-          'auth': 'auth',
-          // Auth refers to our $firebaseAuth wrapper in the factory below
-          "currentUser": ["auth", function(auth) {
-            // $requireSignIn returns a promise so the resolve waits for it to complete
-            // If the promise is rejected, it will throw a $routeChangeError (see above)
-            return auth.$requireSignIn();
-          }]
+            // controller will not be loaded until $requireSignIn resolves
+            'auth': 'auth',
+            // Auth refers to our $firebaseAuth wrapper in the factory below
+            "currentUser": ["auth", function(auth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $routeChangeError (see above)
+                return auth.$requireSignIn();
+            }]
         }
     })
     .state('root.player', {
@@ -102,14 +102,14 @@ angular
             isPlayer: null
         },
         resolve: {
-          // controller will not be loaded until $requireSignIn resolves
-          'auth': 'auth',
-          // Auth refers to our $firebaseAuth wrapper in the factory below
-          "currentUser": ["auth", function(auth) {
-            // $requireSignIn returns a promise so the resolve waits for it to complete
-            // If the promise is rejected, it will throw a $routeChangeError (see above)
-            return auth.$requireSignIn();
-          }]
+            // controller will not be loaded until $requireSignIn resolves
+            'auth': 'auth',
+            // Auth refers to our $firebaseAuth wrapper in the factory below
+            "currentUser": ["auth", function(auth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $routeChangeError (see above)
+                return auth.$requireSignIn();
+            }]
         }
     })
     .state('root.playerCreate', {
@@ -123,14 +123,14 @@ angular
             }
         },
         resolve: {
-          // controller will not be loaded until $requireSignIn resolves
-          'auth': 'auth',
-          // Auth refers to our $firebaseAuth wrapper in the factory below
-          "currentUser": ["auth", function(auth) {
-            // $requireSignIn returns a promise so the resolve waits for it to complete
-            // If the promise is rejected, it will throw a $routeChangeError (see above)
-            return auth.$requireSignIn();
-          }]
+            // controller will not be loaded until $requireSignIn resolves
+            'auth': 'auth',
+            // Auth refers to our $firebaseAuth wrapper in the factory below
+            "currentUser": ["auth", function(auth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $routeChangeError (see above)
+                return auth.$requireSignIn();
+            }]
         }
     })
     .state('root.team', {
@@ -147,14 +147,14 @@ angular
             isTeam: null
         },
         resolve: {
-          // controller will not be loaded until $requireSignIn resolves
-          'auth': 'auth',
-          // Auth refers to our $firebaseAuth wrapper in the factory below
-          "currentUser": ["auth", function(auth) {
-            // $requireSignIn returns a promise so the resolve waits for it to complete
-            // If the promise is rejected, it will throw a $routeChangeError (see above)
-            return auth.$requireSignIn();
-          }]
+            // controller will not be loaded until $requireSignIn resolves
+            'auth': 'auth',
+            // Auth refers to our $firebaseAuth wrapper in the factory below
+            "currentUser": ["auth", function(auth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $routeChangeError (see above)
+                return auth.$requireSignIn();
+            }]
         }
     })
     .state('root.league', {
@@ -168,14 +168,14 @@ angular
             }
         },
         resolve: {
-          // controller will not be loaded until $requireSignIn resolves
-          'auth': 'auth',
-          // Auth refers to our $firebaseAuth wrapper in the factory below
-          "currentUser": ["auth", function(auth) {
-            // $requireSignIn returns a promise so the resolve waits for it to complete
-            // If the promise is rejected, it will throw a $routeChangeError (see above)
-            return auth.$requireSignIn();
-          }]
+            // controller will not be loaded until $requireSignIn resolves
+            'auth': 'auth',
+            // Auth refers to our $firebaseAuth wrapper in the factory below
+            "currentUser": ["auth", function(auth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $routeChangeError (see above)
+                return auth.$requireSignIn();
+            }]
         }
     })
     .state('root.events', {
@@ -188,14 +188,14 @@ angular
             }
         },
         resolve: {
-          // controller will not be loaded until $requireSignIn resolves
-          'auth': 'auth',
-          // Auth refers to our $firebaseAuth wrapper in the factory below
-          "currentUser": ["auth", function(auth) {
-            // $requireSignIn returns a promise so the resolve waits for it to complete
-            // If the promise is rejected, it will throw a $routeChangeError (see above)
-            return auth.$requireSignIn();
-          }]
+            // controller will not be loaded until $requireSignIn resolves
+            'auth': 'auth',
+            // Auth refers to our $firebaseAuth wrapper in the factory below
+            "currentUser": ["auth", function(auth) {
+                // $requireSignIn returns a promise so the resolve waits for it to complete
+                // If the promise is rejected, it will throw a $routeChangeError (see above)
+                return auth.$requireSignIn();
+            }]
         }
     })
     .state('root.login', {
@@ -245,4 +245,10 @@ angular
         }
     });
 
+}])
+.config(['ChartJsProvider', function (ChartJsProvider) {
+    ChartJsProvider.setOptions({
+        maintainAspectRatio: true,
+        responsive: true
+    });
 }]);
