@@ -1619,7 +1619,7 @@ loader .player:nth-child(10) {
   transition: all 0.2s ease;
 }
 .league-wrapper .ag-material .ag-cell-not-inline-editing {
-  padding: 0;
+  padding: 2px;
 }
 .league-wrapper .ui-select-container {
   min-width: 200px;
@@ -1839,6 +1839,114 @@ loader .player:nth-child(10) {
 }
 .player-create-wrapper .player-form .game-skills .input-group input {
   flex: 1;
+}
+.team-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: top;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .team-wrapper {
+    transition: all 0.2s ease;
+    flex-direction: column;
+  }
+}
+.team-wrapper .ag-material .ag-cell-not-inline-editing {
+  padding-top: 2px;
+}
+.team-wrapper .team-link {
+  color: #2d567a;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+}
+.team-wrapper .team-link:hover {
+  cursor: pointer;
+  color: #0676BE;
+  transition: all 0.2s ease;
+}
+.team-wrapper .left-column {
+  flex: 1;
+  padding: 20px;
+  background: #EAEBEC;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  font-size: 0.8em;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .team-wrapper .left-column {
+    transition: all 0.2s ease;
+    max-width: 100%;
+  }
+}
+.team-wrapper .left-column img {
+  width: 160px;
+  height: 160px;
+}
+.team-wrapper .left-column > div {
+  flex: 1;
+  padding-bottom: 7px;
+}
+.team-wrapper .left-column > div.team-pic {
+  padding-bottom: 0;
+  text-align: center;
+}
+.team-wrapper .left-column h2 {
+  margin-top: 3px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.team-wrapper .left-column .label {
+  text-align: center;
+  font-size: 1.2em;
+  font-style: italic;
+  text-decoration: underline;
+  padding-bottom: 5px;
+}
+.team-wrapper .right-column {
+  width: 100%;
+}
+.team-wrapper .right-column .header-row {
+  background-color: #eaebec;
+  border-bottom-color: #d0d1d2;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 200px);
+  position: absolute;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .team-wrapper .right-column .header-row {
+    transition: all 0.2s ease;
+    width: 100%;
+    border-top-color: #d0d1d2;
+    border-top-style: solid;
+    border-top-width: 1px;
+  }
+}
+.team-wrapper .right-column .header-row .header-title {
+  height: 100%;
+  line-height: 50px;
+  font-weight: 300;
+  text-align: center;
+  flex: 1;
+  border-right-color: #999;
+  border-right-style: solid;
+  border-right-width: 1px;
+  transition: all 0.2s ease;
+}
+.team-wrapper .right-column .header-row .header-title:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #777777;
+  transition: all 0.2s ease;
 }
 .player-bg {
   background: #ffffff;

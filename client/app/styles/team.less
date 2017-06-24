@@ -1,0 +1,106 @@
+@playerXpCcolor: #ffffff;
+@playerHeadingColor: #999999;
+@playerFieldColor: #cccccc;
+
+.team-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: top;
+    transition: @transition;
+    @media @breakpoint {
+        transition: @transition;
+        flex-direction: column;
+    }
+    .ag-material .ag-cell-not-inline-editing {
+        padding-top: 2px;
+    }
+    .team-link {
+        color: @secondary-font-color;
+        text-decoration: underline;
+        transition: @transition;
+        &:hover {
+            cursor:pointer;
+            color: #0676BE;
+            transition: @transition;
+        }
+    }
+    .left-column {
+        flex:1;
+        padding: 20px;
+        background: #EAEBEC;
+        max-width: 200px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 12px;
+        font-size: 0.8em;
+        transition: @transition;
+        @media @breakpoint {
+            transition: @transition;
+            max-width: 100%;
+        }
+        img {
+            width: 160px;
+            height: 160px;
+        }
+        >div {
+            flex:1;
+            padding-bottom: 7px;
+            &.team-pic {
+                padding-bottom:0;
+                text-align: center;
+            }
+        }
+        h2 {
+            margin-top: 3px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .label {
+            text-align: center;
+            font-size: 1.2em;
+            font-style: italic;
+            text-decoration: underline;
+            padding-bottom: 5px;
+        }
+    }
+    .right-column {
+        width: 100%;
+        .header-row {
+            background-color: #eaebec;
+            border-bottom-color: #d0d1d2;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: calc(~"100% - 200px");
+            position: absolute;
+            transition: @transition;
+            @media @breakpoint {
+                transition: @transition;
+                width: 100%;
+                border-top-color: #d0d1d2;
+                border-top-style: solid;
+                border-top-width: 1px;
+            }
+            .header-title {
+                height: 100%;
+                line-height: 50px;
+                font-weight: 300;
+                text-align: center;
+                flex: 1;
+                border-right-color: #999;
+                border-right-style: solid;
+                border-right-width: 1px;
+                transition: @transition;
+                &:hover {
+                    cursor: pointer;
+                    color: #ffffff;
+                    background-color:#777777;
+                    transition: @transition;
+                }
+            }
+        }
+    }
+}
