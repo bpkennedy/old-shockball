@@ -1,14 +1,42 @@
 <div class="team-wrapper">
-    <div class="team-info">
-        <div class="">
-            <h2>{{vm.teamData.name}}</h2>
+    <div class="left-column">
+        <h2 class="team-name">{{::vm.teamData.name}}</h2>
+        <div class="team-pic">
             <img ng-src="{{vm.teamData.picUrl}}" alt="">
         </div>
     </div>
-    <div class="team-players">
-        <div class="" ng-repeat="player in vm.teamPlayersData">
-            <h4>{{player.firstName}} {{player.lastName}}</h4>
-            <img ng-src="{{player.picUrl}}" alt="">
+    <div class="right-column">
+        <div class="header-row">
+            <div class="header-title" ng-click="vm.showPanel('players')">
+                Players
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('stats')">
+                Stats
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('activities')">
+                Activity
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('contracts')">
+                Contracts
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('matches')">
+                Matches
+            </div>
+        </div>
+        <div class="players" ng-if="vm.showPlayers">
+            <div ag-grid="vm.gridOptions" class="ag-material" id="myGrid" style="height:300px;width:100%;margin-top:70px;"></div>
+        </div>
+        <div class="stats" ng-if="vm.showStats">
+            stats go here
+        </div>
+        <div class="activity" ng-if="vm.showActivities">
+            activity goes here
+        </div>
+        <div class="contract" ng-if="vm.showContract">
+            contract goes here
+        </div>
+        <div class="matches" ng-if="vm.showMatches">
+            matches go here
         </div>
     </div>
 </div>
