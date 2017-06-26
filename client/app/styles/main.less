@@ -86,6 +86,25 @@ html, body {
     padding-left: 10px;
     padding-right: 10px;
 }
+.grid-button {
+    border: 1px solid #3498DB;
+    width: auto;
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 4px;
+    background-color: @secondary-background-color;
+    color: @nav-font-color;
+    transition: @transition;
+    &:hover {
+        cursor: pointer;
+        color: @secondary-font-color;
+        background-color: @secondary-hover-background;
+        transition: @transition;
+    }
+}
 #wrapper {
     position: relative;
     overflow-x: hidden;

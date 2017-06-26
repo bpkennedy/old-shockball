@@ -8,13 +8,17 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('PlayerCtrl', function ($http, $scope, $state, $stateParams, Data, $window, Events) {
+.controller('PlayerCtrl', function ($http, $scope, $state, $stateParams, Data, $window, Events, utils) {
     var vm = this;
     vm.playerId = $stateParams.playerId ? $stateParams.playerId : $window.firebase.auth().currentUser.uid;
     vm.playerData = {};
     vm.playerSkills = [];
+    vm.allTeams = [];
     vm.teamData = {};
-    vm.contractData = {};
+    vm.contractData = [];
+    vm.isContractReview = false;
+    vm.contractIsChanged = false;
+    vm.contractReviewData = {};
     vm.matchesData = [];
     vm.eventsData = [];
     vm.radarData = [];
@@ -39,10 +43,135 @@ angular.module('shockballApp')
     vm.trainIntensity = { selected: vm.intensities[0] };
 
     vm.calculateTimeRemaining = calculateTimeRemaining;
+    vm.playerContractsDefs = [
+        {headerName: "Team", field: "teamFullName", cellRenderer: teamNameCellRender},
+        {headerName: "Status", field: "status",},
+        {headerName: "Action", field: "action", cellRenderer: contractAction},
+        {headerName: "Started", field: "startDate", cellRenderer: convertStartDate},
+        {headerName: "Expires in", field: "endDate", cellRenderer: convertEndDate},
+        {headerName: "Salary", field: "salary", cellRenderer: convertSalaryToCredits},
+        {headerName: "Goal Bonus(1pt)", field: "goalBonus1", cellRenderer: convertGoalBonus1ToCredits},
+        {headerName: "Goal Bonus(2pt)", field: "goalBonus2", cellRenderer: convertGoalBonus2ToCredits},
+        {headerName: "Goal Bonus(3pt)", field: "goalBonus3", cellRenderer: convertGoalBonus3ToCredits}
+    ];
+    vm.gridContractsOptions = {
+        columnDefs: vm.playerContractsDefs,
+        rowData: vm.contractData,
+        angularCompileRows: true,
+        enableFilter: true,
+        enableSorting: true,
+        enableColResize: true,
+        onGridReady: function(event) {
+            console.log(event);
+            updateContractsGrid();
+        },
+    };
+    $scope.goToTeam = goToTeam;
+    $scope.reviewContract = reviewContract;
+    vm.counterOffer = counterOffer;
 
     function init() {
+        getAllTeams();
         setPlayerModel(vm.playerId);
         checkIfCurrentUser();
+    }
+
+    function counterOffer() {
+        var eventToSend = {};
+        eventToSend.actor = vm.playerId;
+        eventToSend.endDate = vm.contractReviewData.endDate;
+        eventToSend.startDate = vm.contractReviewData.startDate;
+        eventToSend.salary = vm.contractReviewData.salary;
+        eventToSend.goalBonus1 = vm.contractReviewData.goalBonus1;
+        eventToSend.goalBonus2 = vm.contractReviewData.goalBonus2;
+        eventToSend.goalBonus3 = vm.contractReviewData.goalBonus3;
+        eventToSend.offerTeam = vm.contractReviewData.offerTeam;
+        eventToSend.signingPlayer = vm.contractReviewData.signingPlayer;
+        eventToSend.playerLockIn = true;
+        eventToSend.teamLockIn = false;
+        eventToSend.type = 'contract:player';
+        Events.create(eventToSend).then(function(response) {
+            console.log(response);
+            $window.iziToast.success({
+                title: 'OK',
+                icon: 'fa fa-thumbs-o-up',
+                message: 'Contract counter offer made',
+                position: 'bottomCenter'
+            });
+        }).catch(function (error) {
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: error,
+                position: 'bottomCenter'
+            });
+        });
+    }
+
+    function contractAction(params) {
+        console.log(params);
+        var loggedInUserId = $window.firebase.auth().currentUser.uid;
+        var profilePlayerId = vm.playerId;
+        if (loggedInUserId.toString() === profilePlayerId.toString()) {
+            return "<div class=\"grid-button\" ng-click=\"reviewContract(data)\">review</div>";
+        } else {
+            return '';
+        }
+    }
+
+    function reviewContract(data) {
+        data.salary = parseInt(data.salary);
+        data.goalBonus1 = parseInt(data.goalBonus1);
+        data.goalBonus2 = parseInt(data.goalBonus2);
+        data.goalBonus3 = parseInt(data.goalBonus3);
+        data.startDate = moment(data.startDate);
+        data.endDate = moment(data.endDate);
+        data.teamLockIn = data.teamLockIn;
+        data.playerLockIn = data.playerLockIn;
+        vm.contractReviewData = data;
+        vm.isContractReview = true;
+    }
+
+    function convertEndDate(params) {
+        var day = moment(params.data.endDate);
+        return day.toNow(true);
+    }
+
+    function convertStartDate(params) {
+        var day = moment(params.data.startDate);
+        return day.from(new Date());
+    }
+
+    function convertSalaryToCredits(params) {
+        //regex to convert a string to a currency without $ symbol or digits.
+        var credits = params.data.salary.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        return credits || 0;
+    }
+
+    function convertGoalBonus1ToCredits(params) {
+        //regex to convert a string to a currency without $ symbol or digits.
+        var credits = params.data.goalBonus1.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        return credits || 0;
+    }
+
+    function convertGoalBonus2ToCredits(params) {
+        //regex to convert a string to a currency without $ symbol or digits.
+        var credits = params.data.goalBonus2.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        return credits || 0;
+    }
+
+    function convertGoalBonus3ToCredits(params) {
+        //regex to convert a string to a currency without $ symbol or digits.
+        var credits = params.data.goalBonus3.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        return credits || 0;
+    }
+
+    function teamNameCellRender(params) {
+        params.$scope.goToTeam = goToTeam;
+        return "<a class=\"team-link\" ng-click=\"goToTeam(data.offerTeam)\">" + params.data.teamName + "</a>";
+    }
+
+    function goToTeam(id) {
+        $state.go('root.team', { teamId: id });
     }
 
     function changeTraining() {
@@ -125,12 +254,18 @@ angular.module('shockballApp')
             }
             vm.playerData = response.data;
             vm.playerSkills = createPlayerSkills(vm.playerData);
+            setContractModel(vm.playerId);
             if (vm.playerData.team) {
                 setTeamModel(vm.playerData.team);
                 setMatchesModel(vm.playerData.team);
-                setContractModel(vm.playerId);
                 setEventsModel(vm.playerId);
             }
+        });
+    }
+
+    function getAllTeams() {
+        Data.fetchAllTeams().then(function(response) {
+            vm.allTeams = utils.unpackObjectKeys(response.data);
         });
     }
 
@@ -158,8 +293,21 @@ angular.module('shockballApp')
 
     function setContractModel(id) {
         Data.fetchPlayerContract(id).then(function(response) {
-            vm.contractData = response.data[Object.keys(response.data)[0]];
+            var contracts = utils.unpackObjectKeys(response.data);
+            var contractsWithFullNames = constructFullNames(contracts);
+            vm.contractData = contractsWithFullNames;
+            updateContractsGrid();
         });
+    }
+
+    function constructFullNames(contracts) {
+        _.forEach(contracts, function(contract) {
+            var matchedTeam = _.find(vm.allTeams, function(team) {
+                return team.uid === contract.offerTeam;
+            });
+            contract.teamName = matchedTeam.name;
+        });
+        return contracts;
     }
 
     function setMatchesModel(teamId) {
@@ -196,6 +344,13 @@ angular.module('shockballApp')
                 }
             });
         });
+    }
+
+    function updateContractsGrid() {
+        if (vm.gridContractsOptions.api) {
+            vm.gridContractsOptions.api.setRowData(vm.contractData);
+            vm.gridContractsOptions.api.sizeColumnsToFit();
+        }
     }
 
     function calculateTimeRemaining(endDate) {

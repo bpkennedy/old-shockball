@@ -23,7 +23,20 @@ var eventSchema = Joi.object().keys({
     match: Joi.string().allow(null),
     team: Joi.string().allow(null),
     oppTeam: Joi.string().allow(null),
-    time: Joi.date().required()
+    time: Joi.date().required(),
+    //contract fields
+    endDate: Joi.date().allow(null),
+    startDate: Joi.date().allow(null),
+    goalBonus1: Joi.string().allow(null),
+    goalBonus2: Joi.string().allow(null),
+    goalBonus3: Joi.string().allow(null),
+    offerTeam: Joi.string().allow(null),
+    signingPlayer: Joi.string().allow(null),
+    salary: Joi.string().allow(null),
+    status: Joi.string().allow(null),
+    teamLockIn: Joi.boolean().allow(null),
+    playerLockIn: Joi.boolean().allow(null),
+    contractUid: Joi.string().allow(null)
 }).with('actor', 'type');
 
 var options = {

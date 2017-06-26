@@ -22,6 +22,19 @@ angular.module('shockballApp')
             eventToSend.team = data.team || null;
             eventToSend.oppTeam = data.oppTeam || null;
             eventToSend.time = new Date().toJSON();
+            //contract fields
+            eventToSend.endDate = data.endDate || null;
+            eventToSend.startDate = data.startDate || null;
+            eventToSend.goalBonus1 = data.goalBonus1.toString() || null;
+            eventToSend.goalBonus2 = data.goalBonus2.toString() || null;
+            eventToSend.goalBonus3 = data.goalBonus3.toString() || null;
+            eventToSend.offerTeam = data.offerTeam || null;
+            eventToSend.signingPlayer = data.signingPlayer || null;
+            eventToSend.salary = data.salary.toString() || null;
+            eventToSend.status = data.teamLockIn && data.playerLockIn ? 'active': 'pending';
+            eventToSend.teamLockIn = data.teamLockIn || null;
+            eventToSend.playerLockIn = data.playerLockIn || null;
+            eventToSend.contractUid = data.contractUid || null;
             return Data.postMessage(eventToSend);
         } else {
             $window.iziToast.error({
