@@ -21,7 +21,7 @@
     "izitoast": "^1.1.2",
     "angular-moment": "^1.0.1",
     "angular-ui-select": "^0.19.8",
-    "angular-moment-picker": "moment-picker#^0.10.1"
+    "angular-moment-picker": "moment-picker#0.8.4"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
