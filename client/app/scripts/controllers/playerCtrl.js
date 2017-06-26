@@ -68,7 +68,7 @@ angular.module('shockballApp')
     };
     $scope.goToTeam = goToTeam;
     $scope.reviewContract = reviewContract;
-    vm.counterOffer = counterOffer;
+    vm.saveContract = saveContract;
 
     function init() {
         getAllTeams();
@@ -76,7 +76,7 @@ angular.module('shockballApp')
         checkIfCurrentUser();
     }
 
-    function counterOffer() {
+    function saveContract(counter) {
         var eventToSend = {};
         eventToSend.actor = vm.playerId;
         eventToSend.endDate = vm.contractReviewData.endDate;
@@ -87,11 +87,18 @@ angular.module('shockballApp')
         eventToSend.goalBonus3 = vm.contractReviewData.goalBonus3;
         eventToSend.offerTeam = vm.contractReviewData.offerTeam;
         eventToSend.signingPlayer = vm.contractReviewData.signingPlayer;
+        if (counter) {
+            eventToSend.teamLockIn = false;
+        } else {
+            eventToSend.teamLockIn = vm.contractReviewData.teamLockIn;
+        }
         eventToSend.playerLockIn = true;
-        eventToSend.teamLockIn = false;
+        eventToSend.contractUid = vm.contractReviewData.contractUid;
         eventToSend.type = 'contract:player';
         Events.create(eventToSend).then(function(response) {
             console.log(response);
+            vm.isContractReview = false;
+            init();
             $window.iziToast.success({
                 title: 'OK',
                 icon: 'fa fa-thumbs-o-up',

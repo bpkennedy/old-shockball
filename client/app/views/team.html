@@ -20,7 +20,7 @@
             <div class="header-title" ng-click="vm.showPanel('activities')">
                 Activity
             </div>
-            <div class="header-title" ng-click="vm.showPanel('contracts')">
+            <div class="header-title" ng-click="vm.showPanel('contracts')" ng-if="vm.isTeamOwner">
                 Contracts
             </div>
             <div class="header-title" ng-click="vm.showPanel('matches')">
@@ -36,7 +36,7 @@
         <div class="activity" ng-if="vm.showActivities">
             activity goes here
         </div>
-        <div class="contract" ng-if="vm.showContracts">
+        <div class="contract" ng-if="vm.showContracts && vm.isTeamOwner">
             <div class="pending-contracts" ng-if="vm.teamPendingContractsData && !vm.isContractCreateMode && !vm.isContractReview">
                 <h3>Pending Contracts</h3>
                 <div ag-grid="vm.gridPendingContractsOptions" class="ag-material contract-table" id="myGrid2" style="height:100%;width:100%;"></div>
