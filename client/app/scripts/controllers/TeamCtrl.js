@@ -10,6 +10,7 @@
 angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, $stateParams, Data, utils, Events, $window, SweetAlert) {
     var vm = this;
     vm.teamId = $stateParams.teamId;
+    vm.isTeamOwner = false;
     vm.isContractCreateMode = false;
     $scope.reviewContract = reviewContract;
     vm.isContractReview = false;
@@ -186,7 +187,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
 
     function terminateContract() {
         var eventToSend = {};
-        eventToSend.actor = vm.playerId;
+        eventToSend.actor = vm.contractReviewData.signingPlayer;
         eventToSend.endDate = vm.contractReviewData.endDate;
         eventToSend.startDate = vm.contractReviewData.startDate;
         eventToSend.salary = vm.contractReviewData.salary;
@@ -206,10 +207,13 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
            showCancelButton: true,
            confirmButtonColor: "#DD6B55",
            confirmButtonText: "Yes, delete it!",
-           closeOnConfirm: false},
+           closeOnConfirm: true},
         function(){
            Events.create(eventToSend).then(function(response) {
                console.log(response);
+               vm.isContractCreateMode = false;
+               vm.isContractReview = false;
+               init();
                $window.iziToast.success({
                    title: 'OK',
                    icon: 'fa fa-thumbs-o-up',
@@ -375,6 +379,9 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         if (isValid === true) {
             Events.create(eventToSend).then(function(response) {
                 console.log(response);
+                vm.isContractCreateMode = false;
+                vm.isContractReview = false;
+                init();
                 $window.iziToast.success({
                     title: 'OK',
                     icon: 'fa fa-thumbs-o-up',
@@ -400,7 +407,19 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     function getOwnerName(uid) {
         Data.fetchUser(uid).then(function(response) {
             vm.teamData.ownerFullName = response.data.handle;
+            vm.teamData.ownerUid = response.data.uid;
+            determineIfTeamOwner();
         });
+    }
+
+    function determineIfTeamOwner() {
+        var loggedInUserId = $window.firebase.auth().currentUser.uid;
+        var teamOwnerId = vm.teamData.ownerUid;
+        if (loggedInUserId.toString() === teamOwnerId.toString()) {
+            vm.isTeamOwner = true;
+        } else {
+            vm.isTeamOwner = false;
+        }
     }
 
     function getDivisionName(uid) {
