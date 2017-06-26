@@ -19,9 +19,9 @@
         </div>
     </div>
     <div class="buttons">
-        <div ng-cloak class="button sign-in-button" ng-click="vm.signIn()" ng-if="!vm.loggedInUser">Sign In</div>
-        <div ng-cloak class="button sign-in-button" ng-click="vm.updatePic()" ng-if="vm.loggedInUser">Update Photo</div>
-        <div ng-cloak class="button sign-out-button" ng-click="vm.signOut()" ng-if="vm.loggedInUser">Sign Out</div>
+        <div ng-cloak class="button button-primary" ng-click="vm.signIn()" ng-if="!vm.loggedInUser">Sign In</div>
+        <div ng-cloak class="button button-primary" ng-click="vm.updatePic()" ng-if="vm.loggedInUser">Update Photo</div>
+        <div ng-cloak class="button button-primary" ng-click="vm.signOut()" ng-if="vm.loggedInUser">Sign Out</div>
     </div>
     <div class="links">
         <a class="link register-link " ui-sref="root.signup" ng-if="!vm.loggedInUser">Register</a>

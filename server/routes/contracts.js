@@ -37,7 +37,7 @@ router.get('/:uid', function(req, res, next) {
 /* GET team contracts */
 router.get('/team/:uid', function (req, res, next) {
     if (req.params.uid) {
-        ref.orderByChild("offeringTeam").equalTo(req.params.uid).once("value", function(snapshot) {
+        ref.orderByChild("offerTeam").equalTo(req.params.uid).once("value", function(snapshot) {
             res.send(snapshot.val());
         }, function (errorObject) {
           res.send(errorObject);

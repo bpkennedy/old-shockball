@@ -933,42 +933,6 @@ template {
   font-family: caption;
   font-size: 16px;
 }
-.login-wrapper .buttons .button {
-  width: 100%;
-  padding-top: 10px;
-  text-align: center;
-  background-color: #3498DB;
-  border-radius: 4px;
-  color: #ffffff;
-  margin-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  transition: all 0.2s ease-in;
-}
-.login-wrapper .buttons .button:hover {
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-}
-.login-wrapper .buttons .sign-in-button {
-  background-color: #386B98;
-  border: 3px solid #386B98;
-  color: #ffffff;
-}
-.login-wrapper .buttons .sign-in-button:hover {
-  color: #2d567a;
-  border: 3px solid #2d567a;
-  background-color: #ffffff;
-}
-.login-wrapper .buttons .sign-out-button {
-  background-color: #386B98;
-  border: 3px solid #386B98;
-  color: #ffffff;
-}
-.login-wrapper .buttons .sign-out-button:hover {
-  color: #2d567a;
-  border: 3px solid #2d567a;
-  background-color: #ffffff;
-}
 .login-wrapper .links {
   display: flex;
 }
@@ -1618,11 +1582,17 @@ loader .player:nth-child(10) {
   color: #0676BE;
   transition: all 0.2s ease;
 }
+.league-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .league-wrapper .ag-material .ag-cell-not-inline-editing {
   padding: 2px;
+  flex: 1;
+  flex-direction: column;
 }
 .league-wrapper .ui-select-container {
-  min-width: 200px;
+  width: 100%;
 }
 .league-wrapper .team-link {
   color: #2d567a;
@@ -1640,6 +1610,8 @@ loader .player:nth-child(10) {
   border-bottom-style: solid;
   border-bottom-width: 1px;
   height: 50px;
+  flex: 1;
+  display: flex;
 }
 .league-wrapper .header-row .header-title {
   height: 100%;
@@ -1649,15 +1621,45 @@ loader .player:nth-child(10) {
   display: inline-block;
   width: 200px;
 }
-.league-wrapper .header-row .conference-pick {
-  display: inline-block;
-  width: auto;
-  min-width: 200px;
+.league-wrapper .header-title {
+  height: 100%;
+  line-height: 50px;
+  font-weight: 300;
+  text-align: center;
+  flex: 1;
+  border-right-color: #999;
+  border-right-style: solid;
+  border-right-width: 1px;
+  transition: all 0.2s ease;
 }
-.league-wrapper .header-row .division-pick {
+.league-wrapper .header-title:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #777777;
+  transition: all 0.2s ease;
+}
+.league-wrapper .teams-wrapper .filter-row {
+  display: block;
+  height: auto;
+  background-color: #dddddd;
+  line-height: 40px;
+}
+.league-wrapper .teams-wrapper .filter-row .filter {
+  display: inline-block;
+  width: auto;
+  padding-left: 20px;
+}
+.league-wrapper .teams-wrapper .filter-row .conference-pick {
   display: inline-block;
   width: auto;
   min-width: 200px;
+  padding-left: 10px;
+}
+.league-wrapper .teams-wrapper .filter-row .division-pick {
+  display: inline-block;
+  width: auto;
+  min-width: 200px;
+  padding-left: 10px;
 }
 .admin-wrapper .ui-select-container {
   min-width: 200px;
@@ -1850,6 +1852,7 @@ loader .player:nth-child(10) {
   .team-wrapper {
     transition: all 0.2s ease;
     flex-direction: column;
+    height: 100%;
   }
 }
 .team-wrapper .ag-material .ag-cell-not-inline-editing {
@@ -1880,6 +1883,9 @@ loader .player:nth-child(10) {
   .team-wrapper .left-column {
     transition: all 0.2s ease;
     max-width: 100%;
+    height: 100%;
+    width: 100%;
+    min-height: 300px;
   }
 }
 .team-wrapper .left-column img {
@@ -1889,6 +1895,7 @@ loader .player:nth-child(10) {
 .team-wrapper .left-column > div {
   flex: 1;
   padding-bottom: 7px;
+  text-align: center;
 }
 .team-wrapper .left-column > div.team-pic {
   padding-bottom: 0;
@@ -1905,9 +1912,16 @@ loader .player:nth-child(10) {
   font-style: italic;
   text-decoration: underline;
   padding-bottom: 5px;
+  padding-top: 10px;
 }
 .team-wrapper .right-column {
   width: 100%;
+}
+@media only screen and (max-width: 568px) {
+  .team-wrapper .right-column {
+    height: 100%;
+    flex: 1;
+  }
 }
 .team-wrapper .right-column .header-row {
   background-color: #eaebec;
@@ -1948,6 +1962,104 @@ loader .player:nth-child(10) {
   background-color: #777777;
   transition: all 0.2s ease;
 }
+.team-wrapper .right-column .contract {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  height: 100%;
+}
+.team-wrapper .right-column .contract .pending-contracts {
+  flex: 1;
+  height: 100%;
+}
+@media only screen and (max-width: 568px) {
+  .team-wrapper .right-column .contract .pending-contracts {
+    height: 200px;
+  }
+}
+.team-wrapper .right-column .contract .pending-contracts h3 {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  margin: 0;
+  text-align: center;
+}
+.team-wrapper .right-column .contract .pending-contracts .contract-table {
+  height: calc(100% - 31px) !important;
+}
+.team-wrapper .right-column .contract .spacer {
+  flex: 1;
+  max-height: 15px;
+  min-height: 15px;
+}
+.team-wrapper .right-column .contract .active-contracts {
+  flex: 1;
+  height: 100%;
+}
+@media only screen and (max-width: 568px) {
+  .team-wrapper .right-column .contract .active-contracts {
+    height: 200px;
+  }
+}
+.team-wrapper .right-column .contract .active-contracts h3 {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  margin: 0;
+  text-align: center;
+}
+.team-wrapper .right-column .contract .active-contracts .contract-table {
+  height: calc(100% - 31px) !important;
+}
+.team-wrapper .right-column .contract .new-contract-wrapper {
+  flex: 1;
+  height: 100%;
+  padding: 20px;
+}
+.team-wrapper .right-column .contract .new-contract-wrapper .new-contract-border {
+  border: 1px solid #999999;
+  position: relative;
+  padding: 20px;
+  padding-bottom: 10px;
+}
+.team-wrapper .right-column .contract .new-contract-wrapper .new-contract-border > h3 {
+  display: inline-block;
+  width: auto;
+  padding: 7px;
+  background: #ffffff;
+  position: absolute;
+  top: -37px;
+  left: 12px;
+}
+.team-wrapper .right-column .contract .new-contract-wrapper .new-contract-border .input-group {
+  display: flex;
+}
+.team-wrapper .right-column .contract .new-contract-wrapper .new-contract-border .input-group > label {
+  flex: 1;
+  min-width: 150px;
+  max-width: 150px;
+  height: 35px;
+  line-height: 38px;
+  text-align: right;
+  padding-right: 10px;
+}
+.team-wrapper .right-column .contract .new-contract-wrapper:before {
+  font-family: FontAwesome;
+  content: "\f0e3";
+  font-size: 15em;
+  position: absolute;
+  color: #eeeeee;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  left: 45%;
+  right: 0;
+}
+@media only screen and (max-width: 568px) {
+  .team-wrapper .right-column .contract .new-contract-wrapper:before {
+    left: 25%;
+  }
+}
 .player-bg {
   background: #ffffff;
 }
@@ -1968,34 +2080,55 @@ loader .player:nth-child(10) {
 label {
   padding-bottom: 5px;
 }
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="url"] {
+input {
   padding: 10px;
   border: none;
   border-bottom: solid 2px #c9c9c9;
   transition: border 0.3s;
+  background: transparent;
 }
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="number"]:focus,
-input[type="url"]:focus {
+input:focus {
   outline: none;
   border-bottom: solid 2px #969696;
 }
-input[type="text"].focus,
-input[type="email"].focus,
-input[type="password"].focus,
-input[type="number"].focus,
-input[type="url"].focus {
+input.focus {
   border-bottom: solid 2px #969696;
 }
 html,
 body {
   height: 100%;
+}
+.button {
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+  background-color: #3498DB;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+}
+.button:hover {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.button-primary {
+  background-color: #386B98;
+  border: 3px solid #386B98;
+  color: #ffffff;
+}
+.button-primary:hover {
+  color: #2d567a;
+  border: 3px solid #2d567a;
+  background-color: #ffffff;
+}
+.button-block {
+  display: inline-block;
+  width: auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 #wrapper {
   position: relative;
@@ -2003,15 +2136,6 @@ body {
   height: 100%;
 }
 /*Miscellaneous*/
-#smokeCanvas {
-  background: black none repeat scroll 0 0;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  opacity: 0.7;
-}
 .ag-body {
   background: transparent;
 }

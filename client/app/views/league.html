@@ -1,28 +1,47 @@
 <div class="league-wrapper">
     <div class="header-row">
-        <div class="header-title">
-            Filter:
+        <div class="header-title" ng-click="vm.showPanel('teams')">
+            Teams
         </div>
-        <div class="conference-pick">
-            <ui-select ng-model="vm.selectedConf.value" name="league-pick" theme="select2" on-select="vm.setConference(vm.selectedConf.value)">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.name"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="conference in (vm.conferences | filter: $select.search) track by conference.objectKey">
-                    <span ng-bind="conference.name"></span>
-                </ui-select-choices>
-            </ui-select>
+        <div class="header-title" ng-click="vm.showPanel('players')">
+            Players
         </div>
-        <div class="division-pick">
-            <ui-select ng-model="vm.selectedDiv.value" name="division-pick" theme="select2" on-select="vm.setDivision(vm.selectedDiv.value)">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.name"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="division in (vm.divisions | filter: $select.search) track by division.objectKey">
-                    <span ng-bind="division.name"></span>
-                </ui-select-choices>
-            </ui-select>
+        <div class="header-title" ng-click="vm.showPanel('free agents')">
+            Free Agents
         </div>
     </div>
-    <div ag-grid="vm.gridOptions" class="ag-material" id="myGrid" style="height:300px;width:100%;"></div>
+    <div class="teams-wrapper" ng-if="vm.showTeams">
+        <div class="filter-row">
+            <div class="filter">
+                Filter:
+            </div>
+            <div class="conference-pick">
+                <ui-select ng-model="vm.selectedConf.value" name="league-pick" theme="select2" on-select="vm.setConference(vm.selectedConf.value)">
+                    <ui-select-match>
+                        <span ng-bind="$select.selected.name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="conference in (vm.conferences | filter: $select.search) track by conference.objectKey">
+                        <span ng-bind="conference.name"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="division-pick">
+                <ui-select ng-model="vm.selectedDiv.value" name="division-pick" theme="select2" on-select="vm.setDivision(vm.selectedDiv.value)">
+                    <ui-select-match>
+                        <span ng-bind="$select.selected.name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="division in (vm.divisions | filter: $select.search) track by division.objectKey">
+                        <span ng-bind="division.name"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div ag-grid="vm.gridLeagueTeamsOptions" class="ag-material" id="myGrid" style="height:300px;width:100%;"></div>
+    </div>
+    <div class="" ng-if="vm.showPlayers">
+        <div ag-grid="vm.gridLeaguePlayersOptions" class="ag-material" id="myGrid2" style="height:300px;width:100%;"></div>
+    </div>
+    <div class="" ng-if="vm.showFreeAgents">
+        <div ag-grid="vm.gridFreeAgentPlayersOptions" class="ag-material" id="myGrid3" style="height:300px;width:100%;"></div>
+    </div>
 </div>

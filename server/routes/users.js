@@ -17,4 +17,18 @@ router.get('/', function(req, res, next) {
     });
 });
 
+/* GET specific user */
+router.get('/:uid', function(req, res, next) {
+    if (req.params.uid) {
+        ref.child(req.params.uid).once("value", function(snapshot) {
+            res.send(snapshot.val());
+        }, function (errorObject) {
+          res.send(errorObject);
+          console.log("The read failed: " + errorObject.code);
+        });
+    } else {
+        res.send({ message: 'Failed to pass in a uid' });
+    }
+});
+
 module.exports = router;
