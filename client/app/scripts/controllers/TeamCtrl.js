@@ -7,10 +7,14 @@
 * # TeamCtrl
 * Controller of the shockballApp
 */
-angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, $stateParams, Data, utils) {
+angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, $stateParams, Data, utils, Events, $window, SweetAlert) {
     var vm = this;
     vm.teamId = $stateParams.teamId;
     vm.isContractCreateMode = false;
+    $scope.reviewContract = reviewContract;
+    vm.isContractReview = false;
+    vm.contractReviewData = {};
+    vm.terminateContract = terminateContract;
 
     vm.showPlayers = true;
     vm.showStats = false;
@@ -43,18 +47,24 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     vm.teamActiveContractsDefs = [
         {headerName: "Player", field: "playerFullName", cellRenderer: playerNameCellRender},
         {headerName: "Status", field: "status"},
+        {headerName: "Action", field: "action", cellRenderer: contractAction},
         {headerName: "Started", field: "startDate", cellRenderer: convertStartDate},
         {headerName: "Expires in", field: "endDate", cellRenderer: convertEndDate},
         {headerName: "Salary", field: "salary", cellRenderer: convertSalaryToCredits},
-        {headerName: "Goal Bonus", field: "goalBonus", cellRenderer: convertGoalBonusToCredits}
+        {headerName: "Goal Bonus(1pt)", field: "goalBonus1", cellRenderer: convertGoalBonus1ToCredits},
+        {headerName: "Goal Bonus(2pt)", field: "goalBonus2", cellRenderer: convertGoalBonus2ToCredits},
+        {headerName: "Goal Bonus(3pt)", field: "goalBonus3", cellRenderer: convertGoalBonus3ToCredits}
     ];
     vm.teamPendingContractsDefs = [
         {headerName: "Player", field: "playerFullName", cellRenderer: playerNameCellRender},
         {headerName: "Status", field: "status"},
+        {headerName: "Action", field: "action", cellRenderer: contractAction},
         {headerName: "Started", field: "startDate", cellRenderer: convertStartDate},
         {headerName: "Expires in", field: "endDate", cellRenderer: convertEndDate},
         {headerName: "Salary", field: "salary", cellRenderer: convertSalaryToCredits},
-        {headerName: "Goal Bonus", field: "goalBonus", cellRenderer: convertGoalBonusToCredits}
+        {headerName: "Goal Bonus(1pt)", field: "goalBonus1", cellRenderer: convertGoalBonus1ToCredits},
+        {headerName: "Goal Bonus(2pt)", field: "goalBonus2", cellRenderer: convertGoalBonus2ToCredits},
+        {headerName: "Goal Bonus(3pt)", field: "goalBonus3", cellRenderer: convertGoalBonus3ToCredits}
     ];
     vm.gridPlayerOptions = {
         columnDefs: vm.teamPlayersDefs,
@@ -137,10 +147,83 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         return credits;
     }
 
-    function convertGoalBonusToCredits(params) {
+    function convertGoalBonus1ToCredits(params) {
         //regex to convert a string to a currency without $ symbol or digits.
-        var credits = params.data.salary.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-        return credits;
+        var credits = params.data.goalBonus1.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        return credits || 0;
+    }
+
+    function convertGoalBonus2ToCredits(params) {
+        //regex to convert a string to a currency without $ symbol or digits.
+        var credits = params.data.goalBonus2.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        return credits || 0;
+    }
+
+    function convertGoalBonus3ToCredits(params) {
+        //regex to convert a string to a currency without $ symbol or digits.
+        var credits = params.data.goalBonus3.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        return credits || 0;
+    }
+
+    function contractAction(params) {
+        console.log(params);
+        return "<div class=\"grid-button\" ng-click=\"reviewContract(data)\">review</div>";
+    }
+
+    function reviewContract(data) {
+        data.salary = parseInt(data.salary);
+        data.goalBonus1 = parseInt(data.goalBonus1);
+        data.goalBonus2 = parseInt(data.goalBonus2);
+        data.goalBonus3 = parseInt(data.goalBonus3);
+        data.startDate = moment(data.startDate);
+        data.endDate = moment(data.endDate);
+        data.teamLockIn = data.teamLockIn;
+        data.playerLockIn = data.playerLockIn;
+        vm.contractReviewData = data;
+        vm.isContractReview = true;
+        vm.isContractCreateMode = false;
+    }
+
+    function terminateContract() {
+        var eventToSend = {};
+        eventToSend.actor = vm.playerId;
+        eventToSend.endDate = vm.contractReviewData.endDate;
+        eventToSend.startDate = vm.contractReviewData.startDate;
+        eventToSend.salary = vm.contractReviewData.salary;
+        eventToSend.goalBonus1 = vm.contractReviewData.goalBonus1;
+        eventToSend.goalBonus2 = vm.contractReviewData.goalBonus2;
+        eventToSend.goalBonus3 = vm.contractReviewData.goalBonus3;
+        eventToSend.offerTeam = vm.contractReviewData.offerTeam;
+        eventToSend.signingPlayer = vm.contractReviewData.signingPlayer;
+        eventToSend.playerLockIn = true;
+        eventToSend.teamLockIn = false;
+        eventToSend.contractUid = vm.contractReviewData.contractUid;
+        eventToSend.type = 'contract:terminate';
+        SweetAlert.swal({
+           title: "Are you sure?",
+           text: "You are terminating an active contract!",
+           type: "warning",
+           showCancelButton: true,
+           confirmButtonColor: "#DD6B55",
+           confirmButtonText: "Yes, delete it!",
+           closeOnConfirm: false},
+        function(){
+           Events.create(eventToSend).then(function(response) {
+               console.log(response);
+               $window.iziToast.success({
+                   title: 'OK',
+                   icon: 'fa fa-thumbs-o-up',
+                   message: 'Contract terminated',
+                   position: 'bottomCenter'
+               });
+           }).catch(function (error) {
+               $window.iziToast.error({
+                   icon: 'fa fa-warning',
+                   message: error,
+                   position: 'bottomCenter'
+               });
+           });
+        });
     }
 
     function goToPlayer(id) {
@@ -186,6 +269,8 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.showMatches = true;
             vm.isContractCreateMode = false;
         } else if (panel === 'create contract') {
+            vm.contractStartDate = moment(new Date());
+            vm.contractEndDate = moment(new Date());
             vm.isContractCreateMode = true;
             vm.showPlayers = false;
             vm.showStats = false;
@@ -260,8 +345,56 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         });
     }
 
-    function sendContract() {
+    function validateForm(eventToSend) {
+        if (!eventToSend.actor || !eventToSend.signingPlayer) {
+            return 'A player required';
+        } else if (!eventToSend.salary) {
+            return 'A salary is required';
+        } else if (!eventToSend.startDate || !eventToSend.endDate) {
+            return 'A start and end date is required';
+        } else {
+            return true;
+        }
+    }
 
+    function sendContract() {
+        var eventToSend = {};
+        eventToSend.actor = vm.signingPlayer.selected.uid;
+        eventToSend.startDate = vm.contractStartDate;
+        eventToSend.endDate = vm.contractEndDate;
+        eventToSend.salary = vm.contractSalary;
+        eventToSend.goalBonus1 = vm.contractGoalBonusOne;
+        eventToSend.goalBonus2 = vm.contractGoalBonusTwo;
+        eventToSend.goalBonus3 = vm.contractGoalBonusThree;
+        eventToSend.offerTeam = vm.teamData.uid;
+        eventToSend.signingPlayer = vm.signingPlayer.selected.uid;
+        eventToSend.playerLockIn = false;
+        eventToSend.teamLockIn = true;
+        eventToSend.type = 'contract:createPlayer';
+        var isValid = validateForm(eventToSend);
+        if (isValid === true) {
+            Events.create(eventToSend).then(function(response) {
+                console.log(response);
+                $window.iziToast.success({
+                    title: 'OK',
+                    icon: 'fa fa-thumbs-o-up',
+                    message: 'Contract offer made',
+                    position: 'bottomCenter'
+                });
+            }).catch(function (error) {
+                $window.iziToast.error({
+                    icon: 'fa fa-warning',
+                    message: error,
+                    position: 'bottomCenter'
+                });
+            });
+        } else {
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: isValid,
+                position: 'bottomCenter'
+            });
+        }
     }
 
     function getOwnerName(uid) {

@@ -37,16 +37,16 @@
             activity goes here
         </div>
         <div class="contract" ng-if="vm.showContracts">
-            <div class="pending-contracts" ng-if="vm.teamPendingContractsData && !vm.isContractCreateMode">
+            <div class="pending-contracts" ng-if="vm.teamPendingContractsData && !vm.isContractCreateMode && !vm.isContractReview">
                 <h3>Pending Contracts</h3>
                 <div ag-grid="vm.gridPendingContractsOptions" class="ag-material contract-table" id="myGrid2" style="height:100%;width:100%;"></div>
             </div>
-            <div class="spacer" ng-if="!vm.isContractCreateMode">&nbsp;</div>
-            <div class="active-contracts" ng-if="!vm.isContractCreateMode">
+            <div class="spacer" ng-if="!vm.isContractCreateMode && !vm.isContractReview">&nbsp;</div>
+            <div class="active-contracts" ng-if="!vm.isContractCreateMode && !vm.isContractReview">
                 <h3>Active Contracts</h3>
                 <div ag-grid="vm.gridActiveContractsOptions" class="ag-material contract-table" id="myGrid3" style="height:100%;width:100%;"></div>
             </div>
-            <div class="button button-primary button-block" ng-if="!vm.isContractCreateMode" ng-click="vm.showPanel('create contract')">Create New Contract</div>
+            <div class="button button-primary button-block" ng-if="!vm.isContractCreateMode && !vm.isContractReview" ng-click="vm.showPanel('create contract')">Create New Contract</div>
             <div class="new-contract-wrapper" ng-if="vm.isContractCreateMode">
                 <div class="new-contract-border">
                     <h3>Draft a Contract</h3>
@@ -62,15 +62,15 @@
                         </div>
                     </div>
                     <div class="start-date">
-                        <div class="input-group" moment-picker="vm.contractStartDate" format="YYYY-MM-DD">
+                        <div class="input-group">
                             <label for="actor">Contract Start Date:</label>
-                            <input class="form-control" placeholder="Select a date" ng-model="vm.contractStartDate" ng-model-options="{ updateOn: 'blur' }">
+                            <input class="form-control" placeholder="Select a date" moment-picker ng-model="vm.contractStartDate" format="YYYY-MM-DD" ng-model-options="{ updateOn: 'blur' }">
                         </div>
                     </div>
                     <div class="end-date">
-                        <div class="input-group" moment-picker="vm.contractEndDate" format="YYYY-MM-DD">
+                        <div class="input-group">
                             <label for="actor">Contract End Date:</label>
-                            <input class="form-control" placeholder="Select a date" ng-model="vm.contractEndDate" ng-model-options="{ updateOn: 'blur' }">
+                            <input class="form-control" placeholder="Select a date" moment-picker ng-model="vm.contractEndDate" format="YYYY-MM-DD" ng-model-options="{ updateOn: 'blur' }">
                         </div>
                     </div>
                     <div class="salary">
@@ -99,6 +99,51 @@
                     </div>
                     <div class="button button-primary button-block" ng-click="vm.sendContract()">Submit</div>
                     <div class="button button-primary button-block" ng-click="vm.isContractCreateMode = false">Cancel</div>
+                </div>
+            </div>
+            <div class="review-contract" ng-if="vm.isContractReview">
+                <div class="review-contract-inner">
+                    <h3>Review a Contract</h3>
+                    <div class="start-date">
+                        <div class="input-group">
+                            <label for="actor">Contract Start Date:</label>
+                            <input class="form-control" placeholder="Select a date" moment-picker ng-model="vm.contractReviewData.startDate" format="YYYY-MM-DD" ng-model-options="{ updateOn: 'blur' }" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="end-date">
+                        <div class="input-group">
+                            <label for="actor">Contract End Date:</label>
+                            <input class="form-control" placeholder="Select a date" moment-picker ng-model="vm.contractReviewData.endDate" format="YYYY-MM-DD" ng-model="vm.contractReviewData.endDate" ng-model-options="{ updateOn: 'blur' }" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="salary">
+                        <div class="input-group">
+                            <label for="salary">Salary:</label>
+                            <input type="number" name="salary" value="" min="0" ng-model="vm.contractReviewData.salary" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusOne">Goal Bonus(1pt):</label>
+                            <input type="number" name="goalBonusOne" min="0" value="" ng-model="vm.contractReviewData.goalBonus1" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusTwo">Goal Bonus(2pt):</label>
+                            <input type="number" name="goalBonusTwo" min="0" value="" ng-model="vm.contractReviewData.goalBonus2" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusThree">Goal Bonus(3pt):</label>
+                            <input type="number" name="goalBonusThree" min="0" value="" ng-model="vm.contractReviewData.goalBonus3" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="button button-primary button-block" ng-click="vm.counterOffer()" ng-if="!vm.contractIsChanged">Accept</div>
+                    <div class="button button-primary button-block" ng-click="vm.counterOffer()" ng-if="vm.contractIsChanged">Counter Offer</div>
+                    <div class="button button-primary button-block" ng-click="vm.isContractReview = false">Cancel</div>
+                    <div class="button button-primary button-block" ng-if="vm.contractReviewData.playerLockIn && vm.contractReviewData.teamLockIn" ng-click="vm.terminateContract()">Terminate</div>
                 </div>
             </div>
         </div>

@@ -25,7 +25,8 @@ angular
     'dcbImgFallback',
     'angularMoment',
     'ui.select',
-    'moment-picker'
+    'moment-picker',
+    'oitozero.ngSweetAlert'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');

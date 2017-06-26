@@ -7,6 +7,7 @@ var dbRoot = db.ref();
 var matchesRef = db.ref("matches");
 var eventsRef = db.ref("events");
 var playersRef = db.ref("players");
+var contractsRef = db.ref("contracts");
 var presenceRef = db.ref("presence/app");
 var playerSubmissions = db.ref("playerSubmissions");
 var matches = [];
@@ -57,6 +58,27 @@ function trainSkill(event) {
     });
 }
 
+function createNewPlayerContract(event) {
+    contractsRef.push(event).then(function(snapshot) {
+        contractsRef.child(snapshot.key).update({ contractUid: snapshot.key });
+    });
+    createEvent(event);
+}
+
+function processPlayerContract(event) {
+    var contract = event.contractUid;
+    contractsRef.child(contract).set(event);
+    if (event.teamLockIn && event.playerLockIn) {
+        createEvent(event);
+    }
+}
+
+function terminateContract(event) {
+    var contract = event.contractUid;
+    contractsRef.child(contract).remove();
+    createEvent(event);
+}
+
 function updatePlayerPic(uid, url) {
     playersRef.child(uid).update({ picUrl: url });
 }
@@ -78,6 +100,18 @@ function processEvent(event) {
         var profilePic = event.type.split(':').pop();
         updatePlayerPic(event.actor, profilePic);
         return;
+    }
+    if (event.type.indexOf('contract:') > -1) {
+        var contractType = event.type.split(':').pop();
+        if (contractType === 'player') {
+            processPlayerContract(event);
+            return;
+        } else if (contractType === 'terminate') {
+            terminateContract(event);
+            return;
+        } else if (contractType === 'createPlayer') {
+            createNewPlayerContract(event);
+        }
     }
     createEvent(event);
 }

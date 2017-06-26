@@ -180,7 +180,51 @@
             activity goes here
         </div>
         <div class="contract" ng-if="vm.showContract">
-            contract goes here
+            <div ng-if="!vm.isContractReview" ag-grid="vm.gridContractsOptions" class="ag-material" id="myGrid1" style="height:300px;width:100%;"></div>
+            <div class="review-contract" ng-if="vm.isContractReview">
+                <div class="review-contract-inner">
+                    <h3>Review a Contract</h3>
+                    <div class="start-date">
+                        <div class="input-group">
+                            <label for="actor">Contract Start Date:</label>
+                            <input class="form-control" placeholder="Select a date" moment-picker ng-model="vm.contractReviewData.startDate" format="YYYY-MM-DD" ng-model-options="{ updateOn: 'blur' }" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="end-date">
+                        <div class="input-group">
+                            <label for="actor">Contract End Date:</label>
+                            <input class="form-control" placeholder="Select a date" moment-picker ng-model="vm.contractReviewData.endDate" format="YYYY-MM-DD" ng-model="vm.contractReviewData.endDate" ng-model-options="{ updateOn: 'blur' }" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="salary">
+                        <div class="input-group">
+                            <label for="salary">Salary:</label>
+                            <input type="number" name="salary" value="" min="0" ng-model="vm.contractReviewData.salary" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusOne">Goal Bonus(1pt):</label>
+                            <input type="number" name="goalBonusOne" min="0" value="" ng-model="vm.contractReviewData.goalBonus1" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusTwo">Goal Bonus(2pt):</label>
+                            <input type="number" name="goalBonusTwo" min="0" value="" ng-model="vm.contractReviewData.goalBonus2" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusThree">Goal Bonus(3pt):</label>
+                            <input type="number" name="goalBonusThree" min="0" value="" ng-model="vm.contractReviewData.goalBonus3" ng-change="vm.contractIsChanged = true">
+                        </div>
+                    </div>
+                    <div class="button button-primary button-block" ng-click="vm.counterOffer()" ng-if="!vm.contractIsChanged">Accept</div>
+                    <div class="button button-primary button-block" ng-click="vm.counterOffer()" ng-if="vm.contractIsChanged">Counter Offer</div>
+                    <div class="button button-primary button-block" ng-click="vm.isContractReview = false">Cancel</div>
+                </div>
+            </div>
         </div>
         <div class="matches" ng-if="vm.showMatches">
             matches go here
