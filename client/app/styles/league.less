@@ -1,9 +1,13 @@
 .league-wrapper {
+    display: flex;
+    flex-direction: column;
     .ag-material .ag-cell-not-inline-editing {
         padding: 2px;
+        flex: 1;
+        flex-direction: column;
     }
     .ui-select-container {
-        min-width: 200px;
+        width: 100%;
     }
     .team-link {
         color: @secondary-font-color;
@@ -21,6 +25,8 @@
         border-bottom-style: solid;
         border-bottom-width: 1px;
         height: 50px;
+        flex: 1;
+        display: flex;
         .header-title {
             height: 100%;
             line-height: 50px;
@@ -29,16 +35,47 @@
             display: inline-block;
             width: 200px;
         }
-        .conference-pick {
-            display: inline-block;
-            width: auto;
-            min-width: 200px;
-        }
-        .division-pick {
-            display: inline-block;
-            width: auto;
-            min-width: 200px;
+    }
+    .header-title {
+        height: 100%;
+        line-height: 50px;
+        font-weight: 300;
+        text-align: center;
+        flex: 1;
+        border-right-color: #999;
+        border-right-style: solid;
+        border-right-width: 1px;
+        transition: @transition;
+        &:hover {
+            cursor: pointer;
+            color: #ffffff;
+            background-color:#777777;
+            transition: @transition;
         }
     }
-
+    .teams-wrapper {
+        .filter-row {
+            display: block;
+            height: auto;
+            background-color: #dddddd;
+            line-height: 40px;
+            .filter {
+                display: inline-block;
+                width: auto;
+                padding-left: 20px;
+            }
+            .conference-pick {
+                display: inline-block;
+                width: auto;
+                min-width: 200px;
+                padding-left: 10px;
+            }
+            .division-pick {
+                display: inline-block;
+                width: auto;
+                min-width: 200px;
+                padding-left: 10px;
+            }
+        }
+    }
 }

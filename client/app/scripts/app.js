@@ -24,7 +24,8 @@ angular
     'firebase',
     'dcbImgFallback',
     'angularMoment',
-    'ui.select'
+    'ui.select',
+    'moment-picker'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');

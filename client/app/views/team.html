@@ -4,6 +4,10 @@
         <div class="team-pic">
             <img ng-src="{{vm.teamData.picUrl}}" alt="">
         </div>
+        <div class="label">Owner</div>
+        <div class="owner">{{::vm.teamData.ownerFullName}}</div>
+        <div class="label">Division</div>
+        <div class="division">{{::vm.teamData.divisionName}}</div>
     </div>
     <div class="right-column">
         <div class="header-row">
@@ -24,7 +28,7 @@
             </div>
         </div>
         <div class="players" ng-if="vm.showPlayers">
-            <div ag-grid="vm.gridOptions" class="ag-material" id="myGrid" style="height:300px;width:100%;margin-top:70px;"></div>
+            <div ag-grid="vm.gridPlayerOptions" class="ag-material" id="myGrid" style="height:300px;width:100%;margin-top:70px;"></div>
         </div>
         <div class="stats" ng-if="vm.showStats">
             stats go here
@@ -32,8 +36,71 @@
         <div class="activity" ng-if="vm.showActivities">
             activity goes here
         </div>
-        <div class="contract" ng-if="vm.showContract">
-            contract goes here
+        <div class="contract" ng-if="vm.showContracts">
+            <div class="pending-contracts" ng-if="vm.teamPendingContractsData && !vm.isContractCreateMode">
+                <h3>Pending Contracts</h3>
+                <div ag-grid="vm.gridPendingContractsOptions" class="ag-material contract-table" id="myGrid2" style="height:100%;width:100%;"></div>
+            </div>
+            <div class="spacer" ng-if="!vm.isContractCreateMode">&nbsp;</div>
+            <div class="active-contracts" ng-if="!vm.isContractCreateMode">
+                <h3>Active Contracts</h3>
+                <div ag-grid="vm.gridActiveContractsOptions" class="ag-material contract-table" id="myGrid3" style="height:100%;width:100%;"></div>
+            </div>
+            <div class="button button-primary button-block" ng-if="!vm.isContractCreateMode" ng-click="vm.showPanel('create contract')">Create New Contract</div>
+            <div class="new-contract-wrapper" ng-if="vm.isContractCreateMode">
+                <div class="new-contract-border">
+                    <h3>Draft a Contract</h3>
+                    <div class="player">
+                        <div class="input-group">
+                            <label for="actor">Player:</label>
+                            <ui-select ng-model="vm.signingPlayer.selected" theme="select2" style="min-width: 300px;" title="Choose a player">
+                                <ui-select-match placeholder="Select a player in the list or search his name...">{{$select.selected.fullName}}</ui-select-match>
+                                <ui-select-choices repeat="signingPlayer in (vm.freePlayers | filter: $select.search) track by signingPlayer.uid">
+                                    <div ng-bind-html="signingPlayer.fullName | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="start-date">
+                        <div class="input-group" moment-picker="vm.contractStartDate" format="YYYY-MM-DD">
+                            <label for="actor">Contract Start Date:</label>
+                            <input class="form-control" placeholder="Select a date" ng-model="vm.contractStartDate" ng-model-options="{ updateOn: 'blur' }">
+                        </div>
+                    </div>
+                    <div class="end-date">
+                        <div class="input-group" moment-picker="vm.contractEndDate" format="YYYY-MM-DD">
+                            <label for="actor">Contract End Date:</label>
+                            <input class="form-control" placeholder="Select a date" ng-model="vm.contractEndDate" ng-model-options="{ updateOn: 'blur' }">
+                        </div>
+                    </div>
+                    <div class="salary">
+                        <div class="input-group">
+                            <label for="salary">Salary:</label>
+                            <input type="number" name="salary" value="" min="0" ng-model="vm.contractSalary">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusOne">Goal Bonus(1pt):</label>
+                            <input type="number" name="goalBonusOne" min="0" value="" ng-model="vm.contractGoalBonusOne">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusTwo">Goal Bonus(2pt):</label>
+                            <input type="number" name="goalBonusTwo" min="0" value="" ng-model="vm.contractGoalBonusTwo">
+                        </div>
+                    </div>
+                    <div class="goal-bonus">
+                        <div class="input-group">
+                            <label for="goalBonusThree">Goal Bonus(3pt):</label>
+                            <input type="number" name="goalBonusThree" min="0" value="" ng-model="vm.contractGoalBonusThree">
+                        </div>
+                    </div>
+                    <div class="button button-primary button-block" ng-click="vm.sendContract()">Submit</div>
+                    <div class="button button-primary button-block" ng-click="vm.isContractCreateMode = false">Cancel</div>
+                </div>
+            </div>
         </div>
         <div class="matches" ng-if="vm.showMatches">
             matches go here
