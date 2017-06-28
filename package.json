@@ -25,6 +25,7 @@
       "joi": "^10.5.2",
       "lodash": "^4.17.4",
       "morgan": "~1.7.0",
+      "moment": "^2.18.1",
       "nodemailer": "^4.0.1",
       "querybase": "^0.6.0",
       "serve-favicon": "^2.3.0",
