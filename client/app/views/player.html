@@ -220,9 +220,10 @@
                             <input type="number" name="goalBonusThree" min="0" value="" ng-model="vm.contractReviewData.goalBonus3" ng-change="vm.contractIsChanged = true">
                         </div>
                     </div>
-                    <div class="button button-primary button-block" ng-click="vm.saveContract(null)" ng-if="!vm.contractIsChanged">Accept</div>
+                    <div class="button button-primary button-block" ng-click="vm.saveContract(null)" ng-if="!vm.contractIsChanged && vm.contractReviewData.status !== 'active'">Accept</div>
                     <div class="button button-primary button-block" ng-click="vm.saveContract(true)" ng-if="vm.contractIsChanged">Counter Offer</div>
                     <div class="button button-primary button-block" ng-click="vm.isContractReview = false">Cancel</div>
+                    <div class="button button-primary button-block" ng-if="(vm.contractReviewData.playerLockIn && vm.contractReviewData.teamLockIn) || vm.contractReviewData.status === 'pending'" ng-click="vm.terminateContract()">Terminate</div>
                 </div>
             </div>
         </div>

@@ -17,67 +17,67 @@ angular.module('shockballApp')
       };
 
       function fetchPlayer(id) {
-          return $http.get('/players/' + id, {cache: false});
+          return $http.get('/players/' + id);
       }
 
       function fetchPlayerSubmission(id) {
-          return $http.get('/players/submit/' + id, {cache:true});
+          return $http.get('/players/submit/' + id);
       }
 
       function fetchAllPlayers() {
-          return $http.get('/players', {cache: true}).then(function(response) {
+          return $http.get('/players').then(function(response) {
              allPlayers.data = utils.unpackObjectKeys(response.data);
              return allPlayers;
           });
       }
 
       function fetchAllUsers() {
-          return $http.get('/users', {cache: true});
+          return $http.get('/users');
       }
 
       function fetchUser(uid) {
-          return $http.get('/users/' + uid, {cache: true});
+          return $http.get('/users/' + uid);
       }
 
       function fetchAllPlayerSubmissions() {
-          return $http.get('/players/submit/', {cache:false}).then(function(response) {
+          return $http.get('/players/submit/').then(function(response) {
               return utils.unpackObjectKeys(response.data);
           });
       }
 
       function fetchTeam(teamId) {
-          return $http.get('/teams/' + teamId, {cache: true});
+          return $http.get('/teams/' + teamId);
       }
 
       function fetchTeamPlayers(teamId) {
-          return $http.get('/players/team/' + teamId, {cache: true});
+          return $http.get('/players/team/' + teamId);
       }
 
       function fetchAllTeams() {
-          return $http.get('/teams', {cache: true}).then(function(response) {
+          return $http.get('/teams').then(function(response) {
               allTeams.data = utils.unpackObjectKeys(response.data);
               return allTeams;
           });
       }
 
       function fetchAllMatches() {
-          return $http.get('/matches', {cache:true});
+          return $http.get('/matches');
       }
 
       function fetchDivisions() {
-          return $http.get('/divisions', {cache: true});
+          return $http.get('/divisions');
       }
 
       function fetchDivision(uid) {
-          return $http.get('/divisions/' + uid, {cache: true});
+          return $http.get('/divisions/' + uid);
       }
 
       function fetchConferences() {
-          return $http.get('/conferences', {cache:true});
+          return $http.get('/conferences');
       }
 
       function fetchDivisionTeams(divisionId) {
-          return $http.get('/teams/division/' + divisionId, {cache: true});
+          return $http.get('/teams/division/' + divisionId);
       }
 
       function fetchConferenceDivisions(conferenceId) {
@@ -85,15 +85,15 @@ angular.module('shockballApp')
       }
 
       function fetchPlayerContract(id) {
-          return $http.get('/contracts/' + id.toString(), {cache: true});
+          return $http.get('/contracts/' + id.toString());
       }
 
       function fetchTeamContracts(uid) {
-          return $http.get('/contracts/team/' + uid.toString(), {cache: true});
+          return $http.get('/contracts/team/' + uid.toString());
       }
 
       function fetchPrimaryEvents(playerId) {
-          return $http.get('/events/actor/' + playerId.toString(), {cache: true}).then(function(response) {
+          return $http.get('/events/actor/' + playerId.toString()).then(function(response) {
               if (response.data) {
                   var primarySourceEvents = utils.unpackObjectKeys(response.data);
 
@@ -109,7 +109,7 @@ angular.module('shockballApp')
       }
 
       function fetchSecondaryEvents(playerId) {
-          return $http.get('/events/oppActor/' + playerId.toString(), {cache: true}).then(function(response) {
+          return $http.get('/events/oppActor/' + playerId.toString()).then(function(response) {
               if (response.data) {
                   var secondarySourceEvents = utils.unpackObjectKeys(response.data);
 
@@ -125,7 +125,7 @@ angular.module('shockballApp')
       }
 
       function fetchHomeMatches(teamId) {
-          return $http.get('/matches/homeTeam/' + teamId.toString(), {cache: true}).then(function(response) {
+          return $http.get('/matches/homeTeam/' + teamId.toString()).then(function(response) {
               if (response.data) {
                   var homeMatches = utils.unpackObjectKeys(response.data);
 
@@ -142,7 +142,7 @@ angular.module('shockballApp')
       }
 
       function fetchAwayMatches(teamId) {
-          return $http.get('/matches/awayTeam/' + teamId.toString(), {cache: true}).then(function(response) {
+          return $http.get('/matches/awayTeam/' + teamId.toString()).then(function(response) {
               if (response.data) {
                   var awayMatches = utils.unpackObjectKeys(response.data);
                   _.forEach(awayMatches, function(value) {
@@ -171,13 +171,13 @@ angular.module('shockballApp')
       }
 
       function getAllTeams() {
-          return $http.get('/teams', {cache: true}).then(function(response) {
+          return $http.get('/teams').then(function(response) {
              allTeams.data = utils.unpackObjectKeys(response.data);
           });
       }
 
       function getAllPlayers() {
-          return $http.get('/players', {cache: true}).then(function(response) {
+          return $http.get('/players').then(function(response) {
              allPlayers.data = utils.unpackObjectKeys(response.data);
           });
       }

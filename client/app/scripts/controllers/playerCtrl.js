@@ -8,7 +8,7 @@
 * Controller of the shockballApp
 */
 angular.module('shockballApp')
-.controller('PlayerCtrl', function ($http, $scope, $state, $stateParams, Data, $window, Events, utils) {
+.controller('PlayerCtrl', function ($http, $scope, $state, $stateParams, Data, $window, Events, utils, SweetAlert) {
     var vm = this;
     vm.playerId = $stateParams.playerId ? $stateParams.playerId : $window.firebase.auth().currentUser.uid;
     vm.playerData = {};
@@ -69,11 +69,62 @@ angular.module('shockballApp')
     $scope.goToTeam = goToTeam;
     $scope.reviewContract = reviewContract;
     vm.saveContract = saveContract;
+    vm.terminateContract = terminateContract;
 
     function init() {
         getAllTeams();
         setPlayerModel(vm.playerId);
         checkIfCurrentUser();
+    }
+
+    function terminateContract() {
+        var eventToSend = {};
+        eventToSend.actor = vm.contractReviewData.signingPlayer;
+        eventToSend.endDate = vm.contractReviewData.endDate;
+        eventToSend.startDate = vm.contractReviewData.startDate;
+        eventToSend.salary = vm.contractReviewData.salary;
+        eventToSend.goalBonus1 = vm.contractReviewData.goalBonus1;
+        eventToSend.goalBonus2 = vm.contractReviewData.goalBonus2;
+        eventToSend.goalBonus3 = vm.contractReviewData.goalBonus3;
+        eventToSend.offerTeam = vm.contractReviewData.offerTeam;
+        eventToSend.signingPlayer = vm.contractReviewData.signingPlayer;
+        eventToSend.playerLockIn = vm.contractReviewData.playerLockIn;
+        eventToSend.teamLockIn = vm.contractReviewData.teamLockIn;
+        eventToSend.contractUid = vm.contractReviewData.contractUid;
+        eventToSend.type = 'contract:playerTerminate';
+        var message = '';
+        if (vm.contractReviewData.status === 'pending') {
+            message = "You are terminating a pending contract.";
+        } else {
+            message = "You are terminating an active contract!  This will cause a small skill debuff to your team for the rest of the season!";
+        }
+        SweetAlert.swal({
+           title: "Are you sure?",
+           text: message,
+           type: "warning",
+           showCancelButton: true,
+           confirmButtonColor: "#DD6B55",
+           confirmButtonText: "Yes, delete it!",
+           closeOnConfirm: true},
+        function(){
+           Events.create(eventToSend).then(function(response) {
+               console.log(response);
+               vm.isContractReview = false;
+               init();
+               $window.iziToast.success({
+                   title: 'OK',
+                   icon: 'fa fa-thumbs-o-up',
+                   message: 'Contract terminated',
+                   position: 'bottomCenter'
+               });
+           }).catch(function (error) {
+               $window.iziToast.error({
+                   icon: 'fa fa-warning',
+                   message: error,
+                   position: 'bottomCenter'
+               });
+           });
+        });
     }
 
     function saveContract(counter) {

@@ -196,13 +196,19 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         eventToSend.goalBonus3 = vm.contractReviewData.goalBonus3;
         eventToSend.offerTeam = vm.contractReviewData.offerTeam;
         eventToSend.signingPlayer = vm.contractReviewData.signingPlayer;
-        eventToSend.playerLockIn = true;
-        eventToSend.teamLockIn = false;
+        eventToSend.playerLockIn = vm.contractReviewData.playerLockIn;
+        eventToSend.teamLockIn = vm.contractReviewData.teamLockIn;
         eventToSend.contractUid = vm.contractReviewData.contractUid;
-        eventToSend.type = 'contract:terminate';
+        eventToSend.type = 'contract:teamTerminate';
+        var message = '';
+        if (vm.contractReviewData.status === 'pending') {
+            message = "You are terminating a pending contract.";
+        } else {
+            message = "You are terminating an active contract!  This will cause a small skill debuff to your team for the rest of the season!";
+        }
         SweetAlert.swal({
            title: "Are you sure?",
-           text: "You are terminating an active contract!",
+           text: message,
            type: "warning",
            showCancelButton: true,
            confirmButtonColor: "#DD6B55",
@@ -273,14 +279,22 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.showMatches = true;
             vm.isContractCreateMode = false;
         } else if (panel === 'create contract') {
-            vm.contractStartDate = moment(new Date());
-            vm.contractEndDate = moment(new Date());
-            vm.isContractCreateMode = true;
-            vm.showPlayers = false;
-            vm.showStats = false;
-            vm.showActivities = false;
-            vm.showContracts = true;
-            vm.showMatches = false;
+            if (vm.teamActiveContractsData.length <= 15) {
+                vm.contractStartDate = moment(new Date());
+                vm.contractEndDate = moment(new Date());
+                vm.isContractCreateMode = true;
+                vm.showPlayers = false;
+                vm.showStats = false;
+                vm.showActivities = false;
+                vm.showContracts = true;
+                vm.showMatches = false;
+            } else {
+                $window.iziToast.error({
+                    icon: 'fa fa-warning',
+                    message: 'Cannot have more than 16 players on a team',
+                    position: 'bottomCenter'
+                });
+            }
         }
     }
 
