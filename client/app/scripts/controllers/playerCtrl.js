@@ -23,6 +23,14 @@ angular.module('shockballApp')
     vm.eventsData = [];
     vm.radarData = [];
     vm.radarLabels = [];
+    vm.colors = [
+        {
+              backgroundColor:"#fafafa",
+              hoverBackgroundColor:"#fafafa",
+              borderColor:"#fafafa",
+              hoverBorderColor:"#fafafa"
+        }
+    ];
     vm.showSkills = true;
     vm.showStats = false;
     vm.showActivities = false;

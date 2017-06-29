@@ -2198,6 +2198,7 @@ input {
   border-bottom: solid 2px #c9c9c9;
   transition: border 0.3s;
   background: transparent;
+  color: #fafafa;
 }
 input:focus {
   outline: none;
