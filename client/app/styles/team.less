@@ -4,6 +4,7 @@
 
 .team-wrapper {
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: top;
     transition: @transition;
@@ -28,12 +29,13 @@
     .left-column {
         flex:1;
         padding: 20px;
-        background: #EAEBEC;
+        background: @brownLight;
         max-width: 200px;
         display: flex;
         flex-direction: column;
         padding-top: 12px;
         font-size: 0.8em;
+        color: @grayDark;
         transition: @transition;
         @media @breakpoint {
             transition: @transition;
@@ -76,8 +78,8 @@
             flex: 1;
         }
         .header-row {
-            background-color: #eaebec;
-            border-bottom-color: #d0d1d2;
+            background-color: @brownLight;
+            border-bottom-color: @brownDark;
             border-bottom-style: solid;
             border-bottom-width: 1px;
             height: 50px;
@@ -90,7 +92,7 @@
             @media @breakpoint {
                 transition: @transition;
                 width: 100%;
-                border-top-color: #d0d1d2;
+                border-top-color: @brownDark;
                 border-top-style: solid;
                 border-top-width: 1px;
             }
@@ -100,7 +102,7 @@
                 font-weight: 300;
                 text-align: center;
                 flex: 1;
-                border-right-color: #999;
+                border-right-color: @brownDark;
                 border-right-style: solid;
                 border-right-width: 1px;
                 transition: @transition;

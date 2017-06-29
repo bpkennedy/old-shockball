@@ -1,8 +1,7 @@
 <div class="titleBar-wrapper">
     <div class="logo">
         <div class="logo-inner" ng-click="vm.goToHome()">
-            <i class="fa fa-superpowers"></i>
-            <div class="logo-text">Galactic Shockball</div>
+            <img class="app-logo" src="images/shockballBanner.png" alt="">
         </div>
     </div>
     <div class="user">
@@ -20,23 +19,23 @@
     </div>
     <div class="nav-bar">
         <ul class="nav-item-wrapper">
-            <li class="nav-item" ui-sref="root.dashboard" ui-sref-active="active">
+            <li class="nav-item dash" ui-sref="root.dashboard" ui-sref-active="active">
                 <i class="fa fa-bolt"></i>
                 <span>Home</span>
             </li>
-            <li class="nav-item" ui-sref="root.player" ui-sref-active="active">
+            <li class="nav-item player" ui-sref="root.player" ui-sref-active="active">
                 <i class="fa fa-user-circle-o"></i>
                 <span>Profile</span>
             </li>
-            <li class="nav-item" ui-sref="root.events" ui-sref-active="active">
+            <li class="nav-item events" ui-sref="root.events" ui-sref-active="active">
                 <i class="fa fa-bullhorn"></i>
                 <span>Events</span>
             </li>
-            <li class="nav-item" ui-sref="root.league" ui-sref-active="active">
+            <li class="nav-item league" ui-sref="root.league" ui-sref-active="active">
                 <i class="fa fa-globe"></i>
                 <span>League</span>
             </li>
-            <li class="nav-item" ng-if="vm.isAdmin" ui-sref="root.admin" ui-sref-active="active">
+            <li class="nav-item admin" ng-if="vm.isAdmin" ui-sref="root.admin" ui-sref-active="active">
                 <i class="fa fa-wrench"></i>
                 <span>Admin</span>
             </li>

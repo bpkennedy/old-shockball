@@ -3,8 +3,8 @@
         min-width: 200px;
     }
     .header-row {
-        background-color: #eaebec;
-        border-bottom-color: #d0d1d2;
+        background-color: @brownLight;
+        border-bottom-color: @brownDark;
         border-bottom-style: solid;
         border-bottom-width: 1px;
         height: 50px;
@@ -17,7 +17,7 @@
             font-weight: 300;
             text-align: center;
             flex: 1;
-            border-right-color: #999;
+            border-right-color: @brownDark;
             border-right-style: solid;
             border-right-width: 1px;
             transition: @transition;
@@ -79,6 +79,7 @@
         padding: 20px;
         width: 100%;
         box-sizing: border-box;
+        color: @grayDark;
         .event-info {
             background: #EAEBEC;
             padding: 15px;
