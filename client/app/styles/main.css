@@ -402,12 +402,19 @@ template {
 [hidden] {
   display: none;
 }
+@btn SuccessBackground
+@btnSuccessBackgroundHighlight
+@btnDangerBackground
+@btnDangerBackgroundHighlight
+
+//forms
+@placeholderText: @grayLight;
 .titleBar-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
-  color: #757677;
+  background-color: #53778b;
+  background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
   height: 50px;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
@@ -427,8 +434,22 @@ template {
   position: absolute;
   margin-left: 20px;
 }
+.titleBar-wrapper .logo .logo-inner .app-logo {
+  width: 250px;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  transition: all 0.2s ease;
+}
+@media only screen and (max-width: 568px) {
+  .titleBar-wrapper .logo .logo-inner .app-logo {
+    width: 180px;
+    top: 12px;
+    transition: all 0.2s ease;
+  }
+}
 .titleBar-wrapper .logo .logo-inner .logo-text {
-  margin-left: 40px;
+  margin-left: 60px;
 }
 .titleBar-wrapper .logo .logo-inner:hover {
   cursor: pointer;
@@ -459,8 +480,8 @@ template {
 }
 .titleBar-wrapper .user .indicators .on-indicator {
   position: absolute;
-  border: 2px solid #2ecc71;
-  background-color: #2ecc71;
+  border: 2px solid #f1783a;
+  background-color: #f1783a;
   border-radius: 50%;
   width: 10px;
   height: 10px;
@@ -469,7 +490,7 @@ template {
 }
 .titleBar-wrapper .user .indicators .on-indicator .tooltip-text {
   background-color: #ffffff!important;
-  color: #2ecc71;
+  color: #f1783a;
 }
 .titleBar-wrapper .user .indicators .on-indicator:hover {
   cursor: pointer;
@@ -518,8 +539,15 @@ template {
   top: 50px;
   left: 0;
   height: 50px;
-  background-color: #386B98;
-  color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/tactile-noise-dark.png");
+  background-color: #333333;
+  -webkit-box-shadow: 0px 1px 5px 0px #111;
+  -moz-box-shadow: 0px 1px 5px 0px #111;
+  box-shadow: 0px 1px 5px 0px #111;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  z-index: 30;
+  color: #ccc;
 }
 .titleBar-wrapper .nav-bar .nav-item-wrapper {
   width: 100%;
@@ -533,7 +561,7 @@ template {
   text-align: center;
 }
 .titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item {
-  border-right: 1px solid #2d567a;
+  border-right: 1px solid #111;
   position: relative;
   flex: 1;
   font-weight: 300;
@@ -548,7 +576,7 @@ template {
   padding-right: 10px;
   right: 72px;
   font-size: 1.8em;
-  color: #2d567a;
+  color: #fafafa;
 }
 @media only screen and (max-width: 568px) {
   .titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item i {
@@ -566,7 +594,8 @@ template {
 }
 .titleBar-wrapper .nav-bar .nav-item-wrapper .nav-item:hover {
   cursor: pointer;
-  background-color: #4578A6;
+  color: #fafafa;
+  background-color: #2b2b2b;
   transition: all 0.2s ease;
 }
 .titleBar-wrapper .nav-bar .nav-item-wrapper .presence {
@@ -581,7 +610,7 @@ template {
   left: 15px;
   padding: 0;
   border-radius: 50%;
-  border: 1px solid #2d567a;
+  border: 1px solid #fafafa;
 }
 .titleBar-wrapper .nav-bar .nav-item-wrapper .presence i:before {
   position: absolute;
@@ -590,7 +619,7 @@ template {
   font-size: 0.8em;
 }
 .titleBar-wrapper .nav-bar .nav-item-wrapper .active {
-  background-color: #2d567a;
+  background-color: #333;
   transition: all 0.2s ease;
 }
 .titleBar-wrapper .nav-bar .nav-item-wrapper .active i {
@@ -625,12 +654,13 @@ template {
 .player-wrapper .left-column {
   flex: 1;
   padding: 20px;
-  background: #EAEBEC;
+  background: #fafafa;
   max-width: 200px;
   display: flex;
   flex-direction: column;
   padding-top: 12px;
   font-size: 0.8em;
+  color: #555;
   transition: all 0.2s ease;
 }
 @media only screen and (max-width: 568px) {
@@ -709,8 +739,8 @@ template {
   width: 100%;
 }
 .player-wrapper .right-column .header-row {
-  background-color: #eaebec;
-  border-bottom-color: #d0d1d2;
+  background-color: #9f9695;
+  border-bottom-color: #3e2624;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   height: 50px;
@@ -736,7 +766,7 @@ template {
   font-weight: 300;
   text-align: center;
   flex: 1;
-  border-right-color: #999;
+  border-right-color: #3e2624;
   border-right-style: solid;
   border-right-width: 1px;
   transition: all 0.2s ease;
@@ -825,7 +855,8 @@ template {
   margin: 0;
   left: 20px;
   font-size: 1.2em;
-  background-color: #ffffff;
+  background-color: #0A0F13;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-wall.png");
   padding: 3px;
 }
 .player-wrapper .right-column .skills .training-container p {
@@ -1013,7 +1044,8 @@ template {
   background-color: #f5f6f7;
   transition: all 0.2s ease-in;
   overflow-x: hidden;
-  z-index: 2;
+  z-index: 31;
+  color: #333333;
 }
 @media only screen and (max-width: 568px) {
   .presence-container .presence-wrapper {
@@ -1057,7 +1089,7 @@ template {
   font-weight: 300;
 }
 .presence-container .presence-wrapper ul .presence-header {
-  padding: 14px;
+  padding: 15px;
   text-align: left;
   font-size: 1.2em;
   background-color: #393f45;
@@ -1379,8 +1411,8 @@ loader .player:nth-child(10) {
   }
 }
 .events-wrapper .header-row {
-  background-color: #eaebec;
-  border-bottom-color: #d0d1d2;
+  background-color: #9f9695;
+  border-bottom-color: #3e2624;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   height: 50px;
@@ -1424,6 +1456,9 @@ loader .player:nth-child(10) {
 }
 .events-wrapper .events .event.ng-enter-active {
   opacity: 1;
+}
+.events-wrapper .events .event h2 {
+  color: #fafafa;
 }
 @media only screen and (max-width: 568px) {
   .events-wrapper .events .event {
@@ -1652,8 +1687,8 @@ loader .player:nth-child(10) {
   transition: all 0.2s ease;
 }
 .league-wrapper .header-row {
-  background-color: #eaebec;
-  border-bottom-color: #d0d1d2;
+  background-color: #9f9695;
+  border-bottom-color: #3e2624;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   height: 50px;
@@ -1674,7 +1709,7 @@ loader .player:nth-child(10) {
   font-weight: 300;
   text-align: center;
   flex: 1;
-  border-right-color: #999;
+  border-right-color: #3e2624;
   border-right-style: solid;
   border-right-width: 1px;
   transition: all 0.2s ease;
@@ -1690,6 +1725,7 @@ loader .player:nth-child(10) {
   height: auto;
   background-color: #dddddd;
   line-height: 40px;
+  color: #333;
 }
 .league-wrapper .teams-wrapper .filter-row .filter {
   display: inline-block;
@@ -1712,8 +1748,8 @@ loader .player:nth-child(10) {
   min-width: 200px;
 }
 .admin-wrapper .header-row {
-  background-color: #eaebec;
-  border-bottom-color: #d0d1d2;
+  background-color: #9f9695;
+  border-bottom-color: #3e2624;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   height: 50px;
@@ -1727,7 +1763,7 @@ loader .player:nth-child(10) {
   font-weight: 300;
   text-align: center;
   flex: 1;
-  border-right-color: #999;
+  border-right-color: #3e2624;
   border-right-style: solid;
   border-right-width: 1px;
   transition: all 0.2s ease;
@@ -1785,6 +1821,7 @@ loader .player:nth-child(10) {
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
+  color: #333;
 }
 .admin-wrapper .events .event-info {
   background: #EAEBEC;
@@ -1891,6 +1928,7 @@ loader .player:nth-child(10) {
 }
 .team-wrapper {
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: top;
   transition: all 0.2s ease;
@@ -1918,12 +1956,13 @@ loader .player:nth-child(10) {
 .team-wrapper .left-column {
   flex: 1;
   padding: 20px;
-  background: #EAEBEC;
+  background: #9f9695;
   max-width: 200px;
   display: flex;
   flex-direction: column;
   padding-top: 12px;
   font-size: 0.8em;
+  color: #333;
   transition: all 0.2s ease;
 }
 @media only screen and (max-width: 568px) {
@@ -1971,8 +2010,8 @@ loader .player:nth-child(10) {
   }
 }
 .team-wrapper .right-column .header-row {
-  background-color: #eaebec;
-  border-bottom-color: #d0d1d2;
+  background-color: #9f9695;
+  border-bottom-color: #3e2624;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   height: 50px;
@@ -1987,7 +2026,7 @@ loader .player:nth-child(10) {
   .team-wrapper .right-column .header-row {
     transition: all 0.2s ease;
     width: 100%;
-    border-top-color: #d0d1d2;
+    border-top-color: #3e2624;
     border-top-style: solid;
     border-top-width: 1px;
   }
@@ -1998,7 +2037,7 @@ loader .player:nth-child(10) {
   font-weight: 300;
   text-align: center;
   flex: 1;
-  border-right-color: #999;
+  border-right-color: #3e2624;
   border-right-style: solid;
   border-right-width: 1px;
   transition: all 0.2s ease;
@@ -2147,9 +2186,7 @@ loader .player:nth-child(10) {
   width: 100%;
   height: 100%;
   top: 100px;
-  background-color: #ffffff;
   z-index: 0;
-  padding-bottom: 50px;
   min-height: 500px;
 }
 label {
@@ -2172,14 +2209,17 @@ input.focus {
 html,
 body {
   height: 100%;
+  color: #ccc;
+  background-color: #0A0F13;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-wall.png");
 }
 .button {
   width: 100%;
   padding-top: 10px;
   text-align: center;
-  background-color: #3498DB;
+  background-color: #c2633d;
   border-radius: 4px;
-  color: #ffffff;
+  color: #fafafa;
   margin-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 10px;
@@ -2190,12 +2230,12 @@ body {
   transition: all 0.2s ease;
 }
 .button-primary {
-  background-color: #386B98;
-  border: 3px solid #386B98;
-  color: #ffffff;
+  background-color: #fff;
+  border: #cccccc;
+  color: #08c;
 }
 .button-primary:hover {
-  color: #2d567a;
+  color: #005580;
   border: 3px solid #2d567a;
   background-color: #ffffff;
 }
@@ -2238,4 +2278,10 @@ body {
 }
 .ag-body .ag-row {
   background: transparent!important;
+}
+.ag-header {
+  color: #999999!important;
+}
+.ag-header-cell {
+  border-right: 1px solid #fafafa !important;
 }

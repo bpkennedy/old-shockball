@@ -9,6 +9,38 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+//GNS GET y'all!!
+
+// var http = require("http");
+//
+// var options = {
+//   "method": "GET",
+//   "hostname": "www.swcombine.com",
+//   "port": null,
+//   // "path": "/ws/v1.0/news/gns/",
+//   "path": "/ws/v1.0/news/gnsitem/41577/",
+//   "headers": {
+//     "accept": "application/json"
+//   }
+// };
+//
+// var req = http.request(options, function (res) {
+//   var chunks = [];
+//
+//   res.on("data", function (chunk) {
+//     chunks.push(chunk);
+//   });
+//
+//   res.on("end", function () {
+//     var body = Buffer.concat(chunks);
+//     var data = JSON.parse(body.toString());
+//     // console.log(data.news.posts[0]);
+//     console.log(data['news-item']);
+//   });
+// });
+//
+// req.end();
+
 // view engine setup
 
 

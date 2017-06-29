@@ -1,7 +1,7 @@
 .events-wrapper {
     .header-row {
-        background-color: #eaebec;
-        border-bottom-color: #d0d1d2;
+        background-color: @brownLight;
+        border-bottom-color: @brownDark;
         border-bottom-style: solid;
         border-bottom-width: 1px;
         height: 50px;
@@ -41,6 +41,9 @@
             }
             &.ng-enter-active {
                 opacity: 1;
+            }
+            h2 {
+                color: @light;
             }
             @media @breakpoint {
                 padding-left: 0;
