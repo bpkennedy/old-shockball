@@ -158,7 +158,7 @@
                     <h3>Change Team Captain</h3>
                     <div class="display-captain" ng-if="!vm.captainIsEditMode && vm.hasTeamPlayers">
                         <div class="captain-container">
-                            <img ng-src="{{vm.teamData.captainPicUrl}}" alt="">
+                            <img ng-src="{{vm.teamData.captainPicUrl}}" fallback-src="{{'../images/defaultImage.png'}}" alt="">
                         </div>
                         <div class="captain-name">{{vm.teamData.captainFullName}}</div>
                     </div>
