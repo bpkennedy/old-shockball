@@ -145,8 +145,8 @@
                             <input type="number" name="goalBonusThree" min="0" value="" ng-model="vm.contractReviewData.goalBonus3" ng-change="vm.contractIsChanged = true">
                         </div>
                     </div>
-                    <div class="button button-primary button-block" ng-click="vm.counterOffer()" ng-if="!vm.contractIsChanged && vm.contractReviewData.status !== 'active'">Accept</div>
-                    <div class="button button-primary button-block" ng-click="vm.counterOffer()" ng-if="vm.contractIsChanged">Counter Offer</div>
+                    <div class="button button-primary button-block" ng-click="vm.sendContract()" ng-if="!vm.contractIsChanged && vm.contractReviewData.status !== 'active'">Accept</div>
+                    <div class="button button-primary button-block" ng-click="vm.sendContract()" ng-if="vm.contractIsChanged">Counter Offer</div>
                     <div class="button button-primary button-block" ng-click="vm.isContractReview = false">Cancel</div>
                     <div class="button button-primary button-block" ng-if="(vm.contractReviewData.playerLockIn && vm.contractReviewData.teamLockIn) || vm.contractReviewData.status === 'pending'" ng-click="vm.terminateContract()">Terminate</div>
                 </div>
@@ -156,13 +156,13 @@
             <div class="" ng-if=vm.isTeamOwner>
                 <div class="team-owner-view">
                     <h3>Change Team Captain</h3>
-                    <div class="display-captain" ng-if="!vm.captainIsEditMode">
+                    <div class="display-captain" ng-if="!vm.captainIsEditMode && vm.hasTeamPlayers">
                         <div class="captain-container">
                             <img ng-src="{{vm.teamData.captainPicUrl}}" alt="">
                         </div>
                         <div class="captain-name">{{vm.teamData.captainFullName}}</div>
                     </div>
-                    <div class="edit-captain" ng-if="vm.captainIsEditMode">
+                    <div class="edit-captain" ng-if="vm.captainIsEditMode && vm.hasTeamPlayers">
                         <div class="input-group">
                             <label for="actor">Team Player:</label>
                             <ui-select ng-model="vm.selectedCaptain.selected" theme="select2" style="min-width: 300px;" title="Choose a player">
@@ -173,9 +173,14 @@
                             </ui-select>
                         </div>
                     </div>
-                    <div class="button button-primary button-block" ng-click="vm.captainIsEditMode = true" ng-if="!vm.captainIsEditMode">Edit</div>
-                    <div class="button button-primary button-block" ng-click="vm.updateCaptain()" ng-if="vm.captainIsEditMode">Save</div>
-                    <div class="button button-primary button-block" ng-click="vm.captainIsEditMode = false" ng-if="vm.captainIsEditMode">Cancel</div>
+                    <div class="" ng-if="!vm.hasTeamPlayers">
+                        <p>You do not have any Team Players.  Sign some players to your team.</p>
+                    </div>
+                    <div class="" ng-if="vm.hasTeamPlayers">
+                        <div class="button button-primary button-block" ng-click="vm.captainIsEditMode = true" ng-if="!vm.captainIsEditMode">Edit</div>
+                        <div class="button button-primary button-block" ng-click="vm.updateCaptain()" ng-if="vm.captainIsEditMode">Save</div>
+                        <div class="button button-primary button-block" ng-click="vm.captainIsEditMode = false" ng-if="vm.captainIsEditMode">Cancel</div>
+                    </div>
                 </div>
             </div>
             <div class="" ng-if=vm.isTeamCaptain>
