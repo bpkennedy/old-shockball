@@ -840,6 +840,9 @@ template {
   flex: 1;
   width: 100%;
 }
+.player-wrapper .right-column .skills .skill-container .skill-value {
+  color: #3e2624;
+}
 .player-wrapper .right-column .skills .training-container {
   flex: 0 1 100%;
   width: 100%;
@@ -1956,13 +1959,13 @@ loader .player:nth-child(10) {
 .team-wrapper .left-column {
   flex: 1;
   padding: 20px;
-  background: #9f9695;
+  background: #fafafa;
   max-width: 200px;
   display: flex;
   flex-direction: column;
   padding-top: 12px;
   font-size: 0.8em;
-  color: #333;
+  color: #555;
   transition: all 0.2s ease;
 }
 @media only screen and (max-width: 568px) {
@@ -1986,6 +1989,13 @@ loader .player:nth-child(10) {
 .team-wrapper .left-column > div.team-pic {
   padding-bottom: 0;
   text-align: center;
+}
+.team-wrapper .left-column .captain-link {
+  color: #08c;
+}
+.team-wrapper .left-column .captain-link:hover {
+  cursor: pointer;
+  color: #005580;
 }
 .team-wrapper .left-column h2 {
   margin-top: 3px;
@@ -2173,6 +2183,46 @@ loader .player:nth-child(10) {
   line-height: 38px;
   text-align: right;
   padding-right: 10px;
+}
+.team-wrapper .right-column .captain {
+  margin-top: 50px;
+  padding: 20px;
+}
+.team-wrapper .right-column .captain .team-owner-view {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 15px;
+  position: relative;
+}
+.team-wrapper .right-column .captain .team-owner-view h3 {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: -12px;
+  left: 22px;
+  background-color: #0A0F13;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-wall.png");
+}
+.team-wrapper .right-column .captain .team-owner-view .display-captain {
+  height: 100px;
+}
+.team-wrapper .right-column .captain .team-owner-view .display-captain .captain-container {
+  display: inline-block;
+  width: auto;
+}
+.team-wrapper .right-column .captain .team-owner-view .display-captain .captain-container img {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.team-wrapper .right-column .captain .team-owner-view .display-captain .captain-name {
+  display: inline-block;
+  width: auto;
+  height: 100%;
+  vertical-align: top;
+  line-height: 100px;
+  padding-left: 20px;
 }
 .player-bg {
   background: #ffffff;

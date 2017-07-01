@@ -29,13 +29,13 @@
     .left-column {
         flex:1;
         padding: 20px;
-        background: @brownLight;
+        background: @light;
         max-width: 200px;
         display: flex;
         flex-direction: column;
         padding-top: 12px;
         font-size: 0.8em;
-        color: @grayDark;
+        color: @gray;
         transition: @transition;
         @media @breakpoint {
             transition: @transition;
@@ -55,6 +55,13 @@
             &.team-pic {
                 padding-bottom:0;
                 text-align: center;
+            }
+        }
+        .captain-link {
+            color: @linkColor;
+            &:hover {
+                cursor: pointer;
+                color: @linkColorHover;
             }
         }
         h2 {
@@ -230,6 +237,46 @@
                             text-align: right;
                             padding-right: 10px;
                         }
+                    }
+                }
+            }
+        } //end .contract
+        .captain {
+            margin-top:50px;
+            padding: 20px;
+            .team-owner-view {
+                border: 1px solid;
+                border-radius: 4px;
+                padding: 15px;
+                position: relative;
+                h3 {
+                    padding: 0;
+                    margin: 0;
+                    position: absolute;
+                    top: -12px;
+                    left: 22px;
+                    background-color: @backgroundOptColor;
+                    background-image: @backgroundOptImage;
+                }
+                .display-captain {
+                    height: 100px;
+                    .captain-container {
+                        display: inline-block;
+                        width: auto;
+                        img {
+                            display: inline-block;
+                            width: 100px;
+                            height: 100px;
+                            border-radius: 50%;
+                        }
+                    }
+                    .captain-name {
+                        display: inline-block;
+                        width: auto;
+                        height: 100%;
+                        vertical-align: top;
+                        line-height: 100px;
+                        padding-left: 20px;
                     }
                 }
             }
