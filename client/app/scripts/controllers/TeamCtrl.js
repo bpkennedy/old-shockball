@@ -32,6 +32,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     vm.teamActiveContractsData = [];
     vm.teamPendingContractsData = [];
     vm.teamPlayersData = [];
+    vm.hasTeamPlayers = true;
     vm.allTeams = [];
     vm.allPlayers = [];
     vm.teamPlayersDefs = [
@@ -523,6 +524,11 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         Data.fetchTeamPlayers(id).then(function(response) {
             var playersWithFullNames = constructFullNames(response.data);
             vm.teamPlayersData = utils.unpackObjectKeys(playersWithFullNames);
+            if (vm.teamPlayersData.length === 0) {
+                vm.hasTeamPlayers = false;
+            } else {
+                vm.hasTeamPlayers = true;
+            }
             updatePlayerGrid();
         });
     }
