@@ -9,6 +9,7 @@
 */
 angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, $stateParams, Data, utils, Events, $window, SweetAlert) {
     var vm = this;
+    vm.loggedInUserId = $window.firebase.auth().currentUser.uid;
     vm.teamId = $stateParams.teamId;
     vm.isTeamOwner = false;
     vm.isTeamCaptain = false;
@@ -197,7 +198,8 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
 
     function terminateContract() {
         var eventToSend = {};
-        eventToSend.actor = vm.contractReviewData.signingPlayer;
+        eventToSend.actor = vm.loggedInUserId;
+        eventToSend.oppActor = vm.contractReviewData.signingPlayer;
         eventToSend.endDate = vm.contractReviewData.endDate;
         eventToSend.startDate = vm.contractReviewData.startDate;
         eventToSend.salary = vm.contractReviewData.salary;
@@ -276,8 +278,6 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.isContractCreateMode = false;
             vm.showCaptain = false;
         } else if (panel === 'contracts') {
-            updateActiveContractsGrid();
-            updatePendingContractsGrid();
             vm.showPlayers = false;
             vm.showStats = false;
             vm.showActivities = false;
@@ -337,9 +337,11 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     function getTeamContracts(uid) {
         Data.fetchTeamContracts(uid).then(function(response) {
             var contractsData = utils.unpackObjectKeys(response.data);
+            console.log('contracts data is');
             console.log(contractsData);
             var activeContractsData = populateReferenceNames(contractsData, 'active');
             var pendingContractsData = populateReferenceNames(contractsData, 'pending');
+            console.log(activeContractsData);
             vm.teamActiveContractsData = activeContractsData;
             vm.teamPendingContractsData = pendingContractsData;
             updateActiveContractsGrid();
@@ -405,10 +407,11 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
 
     function updateCaptain() {
         var eventToSend = {};
-        eventToSend.actor = vm.selectedCaptain.selected.uid;
+        eventToSend.actor = vm.loggedInUserId;
+        eventToSend.captainUid = vm.selectedCaptain.selected.uid;
         eventToSend.team = vm.teamData.uid;
         eventToSend.type = 'captain';
-        if (eventToSend.actor && eventToSend.team) {
+        if (eventToSend.captainUid && eventToSend.team) {
             Events.create(eventToSend).then(function(response) {
                 console.log(response);
                 vm.captainIsEditMode = false;
@@ -429,7 +432,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         } else {
             $window.iziToast.error({
                 icon: 'fa fa-warning',
-                message: 'You need to pick a new captain in order to save.',
+                message: 'You need to pick a Captain in order to save.',
                 position: 'bottomCenter'
             });
         }
@@ -437,7 +440,8 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
 
     function sendContract() {
         var eventToSend = {};
-        eventToSend.actor = vm.signingPlayer.selected.uid;
+        eventToSend.actor = vm.loggedInUserId;
+        eventToSend.oppActor = vm.signingPlayer.selected.uid;
         eventToSend.startDate = vm.contractStartDate;
         eventToSend.endDate = vm.contractEndDate;
         eventToSend.salary = vm.contractSalary;
@@ -495,15 +499,14 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     }
 
     function determineIfTeamRole() {
-        var loggedInUserId = $window.firebase.auth().currentUser.uid;
         var teamOwnerId = vm.teamData.ownerUid;
-        var captainId = vm.teamData.captainUid;
-        if (loggedInUserId.toString() === teamOwnerId.toString()) {
+        var captainId = vm.teamData.captainUid ? vm.teamData.captainUid : '';
+        if (vm.loggedInUserId.toString() === teamOwnerId.toString()) {
             vm.isTeamOwner = true;
         } else {
             vm.isTeamOwner = false;
         }
-        if (loggedInUserId.toString() === captainId.toString()) {
+        if (vm.loggedInUserId.toString() === captainId.toString()) {
             vm.isTeamCaptain = true;
         } else {
             vm.isTeamCaptain = false;

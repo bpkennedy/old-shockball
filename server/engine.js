@@ -124,8 +124,8 @@ function terminateContract(event, party) {
 }
 
 function updateCaptain(event) {
-    teamsRef.child(event.team).update({ captainUid: event.actor });
-    playersRef.child(event.actor).update({ teamCaptain: event.team });
+    teamsRef.child(event.team).update({ captainUid: event.captainUid });
+    playersRef.child(event.captainUid).update({ teamCaptain: event.team });
     createEvent(event);
 }
 
