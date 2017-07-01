@@ -92,9 +92,10 @@ router.get('/secondaryOppActor/:uid', function (req, res, next) {
 //POST new event
 router.post('/new', function(req, res) {
     if (req.body && req.body.idToken) {
-        queue.sendMessage(req.body);
-        res.status(200);
-        res.send({ message: 'success' });
+        queue.sendMessage(req.body).then(function(response) {
+            res.status(200);
+            res.send({ message: 'success' });
+        });
     } else {
         res.status(400);
         res.send({ message: 'missing params or idToken' });

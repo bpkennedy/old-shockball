@@ -11,17 +11,20 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     var vm = this;
     vm.teamId = $stateParams.teamId;
     vm.isTeamOwner = false;
+    vm.isTeamCaptain = false;
     vm.isContractCreateMode = false;
     $scope.reviewContract = reviewContract;
     vm.isContractReview = false;
     vm.contractReviewData = {};
     vm.terminateContract = terminateContract;
 
+
     vm.showPlayers = true;
     vm.showStats = false;
     vm.showActivities = false;
     vm.showContracts = false;
     vm.showMatches = false;
+    vm.showCaptain = false;
     vm.showPanel = showPanel;
 
     vm.teamData = {};
@@ -113,12 +116,19 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     vm.contractGoalBonusTwo = 0;
     vm.contractGoalBonusThree = 0;
 
+    vm.captainIsEditMode = false;
+    vm.updateCaptain = updateCaptain;
+    vm.selectedCaptain = {
+        selected: vm.teamPlayers,
+    };
+    vm.newCaptain = {};
+
     function init() {
+        getAllTeams();
+        getAllPlayers();
         setTeamModel(vm.teamId);
         setPlayersModel(vm.teamId);
         getTeamContracts(vm.teamId);
-        getAllTeams();
-        getAllPlayers();
     }
 
     function playerNameCellRender(params) {
@@ -248,6 +258,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.showContracts = false;
             vm.showMatches = false;
             vm.isContractCreateMode = false;
+            vm.showCaptain = false;
         } else if (panel === 'stats') {
             vm.showPlayers = false;
             vm.showStats = true;
@@ -255,6 +266,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.showContracts = false;
             vm.showMatches = false;
             vm.isContractCreateMode = false;
+            vm.showCaptain = false;
         } else if (panel === 'activities') {
             vm.showPlayers = false;
             vm.showStats = false;
@@ -262,6 +274,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.showContracts = false;
             vm.showMatches = false;
             vm.isContractCreateMode = false;
+            vm.showCaptain = false;
         } else if (panel === 'contracts') {
             updateActiveContractsGrid();
             updatePendingContractsGrid();
@@ -271,6 +284,15 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.showContracts = true;
             vm.showMatches = false;
             vm.isContractCreateMode = false;
+            vm.showCaptain = false;
+        } else if (panel === 'captain') {
+            vm.showPlayers = false;
+            vm.showStats = false;
+            vm.showActivities = false;
+            vm.showContracts = false;
+            vm.showMatches = false;
+            vm.isContractCreateMode = false;
+            vm.showCaptain = true;
         } else if (panel === 'matches') {
             vm.showPlayers = false;
             vm.showStats = false;
@@ -278,6 +300,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             vm.showContracts = false;
             vm.showMatches = true;
             vm.isContractCreateMode = false;
+            vm.showCaptain = false;
         } else if (panel === 'create contract') {
             if (vm.teamActiveContractsData.length <= 15) {
                 vm.contractStartDate = moment(new Date());
@@ -288,6 +311,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
                 vm.showActivities = false;
                 vm.showContracts = true;
                 vm.showMatches = false;
+                vm.showCaptain = false;
             } else {
                 $window.iziToast.error({
                     icon: 'fa fa-warning',
@@ -303,6 +327,9 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         Data.fetchTeam(id).then(function(response) {
              vm.teamData = response.data;
              getOwnerName(vm.teamData.owner);
+             if (vm.teamData.captainUid) {
+                 getCaptainName(vm.teamData.captainUid);
+             }
              getDivisionName(vm.teamData.division);
         });
     }
@@ -310,6 +337,7 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     function getTeamContracts(uid) {
         Data.fetchTeamContracts(uid).then(function(response) {
             var contractsData = utils.unpackObjectKeys(response.data);
+            console.log(contractsData);
             var activeContractsData = populateReferenceNames(contractsData, 'active');
             var pendingContractsData = populateReferenceNames(contractsData, 'pending');
             vm.teamActiveContractsData = activeContractsData;
@@ -375,6 +403,38 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         }
     }
 
+    function updateCaptain() {
+        var eventToSend = {};
+        eventToSend.actor = vm.selectedCaptain.selected.uid;
+        eventToSend.team = vm.teamData.uid;
+        eventToSend.type = 'captain';
+        if (eventToSend.actor && eventToSend.team) {
+            Events.create(eventToSend).then(function(response) {
+                console.log(response);
+                vm.captainIsEditMode = false;
+                init();
+                $window.iziToast.success({
+                    title: 'OK',
+                    icon: 'fa fa-thumbs-o-up',
+                    message: 'Captain changed to: ' + vm.selectedCaptain.selected.fullName,
+                    position: 'bottomCenter'
+                });
+            }).catch(function (error) {
+                $window.iziToast.error({
+                    icon: 'fa fa-warning',
+                    message: error,
+                    position: 'bottomCenter'
+                });
+            });
+        } else {
+            $window.iziToast.error({
+                icon: 'fa fa-warning',
+                message: 'You need to pick a new captain in order to save.',
+                position: 'bottomCenter'
+            });
+        }
+    }
+
     function sendContract() {
         var eventToSend = {};
         eventToSend.actor = vm.signingPlayer.selected.uid;
@@ -422,17 +482,31 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
         Data.fetchUser(uid).then(function(response) {
             vm.teamData.ownerFullName = response.data.handle;
             vm.teamData.ownerUid = response.data.uid;
-            determineIfTeamOwner();
+            determineIfTeamRole();
         });
     }
 
-    function determineIfTeamOwner() {
+    function getCaptainName(uid) {
+        Data.fetchPlayer(uid).then(function(response) {
+            vm.teamData.captainFullName = response.data.firstName + ' ' + response.data.lastName;
+            vm.teamData.captainPicUrl = response.data.picUrl;
+            determineIfTeamRole();
+        });
+    }
+
+    function determineIfTeamRole() {
         var loggedInUserId = $window.firebase.auth().currentUser.uid;
         var teamOwnerId = vm.teamData.ownerUid;
+        var captainId = vm.teamData.captainUid;
         if (loggedInUserId.toString() === teamOwnerId.toString()) {
             vm.isTeamOwner = true;
         } else {
             vm.isTeamOwner = false;
+        }
+        if (loggedInUserId.toString() === captainId.toString()) {
+            vm.isTeamCaptain = true;
+        } else {
+            vm.isTeamCaptain = false;
         }
     }
 

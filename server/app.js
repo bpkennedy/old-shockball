@@ -120,14 +120,14 @@ var queue = require('./queue.js');
 var mailer = require('./mailer.js');
 
 
-app.use('/teams', teams);
-app.use('/players', players);
-app.use('/leagues', leagues);
-app.use('/contracts', contracts);
-app.use('/matches', matches);
-app.use('/events', events);
-app.use('/divisions', divisions);
-app.use('/conferences', conferences);
-app.use('/users', users);
+app.use('/api/teams', teams);
+app.use('/api/players', players);
+app.use('/api/leagues', leagues);
+app.use('/api/contracts', contracts);
+app.use('/api/matches', matches);
+app.use('/api/events', events);
+app.use('/api/divisions', divisions);
+app.use('/api/conferences', conferences);
+app.use('/api/users', users);
 
 module.exports = app;

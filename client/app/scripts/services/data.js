@@ -17,83 +17,83 @@ angular.module('shockballApp')
       };
 
       function fetchPlayer(id) {
-          return $http.get('/players/' + id);
+          return $http.get('/api/players/' + id);
       }
 
       function fetchPlayerSubmission(id) {
-          return $http.get('/players/submit/' + id);
+          return $http.get('/api/players/submit/' + id);
       }
 
       function fetchAllPlayers() {
-          return $http.get('/players').then(function(response) {
+          return $http.get('/api/players').then(function(response) {
              allPlayers.data = utils.unpackObjectKeys(response.data);
              return allPlayers;
           });
       }
 
       function fetchAllUsers() {
-          return $http.get('/users');
+          return $http.get('/api/users');
       }
 
       function fetchUser(uid) {
-          return $http.get('/users/' + uid);
+          return $http.get('/api/users/' + uid);
       }
 
       function fetchAllPlayerSubmissions() {
-          return $http.get('/players/submit/').then(function(response) {
+          return $http.get('/api/players/submit/').then(function(response) {
               return utils.unpackObjectKeys(response.data);
           });
       }
 
       function fetchTeam(teamId) {
-          return $http.get('/teams/' + teamId);
+          return $http.get('/api/teams/' + teamId);
       }
 
       function fetchTeamPlayers(teamId) {
-          return $http.get('/players/team/' + teamId);
+          return $http.get('/api/players/team/' + teamId);
       }
 
       function fetchAllTeams() {
-          return $http.get('/teams').then(function(response) {
+          return $http.get('/api/teams').then(function(response) {
               allTeams.data = utils.unpackObjectKeys(response.data);
               return allTeams;
           });
       }
 
       function fetchAllMatches() {
-          return $http.get('/matches');
+          return $http.get('/api/matches');
       }
 
       function fetchDivisions() {
-          return $http.get('/divisions');
+          return $http.get('/api/divisions');
       }
 
       function fetchDivision(uid) {
-          return $http.get('/divisions/' + uid);
+          return $http.get('/api/divisions/' + uid);
       }
 
       function fetchConferences() {
-          return $http.get('/conferences');
+          return $http.get('/api/conferences');
       }
 
       function fetchDivisionTeams(divisionId) {
-          return $http.get('/teams/division/' + divisionId);
+          return $http.get('/api/teams/division/' + divisionId);
       }
 
       function fetchConferenceDivisions(conferenceId) {
-          return $http.get('/divisions/conference/' + conferenceId, { cache: true});
+          return $http.get('/api/divisions/conference/' + conferenceId, { cache: true});
       }
 
       function fetchPlayerContract(id) {
-          return $http.get('/contracts/' + id.toString());
+          return $http.get('/api/contracts/' + id.toString());
       }
 
       function fetchTeamContracts(uid) {
-          return $http.get('/contracts/team/' + uid.toString());
+          return $http.get('/api/contracts/team/' + uid.toString());
       }
 
       function fetchPrimaryEvents(playerId) {
-          return $http.get('/events/actor/' + playerId.toString()).then(function(response) {
+          return $http.get('/api/events/actor/' + playerId.toString()).then(function(response) {
               if (response.data) {
                   var primarySourceEvents = utils.unpackObjectKeys(response.data);
 
@@ -101,7 +101,10 @@ angular.module('shockballApp')
                       var primarySourcePlayer = findPlayer(allPlayers.data, value, 'actor');
                       var secondarySourcePlayer = findPlayer(allPlayers.data, value, 'oppActor');
                       value.primarySourceName = primarySourcePlayer.firstName;
-                      value.secondarySourceName = secondarySourcePlayer.firstName;
+                      if (secondarySourcePlayer) {
+                          value.secondarySourceName = secondarySourcePlayer.firstName;
+                      }
+
                   });
                   return primarySourceEvents;
               }
@@ -109,7 +112,7 @@ angular.module('shockballApp')
       }
 
       function fetchSecondaryEvents(playerId) {
-          return $http.get('/events/oppActor/' + playerId.toString()).then(function(response) {
+          return $http.get('/api/events/oppActor/' + playerId.toString()).then(function(response) {
               if (response.data) {
                   var secondarySourceEvents = utils.unpackObjectKeys(response.data);
 
@@ -125,7 +128,7 @@ angular.module('shockballApp')
       }
 
       function fetchHomeMatches(teamId) {
-          return $http.get('/matches/homeTeam/' + teamId.toString()).then(function(response) {
+          return $http.get('/api/matches/homeTeam/' + teamId.toString()).then(function(response) {
               if (response.data) {
                   var homeMatches = utils.unpackObjectKeys(response.data);
 
@@ -142,7 +145,7 @@ angular.module('shockballApp')
       }
 
       function fetchAwayMatches(teamId) {
-          return $http.get('/matches/awayTeam/' + teamId.toString()).then(function(response) {
+          return $http.get('/api/matches/awayTeam/' + teamId.toString()).then(function(response) {
               if (response.data) {
                   var awayMatches = utils.unpackObjectKeys(response.data);
                   _.forEach(awayMatches, function(value) {
@@ -171,13 +174,13 @@ angular.module('shockballApp')
       }
 
       function getAllTeams() {
-          return $http.get('/teams').then(function(response) {
+          return $http.get('/api/teams').then(function(response) {
              allTeams.data = utils.unpackObjectKeys(response.data);
           });
       }
 
       function getAllPlayers() {
-          return $http.get('/players').then(function(response) {
+          return $http.get('/api/players').then(function(response) {
              allPlayers.data = utils.unpackObjectKeys(response.data);
           });
       }
@@ -187,7 +190,7 @@ angular.module('shockballApp')
              eventData.idToken = idToken;
               return $http({
                   method: 'POST',
-                  url: '/events/new',
+                  url: '/api/events/new',
                   data: eventData
               });
           }).catch(function(error) {
@@ -201,7 +204,7 @@ angular.module('shockballApp')
               data.objectKey = null;
               return $http({
                   method: 'POST',
-                  url: '/players/new',
+                  url: '/api/players/new',
                   data: data
               });
           }).catch(function(error) {
@@ -217,7 +220,7 @@ angular.module('shockballApp')
               data.objectKey = null;
               return $http({
                   method: 'POST',
-                  url: '/teams/new',
+                  url: '/api/teams/new',
                   data: data
               });
           }).catch(function(error) {
@@ -235,7 +238,7 @@ angular.module('shockballApp')
               };
               return $http({
                   method: 'POST',
-                  url: '/players/reject',
+                  url: '/api/players/reject',
                   data: data
               });
           }).catch(function(error) {
@@ -246,7 +249,7 @@ angular.module('shockballApp')
       function submitPlayer(data) {
           return $http({
               method: 'POST',
-              url: '/players/submit',
+              url: '/api/players/submit',
               data: data
           });
       }

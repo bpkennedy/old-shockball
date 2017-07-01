@@ -148,7 +148,12 @@ function createEvent(populatedData) {
 
 //write to the queue collection
 function sendMessage(message) {
-    queueRef.push(message);
+    return new Promise(function(resolve, reject) {
+        queueRef.push(message);
+        setTimeout(function() {
+            resolve(message);
+        }, 1000);
+    });
 }
 
 function init() {

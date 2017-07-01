@@ -248,11 +248,11 @@ angular
     });
 
 }])
-.config(['ChartJsProvider', '$httpProvider', function (ChartJsProvider, $httpProvider) {
+.config(['ChartJsProvider', function (ChartJsProvider) {
     ChartJsProvider.setOptions({
         maintainAspectRatio: true,
         responsive: true
     });
     //cache every http request
-    $httpProvider.defaults.cache = true;
+    // $httpProvider.defaults.cache = true;
 }]);

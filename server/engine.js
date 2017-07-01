@@ -11,7 +11,7 @@ var playersRef = db.ref("players");
 var teamsRef = db.ref("teams");
 var contractsRef = db.ref("contracts");
 var presenceRef = db.ref("presence/app");
-var playerSubmissions = db.ref("playerSubmissions");
+var playerSubmissionsRef = db.ref("playerSubmissions");
 var matches = [];
 
 var count = 1;
@@ -123,6 +123,12 @@ function terminateContract(event, party) {
     createEvent(event);
 }
 
+function updateCaptain(event) {
+    teamsRef.child(event.team).update({ captainUid: event.actor });
+    playersRef.child(event.actor).update({ teamCaptain: event.team });
+    createEvent(event);
+}
+
 function updatePlayerPic(uid, url) {
     playersRef.child(uid).update({ picUrl: url });
 }
@@ -132,35 +138,42 @@ function createEvent(populatedData) {
 }
 
 function processEvent(event) {
-    if (event.type === 'player submitted') {
-        playerSubmissions.push().set(event);
-        return;
-    }
-    if (event.type.indexOf('train:') > -1) {
-        trainSkill(event);
-        return;
-    }
-    if (event.type.indexOf('picUpdate:') > -1) {
-        var profilePic = event.type.split(':').pop();
-        updatePlayerPic(event.actor, profilePic);
-        return;
-    }
-    if (event.type.indexOf('contract:') > -1) {
-        var contractType = event.type.split(':').pop();
-        if (contractType === 'player') {
-            processPlayerContract(event);
+    return new Promise(function(resolve, reject) {
+        if (event.type === 'player submitted') {
+            playerSubmissionsRef.push().set(event);
             return;
-        } else if (contractType === 'teamTerminate') {
-            terminateContract(event, 'team');
-            return;
-        } else if (contractType === 'playerTerminate') {
-            terminateContract(event, 'player');
-            return;
-        } else if (contractType === 'createPlayer') {
-            createNewPlayerContract(event);
         }
-    }
-    createEvent(event);
+        if (event.type.indexOf('train:') > -1) {
+            trainSkill(event);
+            return;
+        }
+        if (event.type.indexOf('picUpdate:') > -1) {
+            var profilePic = event.type.split(':').pop();
+            updatePlayerPic(event.actor, profilePic);
+            return;
+        }
+        if (event.type.indexOf('captain') > -1) {
+            updateCaptain(event);
+            return;
+        }
+        if (event.type.indexOf('contract:') > -1) {
+            var contractType = event.type.split(':').pop();
+            if (contractType === 'player') {
+                processPlayerContract(event);
+                return;
+            } else if (contractType === 'teamTerminate') {
+                terminateContract(event, 'team');
+                return;
+            } else if (contractType === 'playerTerminate') {
+                terminateContract(event, 'player');
+                return;
+            } else if (contractType === 'createPlayer') {
+                createNewPlayerContract(event);
+                return;
+            }
+        }
+        createEvent(event);
+    });
 }
 
 initializeEngine();

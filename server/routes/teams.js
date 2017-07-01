@@ -21,8 +21,11 @@ router.get('/', function(req, res, next) {
 
 // get team by id
 router.get('/:uid', function(req, res, next) {
+    console.log('in get by id');
     if (req.params.uid) {
+        console.log('in if');
         ref.child(req.params.uid).once("value", function(snapshot) {
+            console.log(snapshot.val());
             res.send(snapshot.val());
         }, function (errorObject) {
           res.send(errorObject);

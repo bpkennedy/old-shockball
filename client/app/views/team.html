@@ -6,6 +6,8 @@
         </div>
         <div class="label">Owner</div>
         <div class="owner">{{::vm.teamData.ownerFullName}}</div>
+        <div class="label">Captain</div>
+        <div class="division captain-link" ng-click="goToPlayer(vm.teamData.captainUid)">{{vm.teamData.captainFullName}}</div>
         <div class="label">Division</div>
         <div class="division">{{::vm.teamData.divisionName}}</div>
     </div>
@@ -22,6 +24,9 @@
             </div>
             <div class="header-title" ng-click="vm.showPanel('contracts')" ng-if="vm.isTeamOwner">
                 Contracts
+            </div>
+            <div class="header-title" ng-click="vm.showPanel('captain')" ng-if="vm.isTeamOwner || vm.isTeamCaptain">
+                Captain
             </div>
             <div class="header-title" ng-click="vm.showPanel('matches')">
                 Matches
@@ -145,6 +150,41 @@
                     <div class="button button-primary button-block" ng-click="vm.isContractReview = false">Cancel</div>
                     <div class="button button-primary button-block" ng-if="(vm.contractReviewData.playerLockIn && vm.contractReviewData.teamLockIn) || vm.contractReviewData.status === 'pending'" ng-click="vm.terminateContract()">Terminate</div>
                 </div>
+            </div>
+        </div>
+        <div class="captain" ng-if="(vm.showCaptain && vm.isTeamOwner) || (vm.showCaptain && vm.isTeamCaptain)">
+            <div class="" ng-if=vm.isTeamOwner>
+                <div class="team-owner-view">
+                    <h3>Change Team Captain</h3>
+                    <div class="display-captain" ng-if="!vm.captainIsEditMode">
+                        <div class="captain-container">
+                            <img ng-src="{{vm.teamData.captainPicUrl}}" alt="">
+                        </div>
+                        <div class="captain-name">{{vm.teamData.captainFullName}}</div>
+                    </div>
+                    <div class="edit-captain" ng-if="vm.captainIsEditMode">
+                        <div class="input-group">
+                            <label for="actor">Team Player:</label>
+                            <ui-select ng-model="vm.selectedCaptain.selected" theme="select2" style="min-width: 300px;" title="Choose a player">
+                                <ui-select-match placeholder="Select a player in the list or search his name...">{{$select.selected.fullName}}</ui-select-match>
+                                <ui-select-choices repeat="teamPlayer in (vm.teamPlayersData | filter: $select.search) track by teamPlayer.uid">
+                                    <div ng-bind-html="teamPlayer.fullName | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="button button-primary button-block" ng-click="vm.captainIsEditMode = true" ng-if="!vm.captainIsEditMode">Edit</div>
+                    <div class="button button-primary button-block" ng-click="vm.updateCaptain()" ng-if="vm.captainIsEditMode">Save</div>
+                    <div class="button button-primary button-block" ng-click="vm.captainIsEditMode = false" ng-if="vm.captainIsEditMode">Cancel</div>
+                </div>
+            </div>
+            <div class="" ng-if=vm.isTeamCaptain>
+                <div class="captain-view">
+                    <h3>Set Substitution Rules</h3>
+                    
+                </div>
+            </div>
+            <div class="">
             </div>
         </div>
         <div class="matches" ng-if="vm.showMatches">
