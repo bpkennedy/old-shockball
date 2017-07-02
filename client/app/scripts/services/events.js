@@ -35,7 +35,11 @@ angular.module('shockballApp')
                 eventToSend.status = data.teamLockIn && data.playerLockIn ? 'active': 'pending';
                 eventToSend.teamLockIn = data.teamLockIn || null;
                 eventToSend.playerLockIn = data.playerLockIn || null;
-                eventToSend.contractUid = data.contractUid || null;    
+                eventToSend.contractUid = data.contractUid || null;
+            }
+            //captain fields
+            if (data.type.indexOf('captain') > -1) {
+                eventToSend.captainUid = data.captainUid;
             }
             return Data.postMessage(eventToSend);
         } else {
