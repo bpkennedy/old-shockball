@@ -38,7 +38,7 @@ var eventSchema = Joi.object().keys({
     playerLockIn: Joi.boolean().allow(null),
     contractUid: Joi.string().allow(null),
     //captain field
-    captainUid: Joi.string().allow(null) 
+    captainUid: Joi.string().allow(null)
 }).with('actor', 'type');
 
 var options = {
