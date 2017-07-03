@@ -123,7 +123,40 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
     vm.selectedCaptain = {
         selected: vm.teamPlayers,
     };
-    vm.newCaptain = {};
+    vm.afterMinOptions = [
+        { id: 1, title: 5 },
+        { id: 2, title: 10 },
+        { id: 3, title: 15 },
+        { id: 4, title: 20 },
+        { id: 5, title: 25 },
+        { id: 6, title: 30 },
+        { id: 7, title: 35 },
+        { id: 8, title: 40 },
+        { id: 9, title: 45 },
+        { id: 10, title: 50 },
+        { id: 11, title: 55 },
+        { id: 12, title: 60 },
+        { id: 13, title: 65 },
+        { id: 14, title: 70 },
+        { id: 15, title: 75 },
+        { id: 16, title: 80 },
+        { id: 17, title: 85 },
+        { id: 18, title: 90 },
+        { id: 19, title: 95 }
+    ];
+    vm.conditionOptions = [
+        { id: 1, title: 'In Lead' },
+        { id: 2, title: 'Always' },
+        { id: 3, title: 'If Losing' }
+    ];
+    vm.sub = {
+        playerIn: vm.teamPlayersData,
+        playerOut: vm.teamPlayersWithOptions,
+        afterMin: vm.afterMinOptions[9],
+        condition: vm.conditionOptions[1]
+    };
+    vm.teamPlayersWithOptions = [];
+    vm.arrangePlayerOptions = arrangePlayerOptions;
 
     function init() {
         getAllTeams();
@@ -142,6 +175,14 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             string = "<a class=\"team-link\" ng-click=\"goToPlayer(data.signingPlayer)\">" + params.data.playerFullName + "</a>";
         }
         return string;
+    }
+
+    function arrangePlayerOptions(item) {
+        if (!item.isDynamic) {
+            return '--Players--';
+        } else {
+            return '--Variable--';
+        }
     }
 
     function convertEndDate(params) {
@@ -531,6 +572,32 @@ angular.module('shockballApp').controller('TeamCtrl', function ($scope, $state, 
             }
             updatePlayerGrid();
         });
+        Data.fetchTeamPlayers(id).then(function(response) {
+            var playersAndFullNames = constructFullNames(response.data);
+            vm.teamPlayersWithOptions = utils.unpackObjectKeys(playersAndFullNames);
+            vm.teamPlayersWithOptions = addSubOptions(vm.teamPlayersWithOptions);
+        });
+    }
+
+    function addSubOptions(players) {
+        var playersWithOptions = players;
+        playersWithOptions.push({
+            fullName: 'Worst Performing Wing',
+            uid: 'Worst Performing Wing',
+            isDynamic: true
+        });
+        playersWithOptions.push({
+            fullName: 'Worst Performing Center',
+            uid: 'Worst Performing Center',
+            isDynamic: true
+        });
+        playersWithOptions.push({
+            fullName: 'Worst Performing Guard',
+            uid: 'Worst Performing Guard',
+            isDynamic: true
+        });
+
+        return playersWithOptions;
     }
 
     function updatePlayerGrid() {
